@@ -7,13 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Domain.Entities;
 
 namespace WFApp
 {
     public partial class AddBankForm : Form
     {
-        public Bank Bank { get; private set; }
 
         public string Title
         {
@@ -23,24 +21,13 @@ namespace WFApp
                 TitleLabel.Text = value;
             }
         }
-        public AddBankForm(Bank bank)
+        public AddBankForm()
         {
             InitializeComponent();
-
-            Bank = bank;
-
-            BName.Text = Bank.Name;
-            BCity.Text = Bank.City;
-            BBik.Text = Bank.Bik;
-            BNumberAccount.Text = Bank.AccountNumber;
         }
 
         private void SaveBtn_Click(object sender, EventArgs e)
         {
-            Bank.Name = BName.Text;
-            Bank.City = BCity.Text;
-            Bank.Bik = BBik.Text;
-            Bank.AccountNumber = BNumberAccount.Text;
             this.DialogResult = DialogResult.OK;
         }
 
