@@ -28,19 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.CancelBtn = new System.Windows.Forms.Button();
             this.SaveBtn = new System.Windows.Forms.Button();
             this.NumberAccountLabel = new System.Windows.Forms.Label();
             this.CNumberAccount = new System.Windows.Forms.TextBox();
-            this.CKpp = new System.Windows.Forms.Label();
-            this.BBik = new System.Windows.Forms.TextBox();
+            this.CKppLabel = new System.Windows.Forms.Label();
+            this.CKpp = new System.Windows.Forms.TextBox();
             this.CityLabel = new System.Windows.Forms.Label();
             this.CInn = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.CName = new System.Windows.Forms.TextBox();
             this.TitleLabel = new System.Windows.Forms.Label();
             this.CBankLabel = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.BankList = new System.Windows.Forms.ComboBox();
+            this.bankBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.bankBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // CancelBtn
@@ -81,23 +84,23 @@
             this.CNumberAccount.Size = new System.Drawing.Size(311, 22);
             this.CNumberAccount.TabIndex = 18;
             // 
+            // CKppLabel
+            // 
+            this.CKppLabel.AutoSize = true;
+            this.CKppLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CKppLabel.Location = new System.Drawing.Point(13, 157);
+            this.CKppLabel.Name = "CKppLabel";
+            this.CKppLabel.Size = new System.Drawing.Size(34, 16);
+            this.CKppLabel.TabIndex = 17;
+            this.CKppLabel.Text = "KPP";
+            // 
             // CKpp
             // 
-            this.CKpp.AutoSize = true;
             this.CKpp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CKpp.Location = new System.Drawing.Point(13, 157);
+            this.CKpp.Location = new System.Drawing.Point(16, 176);
             this.CKpp.Name = "CKpp";
-            this.CKpp.Size = new System.Drawing.Size(34, 16);
-            this.CKpp.TabIndex = 17;
-            this.CKpp.Text = "KPP";
-            // 
-            // BBik
-            // 
-            this.BBik.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BBik.Location = new System.Drawing.Point(16, 176);
-            this.BBik.Name = "BBik";
-            this.BBik.Size = new System.Drawing.Size(311, 22);
-            this.BBik.TabIndex = 16;
+            this.CKpp.Size = new System.Drawing.Size(311, 22);
+            this.CKpp.TabIndex = 16;
             // 
             // CityLabel
             // 
@@ -155,27 +158,34 @@
             this.CBankLabel.TabIndex = 23;
             this.CBankLabel.Text = "Bank";
             // 
-            // comboBox1
+            // BankList
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(16, 284);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(311, 21);
-            this.comboBox1.TabIndex = 24;
+            this.BankList.DataSource = this.bankBindingSource;
+            this.BankList.DisplayMember = "Name";
+            this.BankList.FormattingEnabled = true;
+            this.BankList.Location = new System.Drawing.Point(16, 284);
+            this.BankList.Name = "BankList";
+            this.BankList.Size = new System.Drawing.Size(311, 21);
+            this.BankList.TabIndex = 24;
+            this.BankList.ValueMember = "Id";
+            // 
+            // bankBindingSource
+            // 
+            this.bankBindingSource.DataSource = typeof(DataAccessLayer.Entity.Bank);
             // 
             // AddCompanyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(345, 386);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.BankList);
             this.Controls.Add(this.CBankLabel);
             this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.NumberAccountLabel);
             this.Controls.Add(this.CNumberAccount);
+            this.Controls.Add(this.CKppLabel);
             this.Controls.Add(this.CKpp);
-            this.Controls.Add(this.BBik);
             this.Controls.Add(this.CityLabel);
             this.Controls.Add(this.CInn);
             this.Controls.Add(this.label1);
@@ -184,6 +194,7 @@
             this.Name = "AddCompanyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AddCompanyForm";
+            ((System.ComponentModel.ISupportInitialize)(this.bankBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -195,14 +206,15 @@
         private System.Windows.Forms.Button SaveBtn;
         private System.Windows.Forms.Label NumberAccountLabel;
         private System.Windows.Forms.TextBox CNumberAccount;
-        private System.Windows.Forms.Label CKpp;
-        private System.Windows.Forms.TextBox BBik;
+        private System.Windows.Forms.Label CKppLabel;
+        private System.Windows.Forms.TextBox CKpp;
         private System.Windows.Forms.Label CityLabel;
         private System.Windows.Forms.TextBox CInn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox CName;
         private System.Windows.Forms.Label TitleLabel;
         private System.Windows.Forms.Label CBankLabel;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox BankList;
+        private System.Windows.Forms.BindingSource bankBindingSource;
     }
 }
