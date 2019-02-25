@@ -1,8 +1,10 @@
-﻿namespace Domain.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Domain.Entities
 {
-    public class Company : IEntity
+    public class Company
     {
-        public int Id { get; set; }
+        public int CompanyId { get; set; }
         public string Name { get; set; }
         public string Inn { get; set; }
         public string Kpp { get; set; }

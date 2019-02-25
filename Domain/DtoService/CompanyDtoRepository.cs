@@ -22,17 +22,17 @@ namespace Domain.DtoService
         {
             return _context.Set<Company>()
                 .Join(_context.Set<Bank>(),
-                    company => company.Id,
-                    bank => bank.Id,
+                    company => company.CompanyId,
+                    bank => bank.BankId,
                     (company, bank) => new CompanyDetailsDto()
                     {
-                        CompanyId = company.Id,
+                        CompanyId = company.CompanyId,
                         CompanyName = company.Name,
                         CompanyInn = company.Inn,
                         CompanyKpp = company.Kpp,
                         CompanyAccountNumber = company.AccountNumber,
 
-                        BankId = bank.Id,
+                        BankId = bank.BankId,
                         BankName = bank.Name,
                         BankCity = bank.City,
                         BankBik = bank.Bik,

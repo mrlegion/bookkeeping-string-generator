@@ -5,6 +5,8 @@ namespace Domain.Contexts
 {
     public class OrderContext : DbContext
     {
+        public OrderContext() : base("Default") {}
+
         public DbSet<Company> Companies { get; set; }
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Pay> Pays { get; set; }

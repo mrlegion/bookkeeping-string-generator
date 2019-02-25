@@ -1,8 +1,10 @@
-﻿namespace Domain.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Domain.Entities
 {
-    public class BuyOrder : IEntity
+    public class BuyOrder
     {
-        public int Id { get; set; }
+        public int BuyOrderId { get; set; }
         public Date Date { get; set; }
         public int Number { get; set; }
         public Pay PayType { get; set; }

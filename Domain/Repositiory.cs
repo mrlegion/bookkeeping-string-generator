@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Domain.Entities;
 
 namespace Domain
 {
-    public class Repositiory<T> : IRepository<T> where T : class, IEntity
+    public class Repositiory<T> : IRepository<T> where T : class
     {
         protected readonly DbContext Context;
+
         public Repositiory(DbContext context)
         {
             Context = context;
@@ -22,11 +22,11 @@ namespace Domain
             await Task.Run(() => Context.Set<T>().Add(entity));
         }
 
-        public async void Delete(T entity)
+        public void Delete(T entity)
         {
-            var item = await Context.Set<T>().FindAsync(entity.Id);
-            if (item != null)
-                Context.Entry(entity).State = EntityState.Deleted;
+            //var item = await Context.Set<T>().FindAsync(entity.Id);
+            //if (item != null)
+            //    Context.Entry(entity).State = EntityState.Deleted;
         }
 
         private bool _disposed = false;

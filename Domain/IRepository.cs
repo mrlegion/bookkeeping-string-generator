@@ -6,7 +6,7 @@ using Domain.Entities;
 
 namespace Domain
 {
-    public interface IRepository<T> : IDisposable where T: class, IEntity
+    public interface IRepository<T> : IDisposable where T: class
     {
         void Add(T entity);
         void Update(T entity);
