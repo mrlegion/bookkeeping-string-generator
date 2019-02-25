@@ -25,7 +25,6 @@ namespace WFApp
             CName.Text = Company.Name;
             CInn.Text = Company.Inn;
             CKpp.Text = Company.Kpp;
-            CNumberAccount.Text = Company.AccountNumber;
 
             using (BookkeepingContext context = new BookkeepingContext())
             {
@@ -38,12 +37,15 @@ namespace WFApp
             Company.Name = CName.Text;
             Company.Inn = CInn.Text;
             Company.Kpp = CKpp.Text;
-            Company.AccountNumber = CNumberAccount.Text;
-            using (BookkeepingContext context = new BookkeepingContext())
-            {
-                Company.BankId = context.Banks.Find(((Bank) BankList.SelectedItem).Id);
-            }
-            
+            //using (BookkeepingContext context = new BookkeepingContext())
+            //{
+            //    var bank = context.Banks.FirstOrDefault(b => b.Id == ((Bank) BankList.SelectedItem).Id);
+            //    if (bank != null)
+            //    {
+            //        context.Banks.Attach(bank);
+            //        Company.BankId = bank.Id;
+            //    }
+            //}
 
             DialogResult = DialogResult.OK;
         }

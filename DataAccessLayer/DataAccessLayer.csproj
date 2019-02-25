@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="BookkeepingContext.cs" />
     <Compile Include="DTO\CompanySimpleDto.cs" />
+    <Compile Include="Entity\Account.cs" />
     <Compile Include="Entity\Bank.cs" />
     <Compile Include="Entity\Company.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

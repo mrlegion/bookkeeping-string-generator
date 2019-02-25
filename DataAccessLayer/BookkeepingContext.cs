@@ -17,5 +17,6 @@ namespace DataAccessLayer
 
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<Account> Accounts { get; set; }
     }
 }

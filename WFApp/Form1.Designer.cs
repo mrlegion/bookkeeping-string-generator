@@ -34,15 +34,17 @@
             this.CloseBtn = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.CompanyInfo = new System.Windows.Forms.DataGridView();
-            this.companySimpleDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.companyIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bankIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.companyNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.companyInnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.companyKppDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.companySimpleDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.companyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bankNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.companyKppDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.companyInnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.companyNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.companyIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.CompanyInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.companySimpleDtoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // AddBankBtn
@@ -91,8 +93,8 @@
             this.CompanyInfo.AutoGenerateColumns = false;
             this.CompanyInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.CompanyInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.companyIdDataGridViewTextBoxColumn,
             this.bankIdDataGridViewTextBoxColumn,
+            this.companyIdDataGridViewTextBoxColumn,
             this.companyNameDataGridViewTextBoxColumn,
             this.companyInnDataGridViewTextBoxColumn,
             this.companyKppDataGridViewTextBoxColumn,
@@ -105,18 +107,6 @@
             this.CompanyInfo.TabIndex = 4;
             this.CompanyInfo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.EditCompanyClick);
             // 
-            // companySimpleDtoBindingSource
-            // 
-            this.companySimpleDtoBindingSource.DataSource = typeof(DataAccessLayer.DTO.CompanySimpleDto);
-            // 
-            // companyIdDataGridViewTextBoxColumn
-            // 
-            this.companyIdDataGridViewTextBoxColumn.DataPropertyName = "CompanyId";
-            this.companyIdDataGridViewTextBoxColumn.HeaderText = "CompanyId";
-            this.companyIdDataGridViewTextBoxColumn.Name = "companyIdDataGridViewTextBoxColumn";
-            this.companyIdDataGridViewTextBoxColumn.ReadOnly = true;
-            this.companyIdDataGridViewTextBoxColumn.Visible = false;
-            // 
             // bankIdDataGridViewTextBoxColumn
             // 
             this.bankIdDataGridViewTextBoxColumn.DataPropertyName = "BankId";
@@ -125,27 +115,13 @@
             this.bankIdDataGridViewTextBoxColumn.ReadOnly = true;
             this.bankIdDataGridViewTextBoxColumn.Visible = false;
             // 
-            // companyNameDataGridViewTextBoxColumn
+            // companySimpleDtoBindingSource
             // 
-            this.companyNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.companyNameDataGridViewTextBoxColumn.DataPropertyName = "CompanyName";
-            this.companyNameDataGridViewTextBoxColumn.HeaderText = "CompanyName";
-            this.companyNameDataGridViewTextBoxColumn.Name = "companyNameDataGridViewTextBoxColumn";
-            this.companyNameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.companySimpleDtoBindingSource.DataSource = typeof(DataAccessLayer.DTO.CompanySimpleDto);
             // 
-            // companyInnDataGridViewTextBoxColumn
+            // companyBindingSource
             // 
-            this.companyInnDataGridViewTextBoxColumn.DataPropertyName = "CompanyInn";
-            this.companyInnDataGridViewTextBoxColumn.HeaderText = "CompanyInn";
-            this.companyInnDataGridViewTextBoxColumn.Name = "companyInnDataGridViewTextBoxColumn";
-            this.companyInnDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // companyKppDataGridViewTextBoxColumn
-            // 
-            this.companyKppDataGridViewTextBoxColumn.DataPropertyName = "CompanyKpp";
-            this.companyKppDataGridViewTextBoxColumn.HeaderText = "CompanyKpp";
-            this.companyKppDataGridViewTextBoxColumn.Name = "companyKppDataGridViewTextBoxColumn";
-            this.companyKppDataGridViewTextBoxColumn.ReadOnly = true;
+            this.companyBindingSource.DataSource = typeof(DataAccessLayer.Entity.Company);
             // 
             // bankNameDataGridViewTextBoxColumn
             // 
@@ -155,6 +131,36 @@
             this.bankNameDataGridViewTextBoxColumn.Name = "bankNameDataGridViewTextBoxColumn";
             this.bankNameDataGridViewTextBoxColumn.ReadOnly = true;
             this.bankNameDataGridViewTextBoxColumn.Width = 101;
+            // 
+            // companyKppDataGridViewTextBoxColumn
+            // 
+            this.companyKppDataGridViewTextBoxColumn.DataPropertyName = "CompanyKpp";
+            this.companyKppDataGridViewTextBoxColumn.HeaderText = "CompanyKpp";
+            this.companyKppDataGridViewTextBoxColumn.Name = "companyKppDataGridViewTextBoxColumn";
+            this.companyKppDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // companyInnDataGridViewTextBoxColumn
+            // 
+            this.companyInnDataGridViewTextBoxColumn.DataPropertyName = "CompanyInn";
+            this.companyInnDataGridViewTextBoxColumn.HeaderText = "CompanyInn";
+            this.companyInnDataGridViewTextBoxColumn.Name = "companyInnDataGridViewTextBoxColumn";
+            this.companyInnDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // companyNameDataGridViewTextBoxColumn
+            // 
+            this.companyNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.companyNameDataGridViewTextBoxColumn.DataPropertyName = "CompanyName";
+            this.companyNameDataGridViewTextBoxColumn.HeaderText = "CompanyName";
+            this.companyNameDataGridViewTextBoxColumn.Name = "companyNameDataGridViewTextBoxColumn";
+            this.companyNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // companyIdDataGridViewTextBoxColumn
+            // 
+            this.companyIdDataGridViewTextBoxColumn.DataPropertyName = "CompanyId";
+            this.companyIdDataGridViewTextBoxColumn.HeaderText = "CompanyId";
+            this.companyIdDataGridViewTextBoxColumn.Name = "companyIdDataGridViewTextBoxColumn";
+            this.companyIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.companyIdDataGridViewTextBoxColumn.Visible = false;
             // 
             // MainForm
             // 
@@ -173,6 +179,7 @@
             this.Text = "Bookkeppeng text generator";
             ((System.ComponentModel.ISupportInitialize)(this.CompanyInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.companySimpleDtoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -185,12 +192,13 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.DataGridView CompanyInfo;
         private System.Windows.Forms.BindingSource companySimpleDtoBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn companyIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn bankIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn companyIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn companyNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn companyInnDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn companyKppDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn bankNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource companyBindingSource;
     }
 }
 
