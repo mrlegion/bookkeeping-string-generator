@@ -17,8 +17,8 @@ namespace DataAccessLayer
 
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Company> Companies { get; set; }
-        public DbSet<Account> Accounts { get; set; }
-        public DbSet<BuyOrder> BuyOrders { get; set; }
+        public DbSet<Organization> Accounts { get; set; }
+        public DbSet<PaymentOrder> BuyOrders { get; set; }
         public DbSet<Pay> Pays { get; set; }
     }
 }

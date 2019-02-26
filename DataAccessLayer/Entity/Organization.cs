@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccessLayer.Entity
 {
-    [Table("company_account_bank")]
-    public class Account
+    [Table("organization_info")]
+    public class Organization
     {
         [Key]
         [Column("id")]
@@ -15,14 +15,10 @@ namespace DataAccessLayer.Entity
 
         [Column("company_id")]
         public int CompanyId { get; set; }
-
-        [Column("company")]
         public Company Company { get; set; }
 
         [Column("bank_id")]
         public int BankId { get; set; }
-
-        [Column("bank")]
         public Bank Bank { get; set; }
     }
 }

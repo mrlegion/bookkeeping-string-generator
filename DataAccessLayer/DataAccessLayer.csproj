@@ -65,9 +65,9 @@
     <Compile Include="BookkeepingContext.cs" />
     <Compile Include="DTO\CompanyDetailDto.cs" />
     <Compile Include="DTO\CompanySimpleDto.cs" />
-    <Compile Include="Entity\Account.cs" />
+    <Compile Include="Entity\Organization.cs" />
     <Compile Include="Entity\Bank.cs" />
-    <Compile Include="Entity\BuyOrder.cs" />
+    <Compile Include="Entity\PaymentOrder.cs" />
     <Compile Include="Entity\Company.cs" />
     <Compile Include="Entity\Pay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

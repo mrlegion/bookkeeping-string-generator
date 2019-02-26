@@ -25,6 +25,6 @@ namespace DataAccessLayer.Entity
         [Column("company_kpp")]
         public string Kpp { get; set; }
 
-        public ICollection<Account> Accounts { get; set; }
+        public ICollection<Organization> Organizations { get; set; }
     }
 }

@@ -30,6 +30,6 @@ namespace DataAccessLayer.Entity
         [Column("bank_account_number")]
         public string AccountNumber { get; set; }
 
-        public ICollection<Account> Accounts { get; set; }
+        public ICollection<Organization> Organizations { get; set; }
     }
 }

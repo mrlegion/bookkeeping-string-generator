@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace DataAccessLayer.Entity
 {
     [Table("order_info")]
-    public class BuyOrder
+    public class PaymentOrder
     {
         [Key]
         [Column("order_id")]
@@ -50,15 +50,15 @@ namespace DataAccessLayer.Entity
         /// Сумма платежки
         /// </summary>
         [Required]
-        [Column("order_amount")]
-        public decimal Amount { get; set; }
+        [Column("order_total")]
+        public int Total { get; set; }
 
         /// <summary>
         /// Сумма платежки прописью
         /// </summary>
         [Required]
-        [Column("order_amount_text")]
-        public string AmountText { get; set; }
+        [Column("order_total_text")]
+        public string TotalText { get; set; }
 
         /// <summary>
         /// Описание платежа платежки
@@ -86,16 +86,7 @@ namespace DataAccessLayer.Entity
         /// Плательщик
         /// </summary>
         [Required]
-        public Company Payer { get; set; }
-
-        [Column("payer_bank_id")]
-        public int PayerBankId { get; set; }
-
-        /// <summary>
-        /// Банк плательщика
-        /// </summary>
-        [Required]
-        public Bank PayerBank { get; set; }
+        public Organization Payer { get; set; }
 
         [Column("recipient_id")]
         public int RecipientId { get; set; }
@@ -104,16 +95,7 @@ namespace DataAccessLayer.Entity
         /// Получатель
         /// </summary>
         [Required]
-        public Company Recipient { get; set; }
-
-        [Column("recipient_bank_id")]
-        public int RecipientBankId { get; set; }
-
-        /// <summary>
-        /// Банк получателя
-        /// </summary>
-        [Required]
-        public Bank RecipientBank { get; set; }
+        public Organization Recipient { get; set; }
 
         #endregion
 

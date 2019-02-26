@@ -8,6 +8,7 @@
         public string CompanyName { get; set; }
         public string CompanyInn { get; set; }
         public string CompanyKpp { get; set; }
+        public string CompanyAccountNumber { get; set; }
         public string BankName { get; set; }
     }
 }
