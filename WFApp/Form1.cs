@@ -20,6 +20,7 @@ namespace WFApp
             UpdateData();
         }
 
+        // Генерация случайных 
         private List<Account> InitData(int banks, int companies, int accounts)
         {
             Bank[] banksArray = new Bank[banks];
@@ -54,6 +55,7 @@ namespace WFApp
             return accountsList;
         }
 
+        // Обновление основной таблицы с данными
         private async void UpdateData()
         {
             using (var context = new BookkeepingContext())
@@ -95,6 +97,11 @@ namespace WFApp
             }
         }
 
+        /// <summary>
+        /// Генерация случайного чиста задданой длины
+        /// </summary>
+        /// <param name="lenght">Длина генерируемого числа</param>
+        /// <returns></returns>
         private string GetRandomNumber(int lenght)
         {
             var sb = new StringBuilder();
@@ -103,11 +110,13 @@ namespace WFApp
             return sb.ToString();
         }
 
+        // Закрытие приложения
         private void CloseBtn_Click(object sender, EventArgs e)
         {
             Close();
         }
 
+        // Добавление нового банка
         private void Button1_Click(object sender, EventArgs e)
         {
             var af = new AddBankForm(new Bank()) { Title = "Add new Bank", Owner = this };
@@ -124,6 +133,7 @@ namespace WFApp
 
         }
 
+        // Добавление новой компании
         private void AddCompanyBtn_Click(object sender, EventArgs e)
         {
             var ac = new AddCompanyForm(new CompanyDetailDto()

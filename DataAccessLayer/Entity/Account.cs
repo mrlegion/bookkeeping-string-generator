@@ -15,11 +15,13 @@ namespace DataAccessLayer.Entity
 
         [Column("company_id")]
         public int CompanyId { get; set; }
+
         [Column("company")]
         public Company Company { get; set; }
 
         [Column("bank_id")]
         public int BankId { get; set; }
+
         [Column("bank")]
         public Bank Bank { get; set; }
     }
