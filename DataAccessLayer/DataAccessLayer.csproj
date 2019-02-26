@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookkeepingContext.cs" />
+    <Compile Include="DTO\CompanyDetailDto.cs" />
     <Compile Include="DTO\CompanySimpleDto.cs" />
     <Compile Include="Entity\Account.cs" />
     <Compile Include="Entity\Bank.cs" />

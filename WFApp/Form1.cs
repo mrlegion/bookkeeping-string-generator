@@ -1,77 +1,97 @@
-﻿using System;
+﻿using DataAccessLayer;
+using DataAccessLayer.DTO;
+using DataAccessLayer.Entity;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using DataAccessLayer;
-using DataAccessLayer.DTO;
-using DataAccessLayer.Entity;
 
 namespace WFApp
 {
     public partial class MainForm : Form
     {
         private static Random _random = new Random();
+        private bool init = true;
         public MainForm()
         {
             InitializeComponent();
             UpdateData();
         }
 
-        private void UpdateData()
+        private List<Account> InitData(int banks, int companies, int accounts)
         {
-            //using (BookkeepingContext context = new BookkeepingContext())
-            //{
-            //    var query = await (from company in context.Companies
-            //        join bank in context.Banks
-            //            on company.BankId equals bank.Id
-            //        select new CompanySimpleDto()
-            //        {
-            //            CompanyId = company.Id,
-            //            BankId = bank.Id,
-            //            CompanyName = company.Name,
-            //            CompanyInn = company.Inn,
-            //            CompanyKpp = company.Kpp,
-            //            BankName = bank.Name
-            //        }).ToListAsync();
-            //    CompanyInfo.DataSource = query;
-            //}
+            Bank[] banksArray = new Bank[banks];
+            Company[] companiesArray = new Company[companies];
+            var accountsList = new List<Account>();
 
-
-            using (var context = new BookkeepingContext())
-            {
-                var bank1 = new Bank() { Name = "Банк 1", City = "Город 1", AccountNumber = GetRandomNumber(20), Bik = GetRandomNumber(9) };
-                var bank2 = new Bank() { Name = "Банк 2", City = "Город 2", AccountNumber = GetRandomNumber(20), Bik = GetRandomNumber(9) };
-                var bank3 = new Bank() { Name = "Банк 3", City = "Город 3", AccountNumber = GetRandomNumber(20), Bik = GetRandomNumber(9) };
-                var company1 = new Company() { Name = "Компания 1", Inn = GetRandomNumber(11), Kpp = "0" };
-                var company2 = new Company() { Name = "Компания 2", Inn = GetRandomNumber(11), Kpp = GetRandomNumber(9) };
-                var company3 = new Company() { Name = "Компания 3", Inn = GetRandomNumber(11), Kpp = "0" };
-                var company4 = new Company() { Name = "Компания 4", Inn = GetRandomNumber(11), Kpp = GetRandomNumber(9) };
-                var company5 = new Company() { Name = "Компания 5", Inn = GetRandomNumber(11), Kpp = "0" };
-                List<Account> accounts = new List<Account>()
+            for (int i = 0; i < banks; i++)
+                banksArray[i] = new Bank()
                 {
-                    new Account() {AccountNumber = GetRandomNumber(20), Bank = bank1, Company = company1},
-                    new Account() {AccountNumber = GetRandomNumber(20), Bank = bank1, Company = company2},
-                    new Account() {AccountNumber = GetRandomNumber(20), Bank = bank2, Company = company1},
-                    new Account() {AccountNumber = GetRandomNumber(20), Bank = bank1, Company = company3},
-                    new Account() {AccountNumber = GetRandomNumber(20), Bank = bank3, Company = company3},
-                    new Account() {AccountNumber = GetRandomNumber(20), Bank = bank1, Company = company5},
-                    new Account() {AccountNumber = GetRandomNumber(20), Bank = bank1, Company = company4},
-                    new Account() {AccountNumber = GetRandomNumber(20), Bank = bank2, Company = company5},
-                    new Account() {AccountNumber = GetRandomNumber(20), Bank = bank2, Company = company2},
+                    Name = $"Банк {i + 1}",
+                    City = $"Город {i + 1}",
+                    AccountNumber = GetRandomNumber(20),
+                    Bik = GetRandomNumber(9)
                 };
 
-                context.Accounts.AddRange(accounts);
-                context.SaveChanges();
+            for (int i = 0; i < companies; i++)
+                companiesArray[i] = new Company()
+                {
+                    Name = $"Компания {i + 1}",
+                    Inn = GetRandomNumber(11),
+                    Kpp = GetRandomNumber(9)
+                };
 
-                context.Accounts.Add(new Account()
+            for (int i = 0; i < accounts; i++)
+                accountsList.Add(new Account()
                 {
                     AccountNumber = GetRandomNumber(20),
-                    Bank = context.Banks.First(bank => bank.Id == 2),
-                    Company = context.Companies.First(company => company.Id == 3)
+                    Bank = banksArray[_random.Next(0, banksArray.Length - 1)],
+                    Company = companiesArray[_random.Next(0, companiesArray.Length - 1)]
                 });
-                context.SaveChanges();
+
+            return accountsList;
+        }
+
+        private async void UpdateData()
+        {
+            using (var context = new BookkeepingContext())
+            {
+                if (!context.Database.Exists() && init)
+                {
+                    List<Account> accounts = InitData(6, 10, 20);
+
+                    context.Accounts.AddRange(accounts);
+                    context.SaveChanges();
+
+                    context.Accounts.Add(new Account()
+                    {
+                        AccountNumber = GetRandomNumber(20),
+                        Bank = context.Banks.First(bank => bank.Id == 2),
+                        Company = context.Companies.First(company => company.Id == 3)
+                    });
+                    context.SaveChanges();
+                    init = false;
+                }
+
+                var query = await (from account in context.Accounts
+                                   join company in context.Companies on account.CompanyId equals company.Id
+                                   join bank in context.Banks on account.BankId equals bank.Id
+                                   select new CompanyDetailDto()
+                                   {
+                                       CompanyId = company.Id,
+                                       CompanyName = company.Name,
+                                       CompanyInn = company.Inn,
+                                       CompanyKpp = company.Kpp,
+                                       CompanyAccountNumber = account.AccountNumber,
+                                       BankId = bank.Id,
+                                       BankName = bank.Name,
+                                       BankCity = bank.City,
+                                       BankBik = bank.Bik,
+                                       BankAccountNumber = bank.AccountNumber
+                                   }).ToListAsync();
+                CompanyInfo.DataSource = query;
             }
         }
 
@@ -101,17 +121,40 @@ namespace WFApp
                 }
             }
 
-            
+
         }
 
         private void AddCompanyBtn_Click(object sender, EventArgs e)
         {
-            var ac = new AddCompanyForm(new Company()) {Title = "Add new Company", Owner = this};
+            var ac = new AddCompanyForm(new CompanyDetailDto()
+            {
+                CompanyInn = GetRandomNumber(12),
+                CompanyKpp = GetRandomNumber(9),
+                CompanyAccountNumber = GetRandomNumber(20)
+            })
+            {
+                Title = "Add new Company",
+                Owner = this
+            };
+
             if (ac.ShowDialog() == DialogResult.OK)
             {
                 using (BookkeepingContext context = new BookkeepingContext())
                 {
-                    context.Companies.Add(ac.Company);
+                    var company = new Company()
+                    {
+                        Name = ac.Company.CompanyName,
+                        Inn = ac.Company.CompanyInn,
+                        Kpp = ac.Company.CompanyKpp,
+                    };
+
+                    var account = new Account()
+                    {
+                        Company = company,
+                        Bank = context.Banks.First(bank => bank.Id == ac.Company.BankId),
+                        AccountNumber = ac.Company.CompanyAccountNumber
+                    };
+                    context.Accounts.Add(account);
                     context.SaveChanges();
                     UpdateData();
                 }
