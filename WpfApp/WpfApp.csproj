@@ -98,6 +98,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Service\FrameNavigationService.cs" />
+    <Compile Include="Service\IFrameNavigationService.cs" />
     <Compile Include="ViewModels\AdministrationViewModel.cs" />
     <Compile Include="ViewModels\BankEditViewModel.cs" />
     <Compile Include="ViewModels\BankInfoViewModel.cs" />

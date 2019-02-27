@@ -1,5 +1,8 @@
-﻿using CommonServiceLocator;
+﻿using System;
+using System.Windows.Media;
+using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
+using WpfApp.Service;
 using WpfApp.Views;
 
 namespace WpfApp.ViewModels
@@ -51,6 +54,17 @@ namespace WpfApp.ViewModels
 
         private static void InitComponents()
         {
+        }
+
+        private static void InitNavigation()
+        {
+            var service = new FrameNavigationService();
+            service.Configure("Admin", new Uri("../Views/AdministrationView.xaml", UriKind.Relative));
+            service.Configure("Organization", new Uri("../Views/OrganizationView.xaml", UriKind.Relative));
+            service.Configure("Bank", new Uri("../Views/BankInfoView.xaml", UriKind.Relative));
+            service.Configure("BankEdit", new Uri("../Views/BankEditView.xaml", UriKind.Relative));
+            service.Configure("Company", new Uri("../Views/CompanyInfoView.xaml", UriKind.Relative));
+            service.Configure("CompanyEdit", new Uri("../Views/CompanyEditView.xaml", UriKind.Relative));
         }
     }
 }
