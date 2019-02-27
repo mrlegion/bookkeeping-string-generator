@@ -13,7 +13,7 @@ namespace WFApp
     public partial class MainForm : Form
     {
         private static Random _random = new Random();
-        private bool init = true;
+        //private bool init = true;
         public MainForm()
         {
             InitializeComponent();

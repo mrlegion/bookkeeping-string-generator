@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfApp
+namespace WpfApp.Views
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для BankInfoView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class BankInfoView : Page
     {
-        public MainWindow()
+        public BankInfoView()
         {
             InitializeComponent();
         }
