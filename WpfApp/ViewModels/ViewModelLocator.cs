@@ -28,7 +28,8 @@ namespace WpfApp.ViewModels
         public BankEditView BankEdit => ServiceLocator.Current.GetInstance<BankEditView>();
         public CompanyInfoView CompanyInfo => ServiceLocator.Current.GetInstance<CompanyInfoView>();
         public CompanyEditViewModel CompanyEdit => ServiceLocator.Current.GetInstance<CompanyEditViewModel>();
-        
+        public GenerateViewModel Generate => ServiceLocator.Current.GetInstance<GenerateViewModel>();
+        public HomeViewModel Home => ServiceLocator.Current.GetInstance<HomeViewModel>();
 
         private static void InitViewModels()
         {
@@ -39,6 +40,8 @@ namespace WpfApp.ViewModels
             SimpleIoc.Default.Register<BankEditViewModel>();
             SimpleIoc.Default.Register<CompanyInfoViewModel>();
             SimpleIoc.Default.Register<CompanyEditViewModel>();
+            SimpleIoc.Default.Register<HomeViewModel>();
+            SimpleIoc.Default.Register<GenerateViewModel>();
         }
 
         private static void InitViews()
@@ -50,6 +53,8 @@ namespace WpfApp.ViewModels
             SimpleIoc.Default.Register<CompanyInfoView>();
             SimpleIoc.Default.Register<BankEditView>();
             SimpleIoc.Default.Register<BankInfoView>();
+            SimpleIoc.Default.Register<HomeView>();
+            SimpleIoc.Default.Register<GenerateView>();
         }
 
         private static void InitComponents()
@@ -65,6 +70,9 @@ namespace WpfApp.ViewModels
             service.Configure("BankEdit", new Uri("../Views/BankEditView.xaml", UriKind.Relative));
             service.Configure("Company", new Uri("../Views/CompanyInfoView.xaml", UriKind.Relative));
             service.Configure("CompanyEdit", new Uri("../Views/CompanyEditView.xaml", UriKind.Relative));
+            service.Configure("Home", new Uri("../Views/HomeView.xaml", UriKind.Relative));
+            service.Configure("Generate", new Uri("../Views/GenerateView.xaml", UriKind.Relative));
+            SimpleIoc.Default.Register<IFrameNavigationService>(() => service);
         }
     }
 }

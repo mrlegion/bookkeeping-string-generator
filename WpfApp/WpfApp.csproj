@@ -105,6 +105,8 @@
     <Compile Include="ViewModels\BankInfoViewModel.cs" />
     <Compile Include="ViewModels\CompanyEditViewModel.cs" />
     <Compile Include="ViewModels\CompanyInfoViewModel.cs" />
+    <Compile Include="ViewModels\GenerateViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\OrganizationViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
@@ -122,6 +124,12 @@
     </Compile>
     <Compile Include="Views\CompanyInfoView.xaml.cs">
       <DependentUpon>CompanyInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GenerateView.xaml.cs">
+      <DependentUpon>GenerateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OrganizationView.xaml.cs">
       <DependentUpon>OrganizationView.xaml</DependentUpon>
@@ -184,6 +192,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CompanyInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GenerateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
