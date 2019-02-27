@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace DataAccessLayer.Entity
 {
     [Table("organization_info")]
-    public class Organization
+    public class Organization : IEntity
     {
         [Key]
         [Column("id")]

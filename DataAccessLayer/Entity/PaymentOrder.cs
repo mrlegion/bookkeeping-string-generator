@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace DataAccessLayer.Entity
 {
     [Table("order_info")]
-    public class PaymentOrder
+    public class PaymentOrder : IEntity
     {
         [Key]
         [Column("order_id")]
@@ -75,7 +75,7 @@ namespace DataAccessLayer.Entity
         /// Вид платежа
         /// </summary>
         [Required]
-        public Pay TypeOfPayment { get; set; }
+        public PaymentType TypeOfPayment { get; set; }
         
         #region Компании
 

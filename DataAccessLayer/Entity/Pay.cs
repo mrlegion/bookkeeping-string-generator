@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccessLayer.Entity
 {
-    [Table("pay_type")]
-    public class Pay
+    [Table("payment_type")]
+    public class PaymentType : IEntity
     {
         [Key]
         [Column("pay_id")]
