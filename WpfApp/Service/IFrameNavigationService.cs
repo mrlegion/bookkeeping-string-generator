@@ -11,7 +11,7 @@ namespace WpfApp.Service
         #region Properties
 
         object Parameter { get; }
-
+        string FrameName { get; }
         bool CanGoBack { get; }
 
         #endregion

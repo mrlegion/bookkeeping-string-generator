@@ -16,6 +16,83 @@
       Title="HomeView">
 
     <Grid>
-        
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <Button Padding="20 30"
+                    VerticalContentAlignment="Top"
+                    Width="150"
+                    Height="Auto"
+                    Command="{Binding NavigateToCommand}"
+                    CommandParameter="Organization"
+                    Margin="20 0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <md:PackIcon Kind="Application"
+                                 Width="40"
+                                 Height="40"
+                                 Margin="0 0 0 10"
+                                 Grid.Row="0" 
+                                 HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="1"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"
+                               Text="Управление организациями"/>
+                </Grid>
+            </Button>
+
+            <Button Padding="20 30"
+                    VerticalContentAlignment="Top"
+                    Width="150"
+                    Height="Auto"
+                    Command="{Binding NavigateToCommand}"
+                    CommandParameter="Admin"
+                    Margin="20 0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <md:PackIcon Kind="Application"
+                                 Width="40"
+                                 Height="40"
+                                 Margin="0 0 0 10"
+                                 Grid.Row="0" 
+                                 HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="1"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"
+                               Text="Управление структурами"/>
+                </Grid>
+            </Button>
+
+            <Button Padding="20 30"
+                    VerticalContentAlignment="Top"
+                    Width="150"
+                    Height="Auto"
+                    Command="{Binding NavigateToCommand}"
+                    CommandParameter="Generate"
+                    Margin="20 0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <md:PackIcon Kind="Application"
+                                 Width="40"
+                                 Height="40"
+                                 Margin="0 0 0 10"
+                                 Grid.Row="0" 
+                                 HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="1"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"
+                               Text="Создание файла"/>
+                </Grid>
+            </Button>
+        </StackPanel>
     </Grid>
 </Page>

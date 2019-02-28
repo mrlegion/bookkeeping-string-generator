@@ -20,8 +20,9 @@ namespace WpfApp.Service
 
         #region Ctor
 
-        public FrameNavigationService()
+        public FrameNavigationService(string frameName) : base()
         {
+            FrameName = frameName;
             _pagesByKey = new Dictionary<string, Uri>();
             _historic = new Stack<string>();
         }
@@ -31,6 +32,7 @@ namespace WpfApp.Service
         #region Properties
 
         public const string CurrentPageKeyPropertyName = "CurrentPageKey";
+        public string FrameName { get; private set; }
 
         /// <summary>
         /// The key corresponding to the currently displayed page.
@@ -98,7 +100,7 @@ namespace WpfApp.Service
             lock (_pagesByKey)
             {
                 if (!_pagesByKey.ContainsKey(pageKey)) throw new ArgumentException($"No such page: {pageKey}", "pageKey");
-                if (GetDescendantFromName(Application.Current.MainWindow, "RootFrame") is Frame frame)
+                if (GetDescendantFromName(Application.Current.MainWindow, FrameName) is Frame frame)
                     frame.Source = _pagesByKey[pageKey];
                 Parameter = parameter;
                 _historic.Push(pageKey);

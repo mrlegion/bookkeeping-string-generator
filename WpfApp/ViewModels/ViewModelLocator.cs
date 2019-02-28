@@ -17,6 +17,7 @@ namespace WpfApp.ViewModels
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             InitComponents();
+            InitNavigation();
             InitViews();
             InitViewModels();
         }
@@ -63,14 +64,14 @@ namespace WpfApp.ViewModels
 
         private static void InitNavigation()
         {
-            var service = new FrameNavigationService();
+            var service = new FrameNavigationService("RootFrame");
             service.Configure("Admin", new Uri("../Views/AdministrationView.xaml", UriKind.Relative));
             service.Configure("Organization", new Uri("../Views/OrganizationView.xaml", UriKind.Relative));
             service.Configure("Bank", new Uri("../Views/BankInfoView.xaml", UriKind.Relative));
             service.Configure("BankEdit", new Uri("../Views/BankEditView.xaml", UriKind.Relative));
             service.Configure("Company", new Uri("../Views/CompanyInfoView.xaml", UriKind.Relative));
-            service.Configure("CompanyEdit", new Uri("../Views/CompanyEditView.xaml", UriKind.Relative));
-            service.Configure("Home", new Uri("../Views/HomeView.xaml", UriKind.Relative));
+            service.Configure("CompanyEdit", new Uri("..\\Views\\CompanyEditView.xaml", UriKind.Relative));
+            service.Configure("Home", new Uri("..\\Views\\HomeView.xaml", UriKind.Relative));
             service.Configure("Generate", new Uri("../Views/GenerateView.xaml", UriKind.Relative));
             SimpleIoc.Default.Register<IFrameNavigationService>(() => service);
         }

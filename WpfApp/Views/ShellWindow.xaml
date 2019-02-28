@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp.Views"
         mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ml="http://www.galasoft.ch/mvvmlight"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
@@ -13,7 +15,37 @@
         DataContext="{Binding Shell, Source={StaticResource Locator}}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         Title="ShellWindow" Height="450" Width="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <ml:EventToCommand Command="{Binding NavigateToCommand}" CommandParameter="Home"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Button Style="{StaticResource MaterialDesignToolButton}"
+                    ToolTip="Вернуться назад"
+                    Command="{Binding GoBackCommand}">
+                <md:PackIcon Kind="ArrowLeftBoldCircle"></md:PackIcon>
+            </Button>
+            <Button Style="{StaticResource MaterialDesignToolButton}"
+                    ToolTip="Повторить переход">
+                <md:PackIcon Kind="ArrowRightBoldCircle"></md:PackIcon>
+            </Button>
+            <TextBlock Text="Bookkeeping Library Manager"
+                       VerticalAlignment="Center"
+                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                       FontWeight="SemiBold"
+                       Margin="10 0"/>
+        </StackPanel>
+        <Frame x:Name="RootFrame"
+               NavigationUIVisibility="Hidden"
+               Grid.Row="1"
+               VerticalAlignment="Stretch"
+               HorizontalAlignment="Stretch"/>
     </Grid>
 </Window>
