@@ -1,11 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
+using WpfApp.Service;
 
 namespace WpfApp.ViewModels
 {
     /// <summary>
     /// Description this class
     /// </summary>
-    public class CompanyInfoViewModel : ViewModelBase
+    public class CompanyInfoViewModel : ViewModelCustom
     {
         #region Fields
 
@@ -14,6 +15,11 @@ namespace WpfApp.ViewModels
         #endregion
 
         #region Ctor
+
+        public CompanyInfoViewModel(IFrameNavigationService navigationService) 
+            : base(navigationService)
+        {
+        }
 
         #endregion
 

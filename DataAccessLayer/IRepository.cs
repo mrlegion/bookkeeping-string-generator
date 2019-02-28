@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public interface IRepository<T> where T : class, IEntity
+    public interface IRepository<T> : IDisposable where T : class, IEntity
     {
         #region Public methods
 

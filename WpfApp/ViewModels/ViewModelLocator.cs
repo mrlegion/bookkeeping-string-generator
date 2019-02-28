@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Windows.Media;
 using CommonServiceLocator;
+using DataAccessLayer;
+using DataAccessLayer.Entity;
+using DataAccessLayer.Repositories;
 using GalaSoft.MvvmLight.Ioc;
 using WpfApp.Service;
 using WpfApp.Views;
@@ -18,6 +21,9 @@ namespace WpfApp.ViewModels
 
             InitComponents();
             InitNavigation();
+
+            InitDao();
+
             InitViews();
             InitViewModels();
         }
@@ -25,9 +31,9 @@ namespace WpfApp.ViewModels
         public ShellViewModel Shell => ServiceLocator.Current.GetInstance<ShellViewModel>();
         public AdministrationViewModel Administration => ServiceLocator.Current.GetInstance<AdministrationViewModel>();
         public OrganizationViewModel Organization => ServiceLocator.Current.GetInstance<OrganizationViewModel>();
-        public BankInfoView BankInfo => ServiceLocator.Current.GetInstance<BankInfoView>();
-        public BankEditView BankEdit => ServiceLocator.Current.GetInstance<BankEditView>();
-        public CompanyInfoView CompanyInfo => ServiceLocator.Current.GetInstance<CompanyInfoView>();
+        public BankInfoViewModel BankInfo => ServiceLocator.Current.GetInstance<BankInfoViewModel>();
+        public BankEditViewModel BankEdit => ServiceLocator.Current.GetInstance<BankEditViewModel>();
+        public CompanyInfoViewModel CompanyInfo => ServiceLocator.Current.GetInstance<CompanyInfoViewModel>();
         public CompanyEditViewModel CompanyEdit => ServiceLocator.Current.GetInstance<CompanyEditViewModel>();
         public GenerateViewModel Generate => ServiceLocator.Current.GetInstance<GenerateViewModel>();
         public HomeViewModel Home => ServiceLocator.Current.GetInstance<HomeViewModel>();
@@ -74,6 +80,15 @@ namespace WpfApp.ViewModels
             service.Configure("Home", new Uri("..\\Views\\HomeView.xaml", UriKind.Relative));
             service.Configure("Generate", new Uri("../Views/GenerateView.xaml", UriKind.Relative));
             SimpleIoc.Default.Register<IFrameNavigationService>(() => service);
+        }
+
+        // TODO: Вынести в другое место
+        private static void InitDao()
+        {
+            SimpleIoc.Default.Register<IRepository<Company>, CompanyRepository>();
+            SimpleIoc.Default.Register<IRepository<Bank>, BankRepository>();
+            SimpleIoc.Default.Register<IRepository<Organization>, OrganizationRepository>();
+            SimpleIoc.Default.Register<IRepository<PaymentOrder>, PaymentOrderRepository>();
         }
     }
 }

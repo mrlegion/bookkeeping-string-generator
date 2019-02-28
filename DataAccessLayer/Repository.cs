@@ -75,5 +75,25 @@ namespace DataAccessLayer
         {
             return await Context.Set<T>().Where(predicate).ToListAsync();
         }
+
+        private bool _disposed = false;
+
+        public virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    Context.Dispose();
+                }
+            }
+            _disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
     }
 }

@@ -14,7 +14,8 @@
         TextElement.FontSize="12"
         DataContext="{Binding Shell, Source={StaticResource Locator}}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        Title="ShellWindow" Height="450" Width="800">
+        WindowStartupLocation="CenterScreen"
+        Title="ShellWindow" Height="600" Width="1024">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <ml:EventToCommand Command="{Binding NavigateToCommand}" CommandParameter="Home"/>

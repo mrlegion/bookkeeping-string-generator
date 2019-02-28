@@ -48,8 +48,7 @@ namespace WpfApp.ViewModels
                 return _goBackCommand ?? (_goBackCommand = new RelayCommand(() =>
                 {
                     NavigationService.GoBack();
-                    GoBackCommand.RaiseCanExecuteChanged();
-                }, () => NavigationService.CanGoBack));
+                }));
             }
         }
     }

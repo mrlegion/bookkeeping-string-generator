@@ -2,7 +2,7 @@
 
 namespace DataAccessLayer.Repositories
 {
-    class BankRepository : Repository<Bank>
+    public class BankRepository : Repository<Bank>
     {
         public BankRepository() : base(new BookkeepingContext())
         {
