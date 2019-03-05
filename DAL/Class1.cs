@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infastructure
+namespace DAL
 {
-    public class Company
+    public class Class1
     {
     }
 }
