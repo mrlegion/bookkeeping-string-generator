@@ -48,6 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Bank.cs" />
+    <Compile Include="Entities\Company.cs" />
+    <Compile Include="Entities\Organization.cs" />
+    <Compile Include="Entities\Pay.cs" />
+    <Compile Include="Entities\PaymentOrder.cs" />
     <Compile Include="Enums\DbContextScopeOption.cs" />
     <Compile Include="Implementations\AmbientContextSuppressor.cs" />
     <Compile Include="Implementations\AmbientDbContextLocator.cs" />
