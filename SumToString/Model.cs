@@ -147,31 +147,18 @@ namespace SumToString
 
         private static string GetNamingKop(string kop)
         {
-            int value = Int32.Parse(kop);
+            if (Int32.TryParse(kop.Substring(1, 1), out var units))
+            {
+                if (units == 1) return kop + " копейка";
+                if (units > 1) return kop + " копейки";
+                if (units > 4) return kop + " копеек";
+                if (units == 0) return kop + " копеек";
+            }
 
-            if (value == 1 || value == 21 || value == 31 || 
-                value == 41 || value == 51 || value == 61 || 
-                value == 71 || value == 81 || value == 91)
-                return value + " копейка";
-
-            if (value >= 2 && value <= 4)   return $"{value} {_kop[2]}";
-            if (value >= 22 && value <= 24) return $"{value} {_kop[2]}";
-            if (value >= 32 && value <= 34) return $"{value} {_kop[2]}";
-            if (value >= 42 && value <= 44) return $"{value} {_kop[2]}";
-            if (value >= 52 && value <= 54) return $"{value} {_kop[2]}";
-            if (value >= 62 && value <= 64) return $"{value} {_kop[2]}";
-            if (value >= 72 && value <= 74) return $"{value} {_kop[2]}";
-            if (value >= 82 && value <= 84) return $"{value} {_kop[2]}";
-            if (value >= 92 && value <= 94) return $"{value} {_kop[2]}";
-            if (value >= 5 && value <= 20)  return $"{value} {_kop[0]}";
-            if (value >= 25 && value <= 30) return $"{value} {_kop[0]}";
-            if (value >= 35 && value <= 40) return $"{value} {_kop[0]}";
-            if (value >= 45 && value <= 50) return $"{value} {_kop[0]}";
-            if (value >= 55 && value <= 60) return $"{value} {_kop[0]}";
-            if (value >= 65 && value <= 70) return $"{value} {_kop[0]}";
-            if (value >= 75 && value <= 80) return $"{value} {_kop[0]}";
-            if (value >= 85 && value <= 90) return $"{value} {_kop[0]}";
-            if (value >= 95 && value <= 99) return $"{value} {_kop[0]}";
+            if (Int32.TryParse(kop.Substring(2, 1), out var thens))
+            {
+                if (thens == 1) return kop + " копеек";
+            }
             return $" 00 {_kop[0]}";
         }
     }

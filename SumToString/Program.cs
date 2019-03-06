@@ -14,7 +14,7 @@ namespace SumToString
             string money = Console.ReadLine();
             Console.WriteLine("Very Good!");
             Console.WriteLine("Rub: ");
-            Console.WriteLine(Model.NumberToString(money, false));
+            Console.WriteLine(Model.NumberToString(money));
 
             // delay
             Console.ReadKey();
