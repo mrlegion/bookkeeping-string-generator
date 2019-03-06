@@ -21,7 +21,7 @@ namespace Mehdime.DbScope.Implementations
 
         internal Dictionary<Type, DbContext> InitializedDbContexts => _initializedDbContexts;
 
-        public DbContextCollection(bool readOnly, IsolationLevel? isolationLevel, IDbContextFactory dbContextFactory)
+        public DbContextCollection(bool readOnly, IsolationLevel? isolationLevel /*, IDbContextFactory dbContextFactory*/)
         {
             _disposed = false;
             _completed = false;
@@ -31,7 +31,7 @@ namespace Mehdime.DbScope.Implementations
 
             _readOnly = readOnly;
             _isolationLevel = isolationLevel;
-            _dbContextFactory = dbContextFactory;
+            _dbContextFactory = null;
         }
 
         public void Dispose()

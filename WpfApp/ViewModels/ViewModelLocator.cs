@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Media;
 using CommonServiceLocator;
+using Domain;
 using GalaSoft.MvvmLight.Ioc;
 using WpfApp.Service;
 using WpfApp.Views;
@@ -16,11 +16,10 @@ namespace WpfApp.ViewModels
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
+            DomainBootstrapper.Init();
+
             InitComponents();
             InitNavigation();
-
-            InitDao();
-
             InitViews();
             InitViewModels();
         }
@@ -77,11 +76,6 @@ namespace WpfApp.ViewModels
             service.Configure("Home", new Uri("..\\Views\\HomeView.xaml", UriKind.Relative));
             service.Configure("Generate", new Uri("../Views/GenerateView.xaml", UriKind.Relative));
             SimpleIoc.Default.Register<IFrameNavigationService>(() => service);
-        }
-
-        // TODO: Вынести в другое место
-        private static void InitDao()
-        {
         }
     }
 }

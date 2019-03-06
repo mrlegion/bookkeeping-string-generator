@@ -1,40 +1,101 @@
-﻿using GalaSoft.MvvmLight;
+﻿using CommonServiceLocator;
+using Domain.Services;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using Infrastructure.Entities;
+using WpfApp.Service;
 
 namespace WpfApp.ViewModels
 {
     /// <summary>
     /// Description this class
     /// </summary>
-    public class BankEditViewModel : ViewModelBase
+    public class BankEditViewModel : ViewModelCustom
     {
-        #region Fields
+        private Bank _bank;
+        // конструктор
+        public BankEditViewModel(IFrameNavigationService navigationService) : base(navigationService)
+        {
+            _bank = new Bank();
+        }
 
-        
+        private string _bankName;
 
-        #endregion
+        public const string BankNamePropertyName = "BankName";
 
-        #region Ctor
+        public string BankName
+        {
+            get { return _bankName; }
+            set { Set(BankNamePropertyName, ref _bankName, value); }
+        }
 
-        #endregion
+        private string _bankCity;
 
-        #region Properties
+        public const string BankCityPropertyName = "BankCity";
 
-        #endregion
+        public string BankCity
+        {
+            get { return _bankCity; }
+            set { Set(BankCityPropertyName, ref _bankCity, value); }
+        }
 
-        #region Commands
+        private string _bankBik;
 
-        #endregion
+        public const string BankBikPropertyName = "BankBik";
 
-        #region Public methods
+        public string BankBik
+        {
+            get { return _bankBik; }
+            set { Set(BankBikPropertyName, ref _bankBik, value); }
+        }
 
-        #endregion
+        private string _bankAccountNumber;
 
-        #region Private methods
+        public const string BankAccountNumberPropertyName = "BankAccountNumber";
 
-        #endregion
+        public string BankAccountNumber
+        {
+            get { return _bankAccountNumber; }
+            set { Set(BankAccountNumberPropertyName, ref _bankAccountNumber, value); }
+        }
 
-        #region Exceptions
+        private string _comments;
 
-        #endregion
+        public const string CommentsPropertyName = "Comments";
+
+        public string Comments
+        {
+            get { return _comments; }
+            set { Set(CommentsPropertyName, ref _comments, value); }
+        }
+
+        private bool _openDialog;
+
+        public const string OpenDialogPropertyName = "OpenDialog";
+
+        public bool OpenDialog
+        {
+            get { return _openDialog; }
+            set { Set(OpenDialogPropertyName, ref _openDialog, value); }
+        }
+
+        private RelayCommand _saveCommand;
+
+        public RelayCommand SaveCommand
+        {
+            get
+            {
+                return _saveCommand ?? (_saveCommand = new RelayCommand(() =>
+                {
+                    _bank.Name = BankName;
+                    _bank.City = BankCity;
+                    _bank.Bik = BankBik;
+                    _bank.AccountNumber = BankAccountNumber;
+
+                    var service = ServiceLocator.Current.GetInstance<BankCreationService>();
+                    service.CreateBank(_bank);
+                }));
+            }
+        }
     }
 }

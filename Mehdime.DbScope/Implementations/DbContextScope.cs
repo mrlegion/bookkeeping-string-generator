@@ -26,15 +26,15 @@ namespace Mehdime.DbScope.Implementations
 
         public IDbContextCollection DbContexts => _dbContexts;
 
-        public DbContextScope(IDbContextFactory dbContextFactory = null) :
-            this(DbContextScopeOption.JoinExisting, false, null, dbContextFactory)
+        public DbContextScope() :
+            this(DbContextScopeOption.JoinExisting, false, null)
         {}
 
-        public DbContextScope(bool readOnly, IDbContextFactory dbContextFactory = null) :
-            this(DbContextScopeOption.JoinExisting, readOnly, null, dbContextFactory)
+        public DbContextScope(bool readOnly) :
+            this(DbContextScopeOption.JoinExisting, readOnly, null)
         {}
 
-        public DbContextScope(DbContextScopeOption joiningOption, bool readOnly, IsolationLevel? isolationLevel, IDbContextFactory dbContextFactory = null)
+        public DbContextScope(DbContextScopeOption joiningOption, bool readOnly, IsolationLevel? isolationLevel /*, IDbContextFactory dbContextFactory = null*/)
         {
             if (isolationLevel.HasValue && joiningOption == DbContextScopeOption.JoinExisting)
                 throw new ArgumentException("Cannot join an ambient DbContextScope when an explicit database transaction is required. When requiring explicit database transactions to be used (i.e. when the 'isolationLevel' parameter is set), you must not also ask to join the ambient context (i.e. the 'joinAmbient' parameter must be set to false).");
@@ -56,7 +56,7 @@ namespace Mehdime.DbScope.Implementations
             else
             {
                 _nested = false;
-                _dbContexts = new DbContextCollection(readOnly, isolationLevel, dbContextFactory);
+                _dbContexts = new DbContextCollection(readOnly, isolationLevel /*, dbContextFactory*/);
             }
 
             SetAmbientScope(this);

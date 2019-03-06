@@ -20,12 +20,12 @@ namespace Domain.Services
             _bankRepository = bankRepository;
         }
 
-        public Bank GetBank(int id)
-        {
-            using (var dbScopeContext = _dbContextScopeFactory.CreateReadOnly())
-            {
-                var dbContext = dbScopeContext.DbContexts.Get<BookkeepingLibraryContext>();
-            }
-        }
+        //public Bank GetBank(int id)
+        //{
+        //    using (var dbScopeContext = _dbContextScopeFactory.CreateReadOnly())
+        //    {
+        //        var dbContext = dbScopeContext.DbContexts.Get<BookkeepingLibraryContext>();
+        //    }
+        //}
     }
 }

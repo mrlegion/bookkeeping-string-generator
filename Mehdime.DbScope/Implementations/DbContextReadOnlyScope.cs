@@ -13,17 +13,17 @@ namespace Mehdime.DbScope.Implementations
             get { return _internalScope.DbContexts; }
         }
 
-        public DbContextReadOnlyScope(IDbContextFactory dbContextFactory = null)
-            : this(DbContextScopeOption.ForceCreateNew, null, dbContextFactory)
+        public DbContextReadOnlyScope()
+            : this(DbContextScopeOption.ForceCreateNew, null)
         {}
 
-        public DbContextReadOnlyScope(IsolationLevel? isolationLevel, IDbContextFactory dbContextFactory = null)
-            : this(DbContextScopeOption.ForceCreateNew, isolationLevel, dbContextFactory)
+        public DbContextReadOnlyScope(IsolationLevel? isolationLevel)
+            : this(DbContextScopeOption.ForceCreateNew, isolationLevel)
         {}
 
-        public DbContextReadOnlyScope(DbContextScopeOption joiningOption, IsolationLevel? isolationLevel, IDbContextFactory dbContextFactory = null)
+        public DbContextReadOnlyScope(DbContextScopeOption joiningOption, IsolationLevel? isolationLevel/*, IDbContextFactory dbContextFactory = null*/)
         {
-            _internalScope = new DbContextScope(joiningOption, true, isolationLevel, dbContextFactory);
+            _internalScope = new DbContextScope(joiningOption, true, isolationLevel);
         }
 
         public void Dispose()
