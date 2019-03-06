@@ -1,8 +1,8 @@
-﻿using Infrastructure.Enums;
-using Infrastructure.Interfaces;
-using System.Data;
+﻿using System.Data;
+using Mehdime.DbScope.Enums;
+using Mehdime.DbScope.Interfaces;
 
-namespace Infrastructure.Implementations
+namespace Mehdime.DbScope.Implementations
 {
     public class DbContextReadOnlyScope : IDbContextReadOnlyScope
     {

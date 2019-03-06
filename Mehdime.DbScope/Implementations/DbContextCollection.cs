@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Net.Http.Headers;
 using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
-using Infrastructure.Interfaces;
+using Mehdime.DbScope.Interfaces;
 
-namespace Infrastructure.Implementations
+namespace Mehdime.DbScope.Implementations
 {
     public class DbContextCollection : IDbContextCollection
     {

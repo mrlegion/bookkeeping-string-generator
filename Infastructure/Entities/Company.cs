@@ -12,5 +12,14 @@ namespace Infrastructure.Entities
         public string Kpp { get; set; }
 
         public ICollection<Organization> Organizations { get; set; }
+
+        public Company() {}
+
+        public Company(string name, string inn, string kpp)
+        {
+            Name = name;
+            Inn = inn;
+            Kpp = kpp;
+        }
     }
 }

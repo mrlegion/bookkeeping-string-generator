@@ -7,9 +7,16 @@ namespace Infrastructure.Entities
     {
         public int Id { get; set; }
         public string AccountNumber { get; set; }
-        public int CompanyId { get; set; }
         public Company Company { get; set; }
-        public int BankId { get; set; }
         public Bank Bank { get; set; }
+
+        public Organization() {}
+
+        public Organization(Company company, Bank bank, string accountNumber)
+        {
+            Company = company;
+            Bank = bank;
+            AccountNumber = accountNumber;
+        }
     }
 }

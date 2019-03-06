@@ -10,11 +10,28 @@ namespace DAL
     {
         public BankFluentMap()
         {
-            ToTable("bank_info");
-            HasKey(bank => bank.Id);
-            Property(bank => bank.Name).HasColumnName("bank_name").HasMaxLength(250).IsRequired();
-            Property(bank => bank.City).HasColumnName("bank_city").HasMaxLength(100).IsRequired();
-            Property(bank => bank.AccountNumber).HasColumnName("bank_account_number").HasMaxLength(20).IsRequired();
+            ToTable("bank_info").HasKey(bank => bank.Id);
+
+            Property(bank => bank.Name)
+                .HasColumnName("bank_name")
+                .HasColumnType("varchar")
+                .HasMaxLength(250)
+                .IsRequired();
+
+            Property(bank => bank.City)
+                .HasColumnName("bank_city")
+                .HasColumnType("varchar")
+                .HasMaxLength(100)
+                .IsRequired();
+
+            Property(bank => bank.AccountNumber)
+                .HasColumnName("bank_account_number")
+                .HasColumnType("varchar")
+                .HasMaxLength(20)
+                .IsRequired();
+
+            HasMany(b => b.Organizations)
+                .WithRequired(o => o.Bank);
         }
     }
 }

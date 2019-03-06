@@ -15,11 +15,8 @@ namespace Infrastructure.Entities
         public int Total { get; set; }
         public string TotalText { get; set; }
         public string Description { get; set; }
-        public int TypeOfPaymentId { get; set; }
         public PaymentType TypeOfPayment { get; set; }
-        public int PayerId { get; set; }
         public Organization Payer { get; set; }
-        public int RecipientId { get; set; }
         public Organization Recipient { get; set; }
         public string TypeOfPaying { get; set; }
         public string QueuePayment { get; set; }

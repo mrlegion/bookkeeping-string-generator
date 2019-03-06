@@ -3,7 +3,7 @@ using System.Collections;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Interfaces
+namespace Mehdime.DbScope.Interfaces
 {
     public interface IDbContextScope : IDisposable
     {

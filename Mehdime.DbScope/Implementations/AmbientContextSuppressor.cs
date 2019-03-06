@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Infrastructure.Implementations
+namespace Mehdime.DbScope.Implementations
 {
     public class AmbientContextSuppressor : IDisposable
     {

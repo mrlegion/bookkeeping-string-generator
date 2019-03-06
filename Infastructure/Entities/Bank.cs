@@ -14,5 +14,15 @@ namespace Infrastructure.Entities
         public string AccountNumber { get; set; }
 
         public ICollection<Organization> Organizations { get; set; }
+
+        public Bank() {}
+
+        public Bank(string name, string city, string bik, string accountNumber)
+        {
+            Name = name;
+            City = city;
+            Bik = bik;
+            AccountNumber = accountNumber;
+        }
     }
 }

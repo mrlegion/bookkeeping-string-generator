@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Interfaces
+﻿namespace Mehdime.DbScope.Interfaces
 {
     public interface IDbContextReadOnlyScope
     {

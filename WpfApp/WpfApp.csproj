@@ -167,9 +167,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
-      <Project>{0d1c3b3b-3824-4101-b775-578dfd776898}</Project>
-      <Name>DataAccessLayer</Name>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{73fc5180-9d75-4957-95cf-2843fa662548}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infastructure\Infrastructure.csproj">
+      <Project>{52fe244c-83fa-48fe-854e-719674fefba9}</Project>
+      <Name>Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

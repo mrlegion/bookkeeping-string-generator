@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data;
-using Infrastructure.Enums;
+using Mehdime.DbScope.Enums;
 
-namespace Infrastructure.Interfaces
+namespace Mehdime.DbScope.Interfaces
 {
     public interface IDbContextScopeFactory
     {

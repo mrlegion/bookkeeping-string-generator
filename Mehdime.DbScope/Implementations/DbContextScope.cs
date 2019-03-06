@@ -4,16 +4,15 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Messaging;
 using System.Threading;
 using System.Threading.Tasks;
-using Infrastructure.Enums;
-using Infrastructure.Interfaces;
+using Mehdime.DbScope.Enums;
+using Mehdime.DbScope.Interfaces;
 
-namespace Infrastructure.Implementations
+namespace Mehdime.DbScope.Implementations
 {
     public class DbContextScope : IDbContextScope
     {

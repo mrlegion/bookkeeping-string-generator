@@ -65,6 +65,8 @@
   <ItemGroup>
     <Compile Include="BankFluentMap.cs" />
     <Compile Include="BookkeepingLibraryContext.cs" />
+    <Compile Include="CompanyFluentMap.cs" />
+    <Compile Include="OrganizationFluentMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

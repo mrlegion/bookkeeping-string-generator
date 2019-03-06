@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
-using Infrastructure.Interfaces;
+using Mehdime.DbScope.Interfaces;
 
-namespace Infrastructure.Implementations
+namespace Mehdime.DbScope.Implementations
 {
     public class DbContextScopeFactory : IDbContextFactory
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 
-namespace Infrastructure.Interfaces
+namespace Mehdime.DbScope.Interfaces
 {
     public interface IDbContextCollection : IDisposable
     {

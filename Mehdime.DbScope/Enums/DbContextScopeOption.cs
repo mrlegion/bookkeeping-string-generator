@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Enums
+﻿namespace Mehdime.DbScope.Enums
 {
     public enum DbContextScopeOption
     {
