@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Entities
@@ -9,6 +10,9 @@ namespace Infrastructure.Entities
         public string AccountNumber { get; set; }
         public Company Company { get; set; }
         public Bank Bank { get; set; }
+
+        public ICollection<PaymentOrder> PayerOrders { get; set; }
+        public ICollection<PaymentOrder> RecipientOrders { get; set; }
 
         public Organization() {}
 

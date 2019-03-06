@@ -3,11 +3,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using CommonServiceLocator;
-using DataAccessLayer;
-using DataAccessLayer.Entity;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Infrastructure.Entities;
 using WpfApp.Service;
 
 namespace WpfApp.ViewModels
@@ -119,23 +118,6 @@ namespace WpfApp.ViewModels
             {
                 return _saveCommand ?? (_saveCommand = new RelayCommand(() =>
                 {
-                    Task.Factory.StartNew(() =>
-                    {
-                        OpenDialog = true;
-
-                        using (var repository = ServiceLocator.Current.GetInstance<IRepository<Company>>())
-                        {
-                            _company.Name = CompanyName;
-                            _company.Inn = CompanyInn;
-                            _company.Kpp = CompanyKpp;
-                            repository.Add(_company);
-                            repository.SaveAsync();
-                        }
-
-                        Thread.Sleep(500);
-                        Dispatcher.CurrentDispatcher.BeginInvoke((Action) (() => { NavigationService.GoBack(); }));
-                        OpenDialog = false;
-                    });
                 }));
             }
         }

@@ -42,6 +42,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BankCreationService.cs" />
+    <Compile Include="Services\BankQueryService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{e295af67-c4b3-4a47-b9e9-f752d1f21cd6}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infastructure\Infrastructure.csproj">
+      <Project>{52fe244c-83fa-48fe-854e-719674fefba9}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mehdime.DbScope\Mehdime.DbScope.csproj">
+      <Project>{5055ba9e-5510-4ca0-a540-83095b0e86cc}</Project>
+      <Name>Mehdime.DbScope</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

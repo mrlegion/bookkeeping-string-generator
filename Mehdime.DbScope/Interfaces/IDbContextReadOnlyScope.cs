@@ -1,6 +1,8 @@
-﻿namespace Mehdime.DbScope.Interfaces
+﻿using System;
+
+namespace Mehdime.DbScope.Interfaces
 {
-    public interface IDbContextReadOnlyScope
+    public interface IDbContextReadOnlyScope : IDisposable
     {
         IDbContextCollection DbContexts { get; }
     }

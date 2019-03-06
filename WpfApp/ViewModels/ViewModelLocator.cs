@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Windows.Media;
 using CommonServiceLocator;
-using DataAccessLayer;
-using DataAccessLayer.Entity;
-using DataAccessLayer.Repositories;
 using GalaSoft.MvvmLight.Ioc;
 using WpfApp.Service;
 using WpfApp.Views;
@@ -85,10 +82,6 @@ namespace WpfApp.ViewModels
         // TODO: Вынести в другое место
         private static void InitDao()
         {
-            SimpleIoc.Default.Register<IRepository<Company>, CompanyRepository>();
-            SimpleIoc.Default.Register<IRepository<Bank>, BankRepository>();
-            SimpleIoc.Default.Register<IRepository<Organization>, OrganizationRepository>();
-            SimpleIoc.Default.Register<IRepository<PaymentOrder>, PaymentOrderRepository>();
         }
     }
 }
