@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace SumToString
 {
-    public class Model
+    public static class Model
     {
         private static string[] _numberStrings = new[]
         {
@@ -18,10 +19,10 @@ namespace SumToString
             "миллиардов", "миллиард", "миллиарда", "миллиарда", "миллиарда", "миллиардов", "миллиардов", "миллиардов", "миллиардов", "миллиардов"
         };
 
-        private static readonly List<string> _rub = 
+        private static readonly List<string> Rub = 
             new List<string>() {"рублей", "рубль", "рубля", "рубля", "рубля", "рублей", "рублей", "рублей", "рублей", "рублей"};
 
-        private static readonly List<string> _kop = 
+        private static readonly List<string> Kop = 
             new List<string>() {"копеек", "копейка", "копейки", "копейки", "копейки", "копеек", "копеек", "копеек", "копеек", "копеек"};
 
         private static string _negative;
@@ -58,7 +59,7 @@ namespace SumToString
 
             if (money.Substring(0, 1) == "-")
             {
-                money = money.Remove(0);
+                money = money.Remove(0, 1);
                 _negative = "минус";
             }
 
@@ -78,11 +79,11 @@ namespace SumToString
 
             if (rub.Length > 12) return "Number is Big";
 
-            var ru = GetNaming(_price = rub, _rub, MoneyType.Rub);
+            var ru = GetNaming(_price = rub, Rub, MoneyType.Rub);
+            ru = (string.IsNullOrEmpty(_negative)) ? ru : $"{_negative} {ru}";
+            ru = fullNameKop ? $"{ru} {GetNamingKop(kop)}" : $"{ru} {kop} коп.";
 
-            var kopText = fullNameKop ? GetNamingKop(kop) : kop + " коп.";
-
-            return $"{ru} {kopText}";
+            return ru.ToFistUpper();
         }
 
         private static string GetNaming(string price, List<string> list, MoneyType type)
@@ -135,7 +136,7 @@ namespace SumToString
                 result = hundreds + tens + units + result;
             }
 
-            if (result == $" {_rub[0]}") return $"ноль {result}";
+            if (result == $" {Rub[0]}") return $"ноль {result}";
             return result.Substring(1);
         }
 
@@ -147,19 +148,61 @@ namespace SumToString
 
         private static string GetNamingKop(string kop)
         {
+            if (string.IsNullOrEmpty(kop) || string.IsNullOrWhiteSpace(kop))
+                return "00 копеек";
+
             if (Int32.TryParse(kop.Substring(1, 1), out var units))
             {
                 if (units == 1) return kop + " копейка";
-                if (units > 1) return kop + " копейки";
+                if (units < 5) return kop + " копейки";
                 if (units > 4) return kop + " копеек";
                 if (units == 0) return kop + " копеек";
             }
 
             if (Int32.TryParse(kop.Substring(2, 1), out var thens))
-            {
                 if (thens == 1) return kop + " копеек";
+
+            return "00 копеек";
+        }
+
+        private static string ToFistUpper(this string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                throw new ArgumentNullException(nameof(s));
+
+            string[] sArray = s.Split(' ');
+
+            if (sArray.Length == 0)
+                throw new ArgumentOutOfRangeException(nameof(sArray));
+
+            for (int i = 0; i < sArray.Length; i++)
+            {
+                if (i == 0)
+                    sArray[i] = (sArray[i].Substring(0, 1).ToUpper()) + (sArray[i].Substring(1).ToLower());
+                else sArray[i] = sArray[i].ToLower();
             }
-            return $" 00 {_kop[0]}";
+
+            return string.Join(" ", sArray);
+        }
+
+        private static string ToFirstOnEachUpper(this string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                throw new ArgumentNullException(nameof(s));
+
+            string[] sArray = s.Split(' ');
+
+            if (sArray.Length == 0)
+                throw new ArgumentOutOfRangeException(nameof(sArray));
+
+            for (int i = 0; i < sArray.Length; i++)
+            {
+                if (sArray[i].Length > 1)
+                    sArray[i] = (sArray[i].Substring(0, 1).ToUpper()) + (sArray[i].Substring(1).ToLower());
+                else sArray[i] = sArray[i].ToUpper();
+            }
+
+            return string.Join(" ", sArray);
         }
     }
 
