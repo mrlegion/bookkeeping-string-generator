@@ -66,7 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbScopeBootstapper.cs" />
+    <Compile Include="DbScopeModule.cs" />
     <Compile Include="Enums\DbContextScopeOption.cs" />
     <Compile Include="Implementations\AmbientContextSuppressor.cs" />
     <Compile Include="Implementations\AmbientDbContextLocator.cs" />

@@ -84,7 +84,7 @@
     <Compile Include="BankFluentMap.cs" />
     <Compile Include="BookkeepingLibraryContext.cs" />
     <Compile Include="CompanyFluentMap.cs" />
-    <Compile Include="DalBootstrapper.cs" />
+    <Compile Include="DalModule.cs" />
     <Compile Include="OrganizationFluentMap.cs" />
     <Compile Include="PayFluentMap.cs" />
     <Compile Include="PaymentOrderFluentMap.cs" />

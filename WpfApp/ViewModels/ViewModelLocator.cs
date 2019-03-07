@@ -1,4 +1,6 @@
 ﻿using System;
+using Autofac;
+using Autofac.Extras.CommonServiceLocator;
 using CommonServiceLocator;
 using Domain;
 using GalaSoft.MvvmLight.Ioc;
@@ -14,14 +16,35 @@ namespace WpfApp.ViewModels
     {
         static ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            var builder = new ContainerBuilder();
 
-            DomainBootstrapper.Init();
+            builder.RegisterModule(new DomainModule());
+            builder.RegisterModule(new NavigationModule());
 
-            InitComponents();
-            InitNavigation();
-            InitViews();
-            InitViewModels();
+            // register viewmodel
+            builder.RegisterType<ShellViewModel>();
+            builder.RegisterType<AdministrationViewModel>();
+            builder.RegisterType<OrganizationViewModel>();
+            builder.RegisterType<BankEditViewModel>();
+            builder.RegisterType<BankInfoViewModel>();
+            builder.RegisterType<CompanyEditViewModel>();
+            builder.RegisterType<CompanyInfoViewModel>();
+            builder.RegisterType<GenerateViewModel>();
+            builder.RegisterType<HomeViewModel>();
+
+            // register view
+            builder.RegisterType<ShellWindow>();
+            builder.RegisterType<AdministrationView>();
+            builder.RegisterType<OrganizationView>();
+            builder.RegisterType<BankEditView>();
+            builder.RegisterType<BankInfoView>();
+            builder.RegisterType<CompanyEditView>();
+            builder.RegisterType<CompanyInfoView>();
+            builder.RegisterType<GenerateView>();
+            builder.RegisterType<HomeView>();
+
+            var container = builder.Build();
+            ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocator(container));
         }
 
         public ShellViewModel Shell => ServiceLocator.Current.GetInstance<ShellViewModel>();
@@ -34,48 +57,21 @@ namespace WpfApp.ViewModels
         public GenerateViewModel Generate => ServiceLocator.Current.GetInstance<GenerateViewModel>();
         public HomeViewModel Home => ServiceLocator.Current.GetInstance<HomeViewModel>();
 
-        private static void InitViewModels()
+        internal class NavigationModule : Module
         {
-            SimpleIoc.Default.Register<ShellViewModel>();
-            SimpleIoc.Default.Register<AdministrationViewModel>();
-            SimpleIoc.Default.Register<OrganizationViewModel>();
-            SimpleIoc.Default.Register<BankInfoViewModel>();
-            SimpleIoc.Default.Register<BankEditViewModel>();
-            SimpleIoc.Default.Register<CompanyInfoViewModel>();
-            SimpleIoc.Default.Register<CompanyEditViewModel>();
-            SimpleIoc.Default.Register<HomeViewModel>();
-            SimpleIoc.Default.Register<GenerateViewModel>();
-        }
-
-        private static void InitViews()
-        {
-            SimpleIoc.Default.Register<ShellWindow>();
-            SimpleIoc.Default.Register<AdministrationView>();
-            SimpleIoc.Default.Register<OrganizationView>();
-            SimpleIoc.Default.Register<CompanyEditView>();
-            SimpleIoc.Default.Register<CompanyInfoView>();
-            SimpleIoc.Default.Register<BankEditView>();
-            SimpleIoc.Default.Register<BankInfoView>();
-            SimpleIoc.Default.Register<HomeView>();
-            SimpleIoc.Default.Register<GenerateView>();
-        }
-
-        private static void InitComponents()
-        {
-        }
-
-        private static void InitNavigation()
-        {
-            var service = new FrameNavigationService("RootFrame");
-            service.Configure("Admin", new Uri("../Views/AdministrationView.xaml", UriKind.Relative));
-            service.Configure("Organization", new Uri("../Views/OrganizationView.xaml", UriKind.Relative));
-            service.Configure("Bank", new Uri("../Views/BankInfoView.xaml", UriKind.Relative));
-            service.Configure("BankEdit", new Uri("../Views/BankEditView.xaml", UriKind.Relative));
-            service.Configure("Company", new Uri("../Views/CompanyInfoView.xaml", UriKind.Relative));
-            service.Configure("CompanyEdit", new Uri("..\\Views\\CompanyEditView.xaml", UriKind.Relative));
-            service.Configure("Home", new Uri("..\\Views\\HomeView.xaml", UriKind.Relative));
-            service.Configure("Generate", new Uri("../Views/GenerateView.xaml", UriKind.Relative));
-            SimpleIoc.Default.Register<IFrameNavigationService>(() => service);
+            protected override void Load(ContainerBuilder builder)
+            {
+                var service = new FrameNavigationService("RootFrame");
+                service.Configure("Admin", new Uri("..\\Views\\AdministrationView.xaml", UriKind.Relative));
+                service.Configure("Organization", new Uri("..\\Views\\OrganizationView.xaml", UriKind.Relative));
+                service.Configure("Bank", new Uri("..\\Views\\BankInfoView.xaml", UriKind.Relative));
+                service.Configure("BankEdit", new Uri("..\\Views\\BankEditView.xaml", UriKind.Relative));
+                service.Configure("Company", new Uri("..\\Views\\CompanyInfoView.xaml", UriKind.Relative));
+                service.Configure("CompanyEdit", new Uri("..\\Views\\CompanyEditView.xaml", UriKind.Relative));
+                service.Configure("Home", new Uri("..\\Views\\HomeView.xaml", UriKind.Relative));
+                service.Configure("Generate", new Uri("..\\Views\\GenerateView.xaml", UriKind.Relative));
+                builder.Register(c => service).As<IFrameNavigationService>();
+            }
         }
     }
 }
