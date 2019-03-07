@@ -25,13 +25,26 @@
                    Grid.Row="0"
                    Style="{StaticResource MaterialDesignHeadlineTextBlock}"/>
 
-        <ListView Grid.Row="1">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid></Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <DataGrid Grid.Row="1"
+                  CanUserSortColumns="True"
+                  CanUserAddRows="False"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding Companies}"
+                  md:DataGridAssist.CellPadding="13 8 8 8"
+                  md:DataGridAssist.ColumnHeaderPadding="8">
+            <DataGrid.Columns>
+                <md:MaterialDataGridTextColumn Header="Наименование компании" 
+                                               Binding="{Binding Name}"
+                                               Width="3*"/>
+                <md:MaterialDataGridTextColumn Header="ИНН" 
+                                               Binding="{Binding Inn}"
+                                               Width="1*"/>
+                <md:MaterialDataGridTextColumn Header="КПП" 
+                                               Binding="{Binding Kpp}"
+                                               Width="1*"/>
+            </DataGrid.Columns>
+        </DataGrid>
         
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right"

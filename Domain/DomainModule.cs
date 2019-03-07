@@ -9,11 +9,13 @@ namespace Domain
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<BankCreationService>();
-            builder.RegisterType<BankQueryService>();
-
             builder.RegisterModule(new DalModule());
             builder.RegisterModule(new DbScopeModule());
+
+            builder.RegisterType<BankCreationService>();
+            builder.RegisterType<BankQueryService>();
+            builder.RegisterType<CompanyCreationService>();
+            builder.RegisterType<CompanyQueryService>();
         }
     }
 }

@@ -8,37 +8,37 @@ using Mehdime.DbScope.Interfaces;
 
 namespace Domain.Services
 {
-    public class BankQueryService
+    public class CompanyQueryService
     {
         private readonly IDbContextScopeFactory _dbContextScopeFactory;
-        private readonly IBankRepository _bankRepository;
+        private readonly ICompanyRepository _companyRepository;
 
-        public BankQueryService(IDbContextScopeFactory dbContextScopeFactory, IBankRepository bankRepository)
+        public CompanyQueryService(IDbContextScopeFactory dbContextScopeFactory, ICompanyRepository companyRepository)
         {
             if (dbContextScopeFactory == null) throw new ArgumentNullException(nameof(dbContextScopeFactory));
-            if (bankRepository == null) throw new ArgumentNullException(nameof(bankRepository));
+            if (companyRepository == null) throw new ArgumentNullException(nameof(companyRepository));
 
             _dbContextScopeFactory = dbContextScopeFactory;
-            _bankRepository = bankRepository;
+            _companyRepository = companyRepository;
         }
 
-        public Bank GetBank(int id)
+        public Company GetCompany(int id)
         {
             if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
 
-            using (var dbScopeContext = _dbContextScopeFactory.CreateReadOnly())
+            using (var dbContextScope = _dbContextScopeFactory.CreateReadOnly())
             {
-                var dbContext = dbScopeContext.DbContexts.Get<BookkeepingLibraryContext>();
-                return dbContext.Banks.Find(id);
+                var dbContext = dbContextScope.DbContexts.Get<BookkeepingLibraryContext>();
+                return dbContext.Companies.Find(id);
             }
         }
 
-        public IEnumerable<Bank> GetAllBanks()
+        public IEnumerable<Company> GetAllCompanies()
         {
             using (var dbContextScope = _dbContextScopeFactory.CreateReadOnly())
             {
                 var dbContext = dbContextScope.DbContexts.Get<BookkeepingLibraryContext>();
-                return dbContext.Banks.ToList();
+                return dbContext.Companies.ToList();
             }
         }
     }

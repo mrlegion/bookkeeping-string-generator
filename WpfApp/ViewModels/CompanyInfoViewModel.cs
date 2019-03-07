@@ -1,46 +1,29 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System.Collections.Generic;
+using CommonServiceLocator;
+using Domain.Services;
+using GalaSoft.MvvmLight;
+using Infrastructure.Entities;
 using WpfApp.Service;
 
 namespace WpfApp.ViewModels
 {
-    /// <summary>
-    /// Description this class
-    /// </summary>
     public class CompanyInfoViewModel : ViewModelCustom
     {
-        #region Fields
-
-        
-
-        #endregion
-
-        #region Ctor
-
-        public CompanyInfoViewModel(IFrameNavigationService navigationService) 
+        public CompanyInfoViewModel(IFrameNavigationService navigationService)
             : base(navigationService)
         {
+            var service = ServiceLocator.Current.GetInstance<CompanyQueryService>();
+            Companies = service.GetAllCompanies();
         }
 
-        #endregion
+        private IEnumerable<Company> _companies;
 
-        #region Properties
+        public const string CompaniesPropertyName = "Companies";
 
-        #endregion
-
-        #region Commands
-
-        #endregion
-
-        #region Public methods
-
-        #endregion
-
-        #region Private methods
-
-        #endregion
-
-        #region Exceptions
-
-        #endregion
+        public IEnumerable<Company> Companies
+        {
+            get { return _companies; }
+            set { Set(CompaniesPropertyName, ref _companies, value); }
+        }
     }
 }

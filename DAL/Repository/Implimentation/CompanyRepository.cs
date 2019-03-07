@@ -3,12 +3,13 @@ using System.Threading.Tasks;
 using DAL.Repository.Interface;
 using Infrastructure.Entities;
 using Mehdime.DbScope.Implementations;
+using Mehdime.DbScope.Interfaces;
 
 namespace DAL.Repository.Implimentation
 {
     public class CompanyRepository : ICompanyRepository
     {
-        private readonly AmbientDbContextLocator _ambientDbContextLocator;
+        private readonly IAmbientDbContextLocator _ambientDbContextLocator;
 
         private BookkeepingLibraryContext DbContext
         {
@@ -21,7 +22,7 @@ namespace DAL.Repository.Implimentation
             }
         }
 
-        public CompanyRepository(AmbientDbContextLocator ambientDbContextLocator)
+        public CompanyRepository(IAmbientDbContextLocator ambientDbContextLocator)
         {
             if (ambientDbContextLocator == null) throw new ArgumentNullException(nameof(ambientDbContextLocator));
             _ambientDbContextLocator = ambientDbContextLocator;

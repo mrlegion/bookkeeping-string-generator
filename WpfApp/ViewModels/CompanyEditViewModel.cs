@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using CommonServiceLocator;
+using Domain.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -16,49 +17,11 @@ namespace WpfApp.ViewModels
     /// </summary>
     public class CompanyEditViewModel : ViewModelCustom
     {
-        #region Fields
+        private Company company;
 
-        private Company _company;
-
-        #endregion
-
-        #region Ctor
-
-        public CompanyEditViewModel(IFrameNavigationService navigationService) 
-            : base(navigationService)
+        public CompanyEditViewModel(IFrameNavigationService navigationService) : base(navigationService)
         {
-            _company = new Company();
-
-            Messenger.Default.Register<NotificationMessage<Company>>(this, (message) =>
-            {
-                _company = message.Content ?? new Company();
-                CompanyName = _company.Name;
-                CompanyInn = _company.Inn;
-                CompanyKpp = _company.Kpp;
-            });
         }
-
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        #region Commands
-
-        #endregion
-
-        #region Public methods
-
-        #endregion
-
-        #region Private methods
-
-        #endregion
-
-        #region Exceptions
-
-        #endregion
 
         private string _companyName;
 
@@ -114,12 +77,20 @@ namespace WpfApp.ViewModels
 
         public RelayCommand SaveCommand
         {
-            get
+            get { return _saveCommand ?? (_saveCommand = new RelayCommand(() =>
             {
-                return _saveCommand ?? (_saveCommand = new RelayCommand(() =>
+                if (company == null) company = new Company(CompanyName, CompanyInn, CompanyKpp);
+                else
                 {
-                }));
-            }
+                    company.Name = CompanyName;
+                    company.Inn = CompanyInn;
+                    company.Kpp = CompanyKpp;
+                }
+
+                var service = ServiceLocator.Current.GetInstance<CompanyCreationService>();
+                service.CreateCompany(company);
+                NavigationService.GoBack();
+            })); }
         }
     }
 }

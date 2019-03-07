@@ -24,7 +24,29 @@
         <TextBlock Text="Информация о банках"
                    Grid.Row="0"
                    Style="{StaticResource MaterialDesignHeadlineTextBlock}"/>
-        <ListView Grid.Row="1"></ListView>
+        <DataGrid Grid.Row="1"
+                  CanUserSortColumns="True"
+                  CanUserAddRows="False"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding Banks}"
+                  md:DataGridAssist.CellPadding="13 8 8 8"
+                  md:DataGridAssist.ColumnHeaderPadding="8">
+            <DataGrid.Columns>
+                <md:MaterialDataGridTextColumn Header="Наименование компании" 
+                                               Binding="{Binding Name}"
+                                               Width="3*"/>
+                <md:MaterialDataGridTextColumn Header="Наименование города" 
+                                               Binding="{Binding City}"
+                                               Width="1.5*"/>
+                <md:MaterialDataGridTextColumn Header="БИК" 
+                                               Binding="{Binding Bik}"
+                                               Width=".7*"/>
+                <md:MaterialDataGridTextColumn Header="Номер счёта" 
+                                               Binding="{Binding AccountNumber}"
+                                               Width="1.2*"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Margin="0 15 0 0"
