@@ -1,4 +1,5 @@
-﻿using Domain.Services;
+﻿using DAL;
+using Domain.Services;
 using GalaSoft.MvvmLight.Ioc;
 using Mehdime.DbScope;
 
@@ -8,6 +9,9 @@ namespace Domain
     {
         public static void Init()
         {
+            // call bootstrapper in Dal
+            DalBootstrapper.Init();
+
             // call bootstrapper in DbScope
             DbScopeBootstapper.Init();
 
