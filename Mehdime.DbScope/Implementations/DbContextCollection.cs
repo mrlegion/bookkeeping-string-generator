@@ -101,7 +101,7 @@ namespace Mehdime.DbScope.Implementations
             {
                 try
                 {
-                    if (_readOnly)
+                    if (!_readOnly)
                         c += dbContext.SaveChanges();
                     DbContextTransaction transition = GetValueOrDefault(_transactions, dbContext);
                     if (transition != null)

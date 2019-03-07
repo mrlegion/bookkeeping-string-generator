@@ -7,7 +7,9 @@ namespace DAL
 {
     public class BookkeepingLibraryContext : DbContext
     {
-        protected BookkeepingLibraryContext() : base("Default") {}
+        public BookkeepingLibraryContext() : base("Default")
+        {
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

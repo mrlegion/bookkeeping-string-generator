@@ -30,6 +30,12 @@ namespace DAL
                 .HasMaxLength(20)
                 .IsRequired();
 
+            Property(bank => bank.Bik)
+                .HasColumnName("bank_bik")
+                .HasColumnType("varchar")
+                .HasMaxLength(9)
+                .IsRequired();
+
             HasMany(b => b.Organizations)
                 .WithRequired(o => o.Bank);
         }
