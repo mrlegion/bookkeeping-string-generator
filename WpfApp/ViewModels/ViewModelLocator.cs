@@ -31,6 +31,7 @@ namespace WpfApp.ViewModels
             builder.RegisterType<CompanyInfoViewModel>();
             builder.RegisterType<GenerateViewModel>();
             builder.RegisterType<HomeViewModel>();
+            builder.RegisterType<OrganizationEditViewModel>();
 
             // register view
             builder.RegisterType<ShellWindow>();
@@ -42,6 +43,7 @@ namespace WpfApp.ViewModels
             builder.RegisterType<CompanyInfoView>();
             builder.RegisterType<GenerateView>();
             builder.RegisterType<HomeView>();
+            builder.RegisterType<OrganizationEditView>();
 
             var container = builder.Build();
             ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocator(container));
@@ -49,13 +51,14 @@ namespace WpfApp.ViewModels
 
         public ShellViewModel Shell => ServiceLocator.Current.GetInstance<ShellViewModel>();
         public AdministrationViewModel Administration => ServiceLocator.Current.GetInstance<AdministrationViewModel>();
-        public OrganizationViewModel Organization => ServiceLocator.Current.GetInstance<OrganizationViewModel>();
+        public OrganizationViewModel OrganizationInfo => ServiceLocator.Current.GetInstance<OrganizationViewModel>();
         public BankInfoViewModel BankInfo => ServiceLocator.Current.GetInstance<BankInfoViewModel>();
         public BankEditViewModel BankEdit => ServiceLocator.Current.GetInstance<BankEditViewModel>();
         public CompanyInfoViewModel CompanyInfo => ServiceLocator.Current.GetInstance<CompanyInfoViewModel>();
         public CompanyEditViewModel CompanyEdit => ServiceLocator.Current.GetInstance<CompanyEditViewModel>();
         public GenerateViewModel Generate => ServiceLocator.Current.GetInstance<GenerateViewModel>();
         public HomeViewModel Home => ServiceLocator.Current.GetInstance<HomeViewModel>();
+        public OrganizationEditViewModel OrganizationEdit => ServiceLocator.Current.GetInstance<OrganizationEditViewModel>();
 
         internal class NavigationModule : Module
         {
@@ -63,13 +66,14 @@ namespace WpfApp.ViewModels
             {
                 var service = new FrameNavigationService("RootFrame");
                 service.Configure("Admin", new Uri("..\\Views\\AdministrationView.xaml", UriKind.Relative));
-                service.Configure("Organization", new Uri("..\\Views\\OrganizationView.xaml", UriKind.Relative));
+                service.Configure("OrganizationInfo", new Uri("..\\Views\\OrganizationView.xaml", UriKind.Relative));
                 service.Configure("Bank", new Uri("..\\Views\\BankInfoView.xaml", UriKind.Relative));
                 service.Configure("BankEdit", new Uri("..\\Views\\BankEditView.xaml", UriKind.Relative));
                 service.Configure("Company", new Uri("..\\Views\\CompanyInfoView.xaml", UriKind.Relative));
                 service.Configure("CompanyEdit", new Uri("..\\Views\\CompanyEditView.xaml", UriKind.Relative));
                 service.Configure("Home", new Uri("..\\Views\\HomeView.xaml", UriKind.Relative));
                 service.Configure("Generate", new Uri("..\\Views\\GenerateView.xaml", UriKind.Relative));
+                service.Configure("OrganizationEdit", new Uri("..\\Views\\OrganizationEditView.xaml", UriKind.Relative));
                 builder.Register(c => service).As<IFrameNavigationService>();
             }
         }

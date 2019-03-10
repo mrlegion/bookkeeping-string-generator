@@ -16,6 +16,8 @@ namespace Domain
             builder.RegisterType<BankQueryService>();
             builder.RegisterType<CompanyCreationService>();
             builder.RegisterType<CompanyQueryService>();
+            builder.RegisterType<OrganizationQueryService>();
+            builder.RegisterType<OrganizationCreationService>();
         }
     }
 }

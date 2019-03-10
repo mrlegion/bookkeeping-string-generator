@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System.Windows;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using WpfApp.Service;
 
@@ -39,16 +40,15 @@ namespace WpfApp.ViewModels
 
         #endregion
 
-        private RelayCommand _goBackCommand;
+        
 
-        public RelayCommand GoBackCommand
+        private RelayCommand _onExitCommand;
+
+        public RelayCommand OnExitCommand
         {
             get
             {
-                return _goBackCommand ?? (_goBackCommand = new RelayCommand(() =>
-                {
-                    NavigationService.GoBack();
-                }));
+                return _onExitCommand ?? (_onExitCommand = new RelayCommand(() => { Application.Current.Shutdown(); }));
             }
         }
     }

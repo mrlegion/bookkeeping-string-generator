@@ -113,6 +113,7 @@
     <Compile Include="ViewModels\CompanyInfoViewModel.cs" />
     <Compile Include="ViewModels\GenerateViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\OrganizationEditViewModel.cs" />
     <Compile Include="ViewModels\OrganizationViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\ViewModelCustom.cs" />
@@ -137,6 +138,9 @@
     </Compile>
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrganizationEditView.xaml.cs">
+      <DependentUpon>OrganizationEditView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OrganizationView.xaml.cs">
       <DependentUpon>OrganizationView.xaml</DependentUpon>
@@ -211,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrganizationEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

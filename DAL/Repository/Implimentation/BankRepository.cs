@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using DAL.Repository.Interface;
+﻿using DAL.Repository.Interface;
 using Infrastructure.Entities;
 using Mehdime.DbScope.Interfaces;
+using System;
+using System.Threading.Tasks;
 
 namespace DAL.Repository.Implimentation
 {
@@ -23,22 +23,25 @@ namespace DAL.Repository.Implimentation
 
         public BankRepository(IAmbientDbContextLocator ambientDbContextLocator)
         {
-            if (ambientDbContextLocator == null) throw new ArgumentNullException(nameof(ambientDbContextLocator));
-            _ambientDbContextLocator = ambientDbContextLocator;
+            _ambientDbContextLocator = ambientDbContextLocator
+                                       ?? throw new ArgumentNullException(nameof(ambientDbContextLocator));
         }
 
         public Bank Get(int id)
         {
+            if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
             return DbContext.Banks.Find(id);
         }
 
         public async Task<Bank> GetAsync(int id)
         {
+            if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
             return await DbContext.Banks.FindAsync(id);
         }
 
         public void Add(Bank bank)
         {
+            if (bank == null) throw new ArgumentNullException(nameof(bank));
             DbContext.Banks.Add(bank);
         }
     }

@@ -66,6 +66,8 @@
     <Compile Include="Services\BankQueryService.cs" />
     <Compile Include="Services\CompanyCreationService.cs" />
     <Compile Include="Services\CompanyQueryService.cs" />
+    <Compile Include="Services\OrganizationCreationService.cs" />
+    <Compile Include="Services\OrganizationQueryService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">

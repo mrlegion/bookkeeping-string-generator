@@ -15,16 +15,17 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="BankInfoView">
 
-    <Grid Margin="10">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TextBlock Text="Информация о банках"
                    Grid.Row="0"
+                   Margin="18 10 18 0"
                    Style="{StaticResource MaterialDesignHeadlineTextBlock}"/>
         <DataGrid Grid.Row="1"
+                  Margin="0 5 0 10"
                   CanUserSortColumns="True"
                   CanUserAddRows="False"
                   AutoGenerateColumns="False"
@@ -44,28 +45,20 @@
                                                Width=".7*"/>
                 <md:MaterialDataGridTextColumn Header="Номер счёта" 
                                                Binding="{Binding AccountNumber}"
-                                               Width="1.2*"/>
+                                               Width="1*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    Margin="0 15 0 0"
-                    Grid.Row="2">
-            <Button Margin="10 0" Command="{Binding NavigateToCommand}" CommandParameter="BankEdit">
-                <StackPanel Orientation="Horizontal">
-                    <md:PackIcon Kind="Add"/>
-                    <TextBlock Text="Добавить банк"
-                               Margin="5 0 0 0"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="10 0" 
-                    Style="{StaticResource MaterialDesignFlatAccentButton}">
-                <StackPanel Orientation="Horizontal">
-                    <md:PackIcon Kind="Home"/>
-                    <TextBlock Text="На главную"
-                               Margin="5 0 0 0"/>
-                </StackPanel>
-            </Button>
-        </StackPanel>
+
+        <Button Grid.Column="0" Grid.Row="0" 
+                Grid.RowSpan="2"
+                Margin="20 15"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                Command="{Binding NavigateToCommand}"
+                CommandParameter="BankEdit"
+                ToolTip="Добавить новый банк">
+            <md:PackIcon Kind="Add" Width="25" Height="25"/>
+        </Button>
     </Grid>
 </Page>

@@ -1,40 +1,32 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System.Collections.Generic;
+using CommonServiceLocator;
+using Domain.Services;
+using GalaSoft.MvvmLight;
+using Infrastructure.Dto;
+using Infrastructure.Entities;
+using WpfApp.Service;
 
 namespace WpfApp.ViewModels
 {
     /// <summary>
     /// Description this class
     /// </summary>
-    public class OrganizationViewModel : ViewModelBase
+    public class OrganizationViewModel : ViewModelCustom
     {
-        #region Fields
+        public OrganizationViewModel(IFrameNavigationService navigationService) : base(navigationService)
+        {
+            var service = ServiceLocator.Current.GetInstance<OrganizationQueryService>();
+            Organizations = service.GetAllSimpleInfo();
+        }
 
-        
+        private IEnumerable<OrganizationSimpleDto> _organizations;
 
-        #endregion
+        public const string OrganizationsPropertyName = "Organizations";
 
-        #region Ctor
-
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        #region Commands
-
-        #endregion
-
-        #region Public methods
-
-        #endregion
-
-        #region Private methods
-
-        #endregion
-
-        #region Exceptions
-
-        #endregion
+        public IEnumerable<OrganizationSimpleDto> Organizations
+        {
+            get { return _organizations; }
+            set { Set(OrganizationsPropertyName, ref _organizations, value); }
+        }
     }
 }

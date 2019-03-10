@@ -29,5 +29,18 @@ namespace WpfApp.ViewModels
                 }));
             }
         }
+
+        private RelayCommand _goBackCommand;
+
+        public RelayCommand GoBackCommand
+        {
+            get
+            {
+                return _goBackCommand ?? (_goBackCommand = new RelayCommand(() =>
+                {
+                    NavigationService.GoBack();
+                }));
+            }
+        }
     }
 }

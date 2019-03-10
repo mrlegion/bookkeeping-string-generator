@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\OrganizationSimpleDto.cs" />
     <Compile Include="Entities\Bank.cs" />
     <Compile Include="Entities\Company.cs" />
     <Compile Include="Entities\Organization.cs" />

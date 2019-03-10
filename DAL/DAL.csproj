@@ -93,6 +93,8 @@
     <Compile Include="Repository\Implimentation\CompanyRepository.cs" />
     <Compile Include="Repository\Interface\IBankRepository.cs" />
     <Compile Include="Repository\Interface\ICompanyRepository.cs" />
+    <Compile Include="Repository\Interface\IOrganizationRepository.cs" />
+    <Compile Include="Repository\Implimentation\OrganizationRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

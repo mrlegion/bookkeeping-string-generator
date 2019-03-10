@@ -1,0 +1,132 @@
+﻿<Page x:Class="WpfApp.Views.OrganizationEditView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      Background="{DynamicResource MaterialDesignPaper}"
+      TextElement.FontWeight="Regular"
+      TextElement.FontSize="14"
+      FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+      Title="OrganizationInfoEditView" DataContext="{Binding OrganizationEdit, Source={StaticResource Locator}}">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Добавление или редактирование компании"
+                       Margin="18 10"
+                       FontWeight="SemiBold"
+                       Grid.Row="0"
+                       Style="{StaticResource MaterialDesignHeadlineTextBlock}"/>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <DockPanel Grid.Column="1">
+                    <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
+                        <Grid Margin="0 0 0 15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Grid.Column="0"
+                                      SelectedItem="{Binding SelectCompany}"
+                                      ItemsSource="{Binding Companies}"
+                                      md:HintAssist.Hint="Выбрать компанию"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold"/>
+                                            <TextBlock Text=" ( "/>
+                                            <TextBlock Text="{Binding Inn}" FontStyle="Italic"/>
+                                            <TextBlock Text=" | "/>
+                                            <TextBlock Text="{Binding Kpp}" FontStyle="Italic"/>
+                                            <TextBlock Text=" )"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <Button Grid.Column="1"
+                                    ToolTip="Добавить новую компанию"
+                                    Style="{StaticResource MaterialDesignToolButton}"
+                                    Margin="25 0 0 0"
+                                    Content="Добавить"
+                                    Command="{Binding NavigateToCommand}"
+                                    CommandParameter="CompanyEdit"/>
+                        </Grid>
+
+                        <Grid Margin="0 0 0 15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Grid.Column="0" 
+                                      SelectedItem="{Binding SelectBank}"
+                                      ItemsSource="{Binding Banks}"
+                                      md:HintAssist.Hint="Выбрать банк"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold"/>
+                                            <TextBlock Text=" | "/>
+                                            <TextBlock Text="{Binding City}"/>
+                                            <TextBlock Text=" ( "/>
+                                            <TextBlock Text="{Binding Bik}" FontStyle="Italic"/>
+                                            <TextBlock Text=" )"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <Button Grid.Column="1"
+                                    ToolTip="Добавить новый банк"
+                                    Style="{StaticResource MaterialDesignToolButton}"
+                                    Margin="25 0 0 0"
+                                    Content="Добавить"
+                                    Command="{Binding NavigateToCommand}"
+                                    CommandParameter="BankEdit"/>
+                        </Grid>
+
+                        <TextBox md:HintAssist.Hint="Номер счета организации"
+                                 Text="{Binding AccountNumber}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" 
+                                Margin="0 10"
+                                DockPanel.Dock="Bottom" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Bottom">
+                        <Button Margin="10 0" Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{Binding ApplyChangesCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="ContentSave"/>
+                                <TextBlock Text="Сохранить" Margin="5 0 0 0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Margin="10 0" Style="{StaticResource MaterialDesignFlatAccentButton}"
+                                Command="{Binding GoBackCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="Cancel"/>
+                                <TextBlock Text="Отмена" Margin="5 0 0 0"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </DockPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

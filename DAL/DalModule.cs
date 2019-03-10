@@ -10,6 +10,7 @@ namespace DAL
         {
             builder.RegisterType<BankRepository>().As<IBankRepository>();
             builder.RegisterType<CompanyRepository>().As<ICompanyRepository>();
+            builder.RegisterType<OrganizationRepository>().As<IOrganizationRepository>();
             builder.RegisterType<BookkeepingLibraryContext>();
         }
     }
