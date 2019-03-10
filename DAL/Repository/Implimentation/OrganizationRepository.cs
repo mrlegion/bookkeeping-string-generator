@@ -79,6 +79,8 @@ namespace DAL.Repository.Implimentation
         public void AddOrganization(Organization organization)
         {
             if (organization == null) throw new ArgumentNullException(nameof(organization));
+            DbContext.Companies.Attach(organization.Company);
+            DbContext.Banks.Attach(organization.Bank);
             DbContext.Organizations.Add(organization);
         }
     }

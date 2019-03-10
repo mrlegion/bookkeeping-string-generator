@@ -14,11 +14,10 @@ namespace Domain.Services
 
         public BankCreationService(IDbContextScopeFactory dbContextScopeFactory, IBankRepository bankRepository)
         {
-            if (dbContextScopeFactory == null) throw new ArgumentNullException(nameof(dbContextScopeFactory));
-            if (bankRepository == null) throw new ArgumentNullException(nameof(bankRepository));
-
-            _dbContextScopeFactory = dbContextScopeFactory;
-            _bankRepository = bankRepository;
+            _dbContextScopeFactory = dbContextScopeFactory 
+                                     ?? throw new ArgumentNullException(nameof(dbContextScopeFactory));
+            _bankRepository = bankRepository 
+                              ?? throw new ArgumentNullException(nameof(bankRepository));
         }
 
         public void CreateBank(Bank bank)

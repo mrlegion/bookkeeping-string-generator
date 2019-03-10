@@ -91,8 +91,8 @@ namespace WpfApp.ViewModels
                     if (_organization == null) _organization = new Organization();
 
                     _organization.AccountNumber = AccountNumber.Replace(" ", "");
-                    _organization.Company = SelectCompany;
-                    _organization.Bank = SelectBank;
+                    _organization.Company = ServiceLocator.Current.GetInstance<CompanyQueryService>().GetCompany(SelectCompany.Id);
+                    _organization.Bank = ServiceLocator.Current.GetInstance<BankQueryService>().GetBank(SelectBank.Id);
 
                     var service = ServiceLocator.Current.GetInstance<OrganizationCreationService>();
                     service.CreateOrganization(_organization);

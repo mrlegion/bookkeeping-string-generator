@@ -1,4 +1,5 @@
-﻿using System.Data.Entity.ModelConfiguration;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using Infrastructure.Entities;
 
 namespace DAL
@@ -11,6 +12,10 @@ namespace DAL
         public BankFluentMap()
         {
             ToTable("bank_info").HasKey(bank => bank.Id);
+
+            Property(bank => bank.Id)
+                .HasColumnName("bank_id")
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(bank => bank.Name)
                 .HasColumnName("bank_name")
