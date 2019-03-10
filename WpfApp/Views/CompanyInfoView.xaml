@@ -37,12 +37,15 @@
             <DataGrid.Columns>
                 <md:MaterialDataGridTextColumn Header="Наименование компании" 
                                                Binding="{Binding Name}"
+                                               FontWeight="SemiBold"
                                                Width="3*"/>
                 <md:MaterialDataGridTextColumn Header="ИНН" 
                                                Binding="{Binding Inn}"
+                                               FontStyle="Italic"
                                                Width="1*"/>
                 <md:MaterialDataGridTextColumn Header="КПП" 
                                                Binding="{Binding Kpp}"
+                                               FontStyle="Italic"
                                                Width="1*"/>
             </DataGrid.Columns>
         </DataGrid>

@@ -16,7 +16,83 @@
       Title="BankEditView">
 
     <Grid>
-        <Grid Margin="20">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Добавление или редактирование банка"
+                       FontWeight="SemiBold"
+                       Grid.Row="0"
+                       Margin="18 10"
+                       Style="{StaticResource MaterialDesignHeadlineTextBlock}"/>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <DockPanel Grid.Column="1">
+                    <StackPanel Orientation="Vertical"
+                                DockPanel.Dock="Top"
+                                VerticalAlignment="Top"
+                                Margin="0 10 0 0"
+                                Grid.Row="1">
+                        <TextBox md:HintAssist.Hint="Наименование Банка"
+                                 Margin="0 0 0 15"
+                                 Text="{Binding BankName}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+
+                        <TextBox md:HintAssist.Hint="Наименование Города"
+                                 Margin="0 0 0 15"
+                                 Text="{Binding BankCity}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+
+                        <TextBox md:HintAssist.Hint="Номер БИК"
+                                 Margin="0 0 0 15"
+                                 Text="{Binding BankBik}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+
+                        <TextBox md:HintAssist.Hint="Номер Счёта"
+                                 Margin="0 0 0 15"
+                                 Text="{Binding BankAccountNumber}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+
+                        <TextBox md:HintAssist.Hint="Комментарии"
+                                 Margin="0 0 0 15"
+                                 Text="{Binding Comments}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" 
+                                Margin="0 10"
+                                DockPanel.Dock="Bottom" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Bottom">
+                        <Button Margin="10 0" Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{Binding ApplyChangesCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="ContentSave"/>
+                                <TextBlock Text="Сохранить" Margin="5 0 0 0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Margin="10 0" Style="{StaticResource MaterialDesignFlatAccentButton}"
+                                Command="{Binding GoBackCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="Cancel"/>
+                                <TextBlock Text="Отмена" Margin="5 0 0 0"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </DockPanel>
+            </Grid>
+        </Grid>
+
+        <!--Todo: Clear this later-->
+        <!--<Grid Margin="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -128,6 +204,6 @@
                                Foreground="{StaticResource PrimaryHueMidBrush}"/>
                 </StackPanel>
             </md:DialogHost.DialogContent>
-        </md:DialogHost>
+        </md:DialogHost>-->
     </Grid>
 </Page>

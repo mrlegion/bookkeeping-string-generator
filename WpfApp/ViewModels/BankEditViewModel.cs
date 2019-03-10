@@ -79,13 +79,13 @@ namespace WpfApp.ViewModels
             set { Set(OpenDialogPropertyName, ref _openDialog, value); }
         }
 
-        private RelayCommand _saveCommand;
+        private RelayCommand _applyChangesCommand;
 
-        public RelayCommand SaveCommand
+        public RelayCommand ApplyChangesCommand
         {
             get
             {
-                return _saveCommand ?? (_saveCommand = new RelayCommand(() =>
+                return _applyChangesCommand ?? (_applyChangesCommand = new RelayCommand(() =>
                 {
                     _bank.Name = BankName;
                     _bank.City = BankCity;
@@ -94,6 +94,7 @@ namespace WpfApp.ViewModels
 
                     var service = ServiceLocator.Current.GetInstance<BankCreationService>();
                     service.CreateBank(_bank);
+                    NavigationService.GoBack();
                 }));
             }
         }

@@ -73,11 +73,11 @@ namespace WpfApp.ViewModels
             set { Set(OpenDialogPropertyName, ref _openDialog, value); }
         }
 
-        private RelayCommand _saveCommand;
+        private RelayCommand _applyChangesCommand;
 
-        public RelayCommand SaveCommand
+        public RelayCommand ApplyChangesCommand
         {
-            get { return _saveCommand ?? (_saveCommand = new RelayCommand(() =>
+            get { return _applyChangesCommand ?? (_applyChangesCommand = new RelayCommand(() =>
             {
                 if (company == null) company = new Company(CompanyName, CompanyInn, CompanyKpp);
                 else
