@@ -34,8 +34,7 @@ namespace WpfApp.Views
         {
             if (((DataGrid) sender).SelectedItem is Bank bank)
             {
-                ServiceLocator.Current.GetInstance<IFrameNavigationService>().NavigateTo("BankEdit");
-                Messenger.Default.Send(new NotificationMessage<Bank>(bank, "edit"));
+                ServiceLocator.Current.GetInstance<IFrameNavigationService>().NavigateTo("BankEdit", bank);
             }
         }
     }

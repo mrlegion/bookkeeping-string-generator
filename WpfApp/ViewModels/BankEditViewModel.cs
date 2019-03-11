@@ -18,16 +18,26 @@ namespace WpfApp.ViewModels
         // конструктор
         public BankEditViewModel(IFrameNavigationService navigationService) : base(navigationService)
         {
-            Messenger.Default.Register<NotificationMessage<Bank>>(this, (m) =>
-            {
-                if (m.Notification != "edit") return;
-                if (m.Content == null) throw new ArgumentNullException(nameof(m.Content));
-                _bank = m.Content;
-                BankName = _bank.Name;
-                BankCity = _bank.City;
-                BankBik = _bank.Bik;
-                BankAccountNumber = _bank.AccountNumber;
-            });
+            //Messenger.Default.Register<NotificationMessage<Bank>>(this, (m) =>
+            //{
+            //    if (m.Notification != "edit") return;
+            //    if (m.Content == null) throw new ArgumentNullException(nameof(m.Content));
+            //    _bank = m.Content;
+            //    BankName = _bank.Name;
+            //    BankCity = _bank.City;
+            //    BankBik = _bank.Bik;
+            //    BankAccountNumber = _bank.AccountNumber;
+            //});
+
+            if (NavigationService.Parameter != null)
+                if (NavigationService.Parameter is Bank bank)
+                {
+                    _bank = bank;
+                    BankName = _bank.Name;
+                    BankCity = _bank.City;
+                    BankBik = _bank.Bik;
+                    BankAccountNumber = _bank.AccountNumber;
+                }
         }
 
         private string _bankName;
@@ -120,8 +130,17 @@ namespace WpfApp.ViewModels
                     _bank.Bik = BankBik;
                     _bank.AccountNumber = BankAccountNumber;
 
-                    var service = ServiceLocator.Current.GetInstance<BankCreationService>();
-                    service.CreateBank(_bank);
+
+
+                    if (NavigationService.Parameter != null)
+                        System.Diagnostics.Debug.WriteLine("Update bank");
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("Creation new bank");
+                        var service = ServiceLocator.Current.GetInstance<BankCreationService>();
+                        service.CreateBank(_bank);
+                    }
+                    
                     NavigationService.GoBack();
                 }, CheckInfo));
             }
