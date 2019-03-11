@@ -12,6 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CommonServiceLocator;
+using GalaSoft.MvvmLight.Messaging;
+using Infrastructure.Entities;
+using WpfApp.Service;
+using DataGrid = System.Windows.Controls.DataGrid;
 
 namespace WpfApp.Views
 {
@@ -23,6 +28,15 @@ namespace WpfApp.Views
         public BankInfoView()
         {
             InitializeComponent();
+        }
+
+        private void Control_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (((DataGrid) sender).SelectedItem is Bank bank)
+            {
+                ServiceLocator.Current.GetInstance<IFrameNavigationService>().NavigateTo("BankEdit");
+                Messenger.Default.Send(new NotificationMessage<Bank>(bank, "edit"));
+            }
         }
     }
 }

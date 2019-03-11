@@ -31,24 +31,29 @@
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   ItemsSource="{Binding Banks}"
+                  MouseDoubleClick="Control_OnMouseDoubleClick"
                   md:DataGridAssist.CellPadding="13 8 8 8"
                   md:DataGridAssist.ColumnHeaderPadding="8">
             <DataGrid.Columns>
-                <md:MaterialDataGridTextColumn Header="Наименование компании" 
-                                               Binding="{Binding Name}"
-                                               FontWeight="SemiBold"
-                                               Width="3*"/>
-                <md:MaterialDataGridTextColumn Header="Наименование города" 
-                                               Binding="{Binding City}"
-                                               Width="1.5*"/>
-                <md:MaterialDataGridTextColumn Header="БИК" 
-                                               Binding="{Binding Bik}"
-                                               FontStyle="Italic"
-                                               Width=".7*"/>
-                <md:MaterialDataGridTextColumn Header="Номер счёта" 
-                                               Binding="{Binding AccountNumber}"
-                                               FontStyle="Italic"
-                                               Width="1*"/>
+                <md:MaterialDataGridTextColumn 
+                    Header="Наименование компании"
+                    Binding="{Binding Name}"
+                    FontWeight="SemiBold"
+                    Width="3*"/>
+                <md:MaterialDataGridTextColumn 
+                    Header="Наименование города"
+                    Binding="{Binding City}"
+                    Width="1.5*"/>
+                <md:MaterialDataGridTextColumn 
+                    Header="БИК" 
+                    Binding="{Binding Bik}"
+                    FontStyle="Italic"
+                    Width=".7*"/>
+                <md:MaterialDataGridTextColumn 
+                    Header="Номер счёта" 
+                    Binding="{Binding AccountNumber}"
+                    FontStyle="Italic"
+                    Width="1*"/>
             </DataGrid.Columns>
         </DataGrid>
 

@@ -1,7 +1,9 @@
-﻿using CommonServiceLocator;
+﻿using System;
+using CommonServiceLocator;
 using Domain.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using Infrastructure.Entities;
 using WpfApp.Service;
 
@@ -16,7 +18,16 @@ namespace WpfApp.ViewModels
         // конструктор
         public BankEditViewModel(IFrameNavigationService navigationService) : base(navigationService)
         {
-            _bank = new Bank();
+            Messenger.Default.Register<NotificationMessage<Bank>>(this, (m) =>
+            {
+                if (m.Notification != "edit") return;
+                if (m.Content == null) throw new ArgumentNullException(nameof(m.Content));
+                _bank = m.Content;
+                BankName = _bank.Name;
+                BankCity = _bank.City;
+                BankBik = _bank.Bik;
+                BankAccountNumber = _bank.AccountNumber;
+            });
         }
 
         private string _bankName;
@@ -103,6 +114,7 @@ namespace WpfApp.ViewModels
             {
                 return _applyChangesCommand ?? (_applyChangesCommand = new RelayCommand(() =>
                 {
+                    if (_bank == null) _bank = new Bank();
                     _bank.Name = BankName;
                     _bank.City = BankCity;
                     _bank.Bik = BankBik;
