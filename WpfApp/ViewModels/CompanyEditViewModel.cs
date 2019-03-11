@@ -17,10 +17,18 @@ namespace WpfApp.ViewModels
     /// </summary>
     public class CompanyEditViewModel : ViewModelCustom
     {
-        private Company company;
+        private Company _company;
 
         public CompanyEditViewModel(IFrameNavigationService navigationService) : base(navigationService)
         {
+            if (IsEditable())
+                if (NavigationService.Parameter is Company company)
+                {
+                    _company = company;
+                    CompanyName = _company.Name;
+                    CompanyInn = _company.Inn;
+                    CompanyKpp = _company.Kpp;
+                }
         }
 
         private string _companyName;
@@ -91,19 +99,30 @@ namespace WpfApp.ViewModels
         {
             get { return _applyChangesCommand ?? (_applyChangesCommand = new RelayCommand(() =>
             {
-                if (company == null) company = new Company(CompanyName, CompanyInn, CompanyKpp);
+                if (_company == null) _company = new Company(CompanyName, CompanyInn, CompanyKpp);
                 else
                 {
-                    company.Name = CompanyName;
-                    company.Inn = CompanyInn;
-                    company.Kpp = CompanyKpp;
+                    _company.Name = CompanyName;
+                    _company.Inn = CompanyInn;
+                    _company.Kpp = CompanyKpp;
                 }
 
-                var service = ServiceLocator.Current.GetInstance<CompanyCreationService>();
-                service.CreateCompany(company);
+                if (IsEditable())
+                {
+                    System.Diagnostics.Debug.WriteLine("Update company");
+                }
+                else
+                {
+                    var service = ServiceLocator.Current.GetInstance<CompanyCreationService>();
+                    service.CreateCompany(_company);
+                    System.Diagnostics.Debug.WriteLine("Create new company");
+                }
+
                 NavigationService.GoBack();
             }, CheckInfo)); }
         }
+
+        private bool IsEditable() => NavigationService.Parameter != null;
 
         private bool CheckString(string s)
         {

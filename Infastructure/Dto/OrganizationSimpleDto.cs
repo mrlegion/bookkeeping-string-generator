@@ -16,6 +16,7 @@
 
         public OrganizationSimpleDto(int id, int companyId, int bankId, string companyName, string bankName, string accountNumber)
         {
+            Id = id;
             CompanyId = companyId;
             BankId = bankId;
             CompanyName = companyName;

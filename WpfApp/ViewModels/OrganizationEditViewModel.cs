@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CommonServiceLocator;
 using Domain.Services;
 using GalaSoft.MvvmLight.Command;
+using Infrastructure.Dto;
 using Infrastructure.Entities;
 using WpfApp.Service;
 
@@ -80,6 +81,27 @@ namespace WpfApp.ViewModels
             }
         }
 
+        private RelayCommand _onLoadedCommand;
+
+        public RelayCommand OnLoadedCommand
+        {
+            get
+            {
+                return _onLoadedCommand ?? (_onLoadedCommand = new RelayCommand(() =>
+                {
+                    if (IsEditable())
+                        if (NavigationService.Parameter is OrganizationSimpleDto dto)
+                        {
+                            _organization = ServiceLocator.Current.GetInstance<OrganizationQueryService>()
+                                .GetOrganization(dto.Id);
+                            AccountNumber = _organization.AccountNumber;
+                            SelectCompany = ServiceLocator.Current.GetInstance<CompanyQueryService>().GetCompany(dto.CompanyId);
+                            SelectBank = ServiceLocator.Current.GetInstance<BankQueryService>().GetBank(dto.BankId);
+                        }
+                }));
+            }
+        }
+
         private RelayCommand _applyChangesCommand;
 
         public RelayCommand ApplyChangesCommand
@@ -94,12 +116,23 @@ namespace WpfApp.ViewModels
                     _organization.Company = SelectCompany;
                     _organization.Bank = SelectBank;
 
-                    var service = ServiceLocator.Current.GetInstance<OrganizationCreationService>();
-                    service.CreateOrganization(_organization);
+                    if (IsEditable())
+                    {
+                        System.Diagnostics.Debug.WriteLine("Update organization");
+                    }
+                    else
+                    {
+                        var service = ServiceLocator.Current.GetInstance<OrganizationCreationService>();
+                        service.CreateOrganization(_organization);
+                        System.Diagnostics.Debug.WriteLine("Create new organization");
+                    }
+
                     NavigationService.GoBack();
 
                 }, () => SelectCompany != null && SelectBank != null && !string.IsNullOrEmpty(AccountNumber)));
             }
         }
+
+        private bool IsEditable() => NavigationService.Parameter != null;
     }
 }

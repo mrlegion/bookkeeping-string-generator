@@ -18,17 +18,6 @@ namespace WpfApp.ViewModels
         // конструктор
         public BankEditViewModel(IFrameNavigationService navigationService) : base(navigationService)
         {
-            //Messenger.Default.Register<NotificationMessage<Bank>>(this, (m) =>
-            //{
-            //    if (m.Notification != "edit") return;
-            //    if (m.Content == null) throw new ArgumentNullException(nameof(m.Content));
-            //    _bank = m.Content;
-            //    BankName = _bank.Name;
-            //    BankCity = _bank.City;
-            //    BankBik = _bank.Bik;
-            //    BankAccountNumber = _bank.AccountNumber;
-            //});
-
             if (NavigationService.Parameter != null)
                 if (NavigationService.Parameter is Bank bank)
                 {

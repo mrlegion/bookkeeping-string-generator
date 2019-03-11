@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfApp.Views"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:ml="http://www.galasoft.ch/mvvmlight"
       mc:Ignorable="d"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -34,6 +36,12 @@
                   ItemsSource="{Binding Companies}"
                   md:DataGridAssist.CellPadding="13 8 8 8"
                   md:DataGridAssist.ColumnHeaderPadding="8">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <ml:EventToCommand Command="{Binding EditItemCommand}"
+                                       CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <DataGrid.Columns>
                 <md:MaterialDataGridTextColumn Header="Наименование компании" 
                                                Binding="{Binding Name}"
