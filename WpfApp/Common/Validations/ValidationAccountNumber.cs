@@ -7,11 +7,16 @@ namespace WpfApp.Common.Validations
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            if (value == null 
-                || string.IsNullOrWhiteSpace(value.ToString()) 
-                || string.IsNullOrEmpty(value.ToString())) return new ValidationResult(false, "Номер счёта не может быть пустым!");
-            if (value.ToString().Length != 20) return new ValidationResult(false, "Номер счёта не может быть короче 20 символов!");
-            return ValidationResult.ValidResult;
+            if (value == null) return new ValidationResult(false, "Номер счёта не может быть пустым!");
+
+            var number = value.ToString();
+
+            if (string.IsNullOrWhiteSpace(number) || string.IsNullOrEmpty(number))
+                return new ValidationResult(false, "Номер счёта не может быть пустым!");
+
+            if (number.Length == 20) return ValidationResult.ValidResult;
+
+            return new ValidationResult(false, "Номер счёта не может быть короче 20 символов!");
         }
     }
 }

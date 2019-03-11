@@ -7,11 +7,16 @@ namespace WpfApp.Common.Validations
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            if (value == null
-                || string.IsNullOrWhiteSpace(value.ToString())
-                || string.IsNullOrEmpty(value.ToString())) return new ValidationResult(false, "Номер ИНН не может быть пустым!");
-            if (value.ToString().Length < 9) return new ValidationResult(false, "Номер ИНН не может быть короче 9 символов!");
-            return ValidationResult.ValidResult;
+            if (value == null) return new ValidationResult(false, "Номер ИНН не может быть пустым!");
+
+            var inn = value.ToString();
+
+            if (string.IsNullOrWhiteSpace(inn) || string.IsNullOrEmpty(inn))
+                return new ValidationResult(false, "Номер ИНН не может быть пустым!");
+
+            if (inn.Length == 9) return ValidationResult.ValidResult;
+
+            return new ValidationResult(false, "Номер ИНН не может быть короче или больше 9 символов!");
         }
     }
 }
