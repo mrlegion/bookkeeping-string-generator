@@ -4,6 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfApp.Views"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:behaviors="clr-namespace:WpfApp.Common.Behaviors"
+      xmlns:validations="clr-namespace:WpfApp.Common.Validations"
       mc:Ignorable="d"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -43,18 +46,42 @@
                                 VerticalAlignment="Top">
                         <TextBox md:HintAssist.Hint="Наименование организации"
                                  Margin="0 0 0 15"
-                                 Text="{Binding CompanyName}"
+                                 Text="{Binding CompanyName, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
                         <TextBox md:HintAssist.Hint="Номер ИНН"
                                  Margin="0 0 0 15"
-                                 Text="{Binding CompanyInn}"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="CompanyInn" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validations:ValidationInn/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <i:Interaction.Behaviors>
+                                <behaviors:OnlyNumberEnterBehavior
+                                    RegularExpression="^[0-9.\-]+$"
+                                    MaxLength="12"/>
+                            </i:Interaction.Behaviors>
+                        </TextBox>
 
                         <TextBox md:HintAssist.Hint="Номер КПП"
                                  Margin="0 0 0 15"
-                                 Text="{Binding CompanyKpp}"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="CompanyKpp"  UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validations:ValidationKpp/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <i:Interaction.Behaviors>
+                                <behaviors:OnlyNumberEnterBehavior
+                                    RegularExpression="^[0-9.\-]+$"
+                                    MaxLength="9"/>
+                            </i:Interaction.Behaviors>
+                        </TextBox>
 
                         <TextBox md:HintAssist.Hint="Комментарии"
                                  Margin="0 0 0 15"

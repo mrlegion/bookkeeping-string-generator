@@ -9,6 +9,16 @@ namespace WpfApp.ViewModels
     /// </summary>
     public class ViewModelCustom : ViewModelBase
     {
+        private string _title;
+
+        public const string TitlePropertyName = "Title";
+
+        public string Title
+        {
+            get { return _title; }
+            set { Set(TitlePropertyName, ref _title, value); }
+        }
+
         protected readonly IFrameNavigationService NavigationService;
 
         public ViewModelCustom(IFrameNavigationService navigationService)

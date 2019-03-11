@@ -104,6 +104,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Common\Behaviors\OnlyNumberEnterBehavior.cs" />
+    <Compile Include="Common\Validations\ValidationAccountNumber.cs" />
+    <Compile Include="Common\Validations\ValidationBik.cs" />
+    <Compile Include="Common\Validations\ValidationInn.cs" />
+    <Compile Include="Common\Validations\ValidationKpp.cs" />
     <Compile Include="Service\FrameNavigationService.cs" />
     <Compile Include="Service\IFrameNavigationService.cs" />
     <Compile Include="ViewModels\AdministrationViewModel.cs" />
@@ -186,9 +191,7 @@
       <Name>Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Common\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="Views\AdministrationView.xaml">
       <SubType>Designer</SubType>

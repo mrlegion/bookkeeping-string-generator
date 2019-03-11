@@ -3,6 +3,7 @@ using Infrastructure.Entities;
 using Mehdime.DbScope.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Infrastructure.Dto;
 
 namespace Domain.Services
@@ -45,6 +46,14 @@ namespace Domain.Services
             using (_dbContextScopeFactory.CreateReadOnly())
             {
                 return _organizationRepository.GetAllSimpeInfo();
+            }
+        }
+
+        public async Task<IEnumerable<OrganizationSimpleDto>> GetAllSimpleInfoAsync()
+        {
+            using (_dbContextScopeFactory.CreateReadOnly())
+            {
+                return await _organizationRepository.GetAllSimpeInfoAsync();
             }
         }
     }

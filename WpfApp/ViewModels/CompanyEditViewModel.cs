@@ -30,7 +30,11 @@ namespace WpfApp.ViewModels
         public string CompanyName
         {
             get { return _companyName; }
-            set { Set(CompanyNamePropertyName, ref _companyName, value); }
+            set
+            {
+                Set(CompanyNamePropertyName, ref _companyName, value);
+                ApplyChangesCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private string _companyInn;
@@ -40,7 +44,11 @@ namespace WpfApp.ViewModels
         public string CompanyInn
         {
             get { return _companyInn; }
-            set { Set(CompanyInnPropertyName, ref _companyInn, value); }
+            set
+            {
+                Set(CompanyInnPropertyName, ref _companyInn, value);
+                ApplyChangesCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private string _companyKpp;
@@ -50,7 +58,11 @@ namespace WpfApp.ViewModels
         public string CompanyKpp
         {
             get { return _companyKpp; }
-            set { Set(CompanyKppPropertyName, ref _companyKpp, value); }
+            set
+            {
+                Set(CompanyKppPropertyName, ref _companyKpp, value);
+                ApplyChangesCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private string _comments;
@@ -90,7 +102,19 @@ namespace WpfApp.ViewModels
                 var service = ServiceLocator.Current.GetInstance<CompanyCreationService>();
                 service.CreateCompany(company);
                 NavigationService.GoBack();
-            })); }
+            }, CheckInfo)); }
+        }
+
+        private bool CheckString(string s)
+        {
+            return !string.IsNullOrEmpty(s) && !string.IsNullOrWhiteSpace(s);
+        }
+
+        private bool CheckInfo()
+        {
+            return CheckString(CompanyName)
+                   && CheckString(CompanyInn)
+                   && CheckString(CompanyKpp);
         }
     }
 }

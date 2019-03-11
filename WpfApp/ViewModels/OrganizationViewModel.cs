@@ -1,22 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using CommonServiceLocator;
 using Domain.Services;
-using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using Infrastructure.Dto;
-using Infrastructure.Entities;
 using WpfApp.Service;
 
 namespace WpfApp.ViewModels
 {
-    /// <summary>
-    /// Description this class
-    /// </summary>
     public class OrganizationViewModel : ViewModelCustom
     {
         public OrganizationViewModel(IFrameNavigationService navigationService) : base(navigationService)
         {
-            var service = ServiceLocator.Current.GetInstance<OrganizationQueryService>();
-            Organizations = service.GetAllSimpleInfo();
+            Title = "Информация об организациях";
         }
 
         private IEnumerable<OrganizationSimpleDto> _organizations;
@@ -28,5 +25,26 @@ namespace WpfApp.ViewModels
             get { return _organizations; }
             set { Set(OrganizationsPropertyName, ref _organizations, value); }
         }
+
+        private bool _inProgress;
+
+        public const string InProgressPropertyName = "InProgress";
+
+        public bool InProgress
+        {
+            get { return _inProgress; }
+            set { Set(InProgressPropertyName, ref _inProgress, value); }
+        }
+
+        private async void Init()
+        {
+            InProgress = true;
+            Organizations = await ServiceLocator.Current.GetInstance<OrganizationQueryService>().GetAllSimpleInfoAsync().ConfigureAwait(false);
+            InProgress = false;
+        }
+
+        private RelayCommand _onLoadedCommand;
+
+        public RelayCommand OnLoadedCommand { get { return _onLoadedCommand ?? (_onLoadedCommand = new RelayCommand(Init)); } }
     }
 }

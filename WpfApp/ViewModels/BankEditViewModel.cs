@@ -26,7 +26,11 @@ namespace WpfApp.ViewModels
         public string BankName
         {
             get { return _bankName; }
-            set { Set(BankNamePropertyName, ref _bankName, value); }
+            set
+            {
+                Set(BankNamePropertyName, ref _bankName, value);
+                ApplyChangesCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private string _bankCity;
@@ -36,7 +40,11 @@ namespace WpfApp.ViewModels
         public string BankCity
         {
             get { return _bankCity; }
-            set { Set(BankCityPropertyName, ref _bankCity, value); }
+            set
+            {
+                Set(BankCityPropertyName, ref _bankCity, value);
+                ApplyChangesCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private string _bankBik;
@@ -46,7 +54,11 @@ namespace WpfApp.ViewModels
         public string BankBik
         {
             get { return _bankBik; }
-            set { Set(BankBikPropertyName, ref _bankBik, value); }
+            set
+            {
+                Set(BankBikPropertyName, ref _bankBik, value);
+                ApplyChangesCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private string _bankAccountNumber;
@@ -56,7 +68,11 @@ namespace WpfApp.ViewModels
         public string BankAccountNumber
         {
             get { return _bankAccountNumber; }
-            set { Set(BankAccountNumberPropertyName, ref _bankAccountNumber, value); }
+            set
+            {
+                Set(BankAccountNumberPropertyName, ref _bankAccountNumber, value);
+                ApplyChangesCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private string _comments;
@@ -95,8 +111,21 @@ namespace WpfApp.ViewModels
                     var service = ServiceLocator.Current.GetInstance<BankCreationService>();
                     service.CreateBank(_bank);
                     NavigationService.GoBack();
-                }));
+                }, CheckInfo));
             }
+        }
+
+        private bool CheckString(string s)
+        {
+            return !string.IsNullOrEmpty(s) && !string.IsNullOrWhiteSpace(s);
+        }
+
+        private bool CheckInfo()
+        {
+            return CheckString(BankName)
+                   && CheckString(BankCity)
+                   && CheckString(BankAccountNumber)
+                   && CheckString(BankBik);
         }
     }
 }

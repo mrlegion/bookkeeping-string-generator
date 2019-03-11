@@ -61,7 +61,7 @@ namespace DAL.Repository.Implimentation
 
         public IEnumerable<OrganizationSimpleDto> GetAllSimpeInfo()
         {
-            var organizations = DbContext.Organizations
+            return DbContext.Organizations
                 .Include(o => o.Company)
                 .Include(o => o.Bank)
                 .Select(o => new OrganizationSimpleDto()
@@ -73,7 +73,22 @@ namespace DAL.Repository.Implimentation
                     BankName = o.Bank.Name,
                     AccountNumber = o.AccountNumber
                 }).ToList();
-            return organizations;
+        }
+
+        public async Task<IEnumerable<OrganizationSimpleDto>> GetAllSimpeInfoAsync()
+        {
+            return await DbContext.Organizations
+                .Include(o => o.Company)
+                .Include(o => o.Bank)
+                .Select(o => new OrganizationSimpleDto()
+                {
+                    Id = o.Id,
+                    CompanyId = o.Company.Id,
+                    BankId = o.Bank.Id,
+                    CompanyName = o.Company.Name,
+                    BankName = o.Bank.Name,
+                    AccountNumber = o.AccountNumber
+                }).ToListAsync();
         }
 
         public void AddOrganization(Organization organization)
