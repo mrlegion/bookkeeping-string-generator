@@ -58,6 +58,8 @@ namespace DAL.Repository.Implimentation
             if (bank == null) throw new ArgumentNullException(nameof(bank));
             var del = DbContext.Banks.FirstOrDefault(b => b.Id == bank.Id);
             if (del == null) throw new ArgumentNullException(nameof(del));
+            var organizations = DbContext.Organizations.Where(o => o.Bank.Id == bank.Id).AsEnumerable();
+            foreach (var o in organizations) DbContext.Organizations.Remove(o);
             DbContext.Banks.Remove(del);
         }
     }

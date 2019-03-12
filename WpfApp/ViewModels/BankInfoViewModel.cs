@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
 using CommonServiceLocator;
 using Domain.Services;
 using GalaSoft.MvvmLight;
@@ -55,8 +56,13 @@ namespace WpfApp.ViewModels
                     if (o != null)
                         if (o is Bank bank)
                         {
+                            // Todo: Использовать MaterialDesign DialogHost
+                            var result = MessageBox.Show($"Вы точно хотите удалить выбранный банк: {bank.Name}?",
+                                "Подтверждение на удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                            if (result != MessageBoxResult.Yes) return;
                             var service = ServiceLocator.Current.GetInstance<BankService>();
                             service.DeleteBank(bank);
+                            Banks = service.GetAllBanks();
                         }
                 }));
             }
