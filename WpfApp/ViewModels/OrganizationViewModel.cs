@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows;
 using CommonServiceLocator;
 using Domain.Services;
 using GalaSoft.MvvmLight.Command;
 using Infrastructure.Dto;
+using Infrastructure.Entities;
 using WpfApp.Service;
 
 namespace WpfApp.ViewModels
@@ -64,9 +66,29 @@ namespace WpfApp.ViewModels
         {
             get
             {
-                return _onLoadedCommand ?? (_onLoadedCommand = new RelayCommand(() =>
+                return _onLoadedCommand ?? (_onLoadedCommand = new RelayCommand(Init));
+            }
+        }
+
+        private RelayCommand<object> _deleteItemCommand;
+
+        public RelayCommand<object> DeleteItemCommand
+        {
+            get
+            {
+                return _deleteItemCommand ?? (_deleteItemCommand = new RelayCommand<object>((o) =>
                 {
-                    Init();
+                    if (o != null)
+                        if (o is OrganizationSimpleDto organization)
+                        {
+                            // Todo: Использовать MaterialDesign DialogHost
+                            var result = MessageBox.Show($"Вы точно хотите удалить выбранную организацию?",
+                                "Подтверждение на удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                            if (result != MessageBoxResult.Yes) return;
+                            var service = ServiceLocator.Current.GetInstance<OrganizationService>();
+                            service.DeleteOrganization(organization);
+                            Organizations = service.GetAllSimpleInfo();
+                        }
                 }));
             }
         }

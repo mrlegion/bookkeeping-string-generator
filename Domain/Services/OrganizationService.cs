@@ -97,6 +97,16 @@ namespace Domain.Services
             }
         }
 
+        public void DeleteOrganization(OrganizationSimpleDto organization)
+        {
+            if (organization == null) throw new ArgumentNullException(nameof(organization));
+            using (var dbContextScope = _dbContextScopeFactory.Create())
+            {
+                _organizationRepository.Delete(organization);
+                dbContextScope.SaveChanges();
+            }
+        }
+
         public async Task DeleteOrganizationAsync(Organization organization)
         {
             if (organization == null) throw new ArgumentNullException(nameof(organization));

@@ -17,5 +17,6 @@ namespace DAL.Repository.Interface
         void Add(Organization organization);
         void Update(Organization organization);
         void Delete(Organization organization);
+        void Delete(OrganizationSimpleDto organization);
     }
 }

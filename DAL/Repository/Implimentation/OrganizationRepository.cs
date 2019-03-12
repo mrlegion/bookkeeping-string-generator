@@ -114,7 +114,17 @@ namespace DAL.Repository.Implimentation
         public void Delete(Organization organization)
         {
             if (organization == null) throw new ArgumentNullException(nameof(organization));
-            DbContext.Entry(organization).State = EntityState.Deleted;
+            var del = DbContext.Organizations.FirstOrDefault(o => o.Id == organization.Id);
+            if (del == null) throw new ArgumentNullException(nameof(del));
+            DbContext.Organizations.Remove(del);
+        }
+
+        public void Delete(OrganizationSimpleDto organization)
+        {
+            if (organization == null) throw new ArgumentNullException(nameof(organization));
+            var del = DbContext.Organizations.FirstOrDefault(o => o.Id == organization.Id);
+            if (del == null) throw new ArgumentNullException(nameof(del));
+            DbContext.Organizations.Remove(del);
         }
     }
 }

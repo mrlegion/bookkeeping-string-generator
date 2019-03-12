@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
 using CommonServiceLocator;
 using Domain.Services;
 using GalaSoft.MvvmLight.Command;
@@ -37,6 +38,29 @@ namespace WpfApp.ViewModels
                     if (o != null)
                         if (o is Company company)
                             NavigationService.NavigateTo("CompanyEdit", company);
+                }));
+            }
+        }
+
+        private RelayCommand<object> _deleteItemCommand;
+
+        public RelayCommand<object> DeleteItemCommand
+        {
+            get
+            {
+                return _deleteItemCommand ?? (_deleteItemCommand = new RelayCommand<object>((o) =>
+                {
+                    if (o != null)
+                        if (o is Company company)
+                        {
+                            // Todo: Использовать MaterialDesign DialogHost
+                            var result = MessageBox.Show($"Вы точно хотите удалить выбранный банк: {company.Name}?",
+                                "Подтверждение на удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                            if (result != MessageBoxResult.Yes) return;
+                            var service = ServiceLocator.Current.GetInstance<CompanyService>();
+                            service.DeleteCompany(company);
+                            Companies = service.GetAllCompanies();
+                        }
                 }));
             }
         }

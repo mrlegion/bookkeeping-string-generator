@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using DAL.Repository.Interface;
 using Infrastructure.Entities;
@@ -55,7 +56,11 @@ namespace DAL.Repository.Implimentation
         public void Delete(Company company)
         {
             if (company == null) throw new ArgumentNullException(nameof(company));
-            DbContext.Entry(company).State = EntityState.Deleted;
+            var del = DbContext.Companies.FirstOrDefault(c => c.Id == company.Id);
+            if (del == null) throw new ArgumentNullException(nameof(del));
+            var organization = DbContext.Organizations.Where(o => o.Company.Id == company.Id).AsEnumerable();
+            foreach (var o in organization) DbContext.Organizations.Remove(o);
+            DbContext.Companies.Remove(del);
         }
     }
 }
