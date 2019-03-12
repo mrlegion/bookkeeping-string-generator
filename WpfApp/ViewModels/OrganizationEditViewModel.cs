@@ -16,8 +16,8 @@ namespace WpfApp.ViewModels
 
         public OrganizationEditViewModel(IFrameNavigationService navigationService) : base(navigationService)
         {
-            Banks = ServiceLocator.Current.GetInstance<BankQueryService>().GetAllBanks();
-            Companies = ServiceLocator.Current.GetInstance<CompanyQueryService>().GetAllCompanies();
+            Banks = ServiceLocator.Current.GetInstance<BankService>().GetAllBanks();
+            Companies = ServiceLocator.Current.GetInstance<CompanyService>().GetAllCompanies();
         }
 
         private IEnumerable<Bank> _banks;
@@ -103,10 +103,10 @@ namespace WpfApp.ViewModels
                     if (IsEditable())
                         if (NavigationService.Parameter is OrganizationSimpleDto dto)
                         {
-                            _organization = ServiceLocator.Current.GetInstance<OrganizationQueryService>().GetOrganization(dto.Id);
+                            _organization = ServiceLocator.Current.GetInstance<OrganizationService>().GetOrganization(dto.Id);
                             AccountNumber = _organization.AccountNumber;
-                            SelectCompany = ServiceLocator.Current.GetInstance<CompanyQueryService>().GetCompany(dto.CompanyId);
-                            SelectBank = ServiceLocator.Current.GetInstance<BankQueryService>().GetBank(dto.BankId);
+                            SelectCompany = ServiceLocator.Current.GetInstance<CompanyService>().GetCompany(dto.CompanyId);
+                            SelectBank = ServiceLocator.Current.GetInstance<BankService>().GetBank(dto.BankId);
                         }
                 }));
             }
@@ -132,7 +132,7 @@ namespace WpfApp.ViewModels
                     }
                     else
                     {
-                        var service = ServiceLocator.Current.GetInstance<OrganizationCreationService>();
+                        var service = ServiceLocator.Current.GetInstance<OrganizationService>();
                         service.CreateOrganization(_organization);
                         System.Diagnostics.Debug.WriteLine("Create new organization");
                     }

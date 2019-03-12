@@ -39,7 +39,7 @@ namespace WpfApp.ViewModels
         private async void Init()
         {
             InProgress = true;
-            Organizations = await ServiceLocator.Current.GetInstance<OrganizationQueryService>().GetAllSimpleInfoAsync().ConfigureAwait(false);
+            Organizations = await ServiceLocator.Current.GetInstance<OrganizationService>().GetAllSimpleInfoAsync().ConfigureAwait(false);
             InProgress = false;
         }
 

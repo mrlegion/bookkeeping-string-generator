@@ -12,7 +12,7 @@ namespace WpfApp.ViewModels
         public CompanyInfoViewModel(IFrameNavigationService navigationService)
             : base(navigationService)
         {
-            var service = ServiceLocator.Current.GetInstance<CompanyQueryService>();
+            var service = ServiceLocator.Current.GetInstance<CompanyService>();
             Companies = service.GetAllCompanies();
         }
 

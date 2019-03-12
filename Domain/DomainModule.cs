@@ -12,12 +12,9 @@ namespace Domain
             builder.RegisterModule(new DalModule());
             builder.RegisterModule(new DbScopeModule());
 
-            builder.RegisterType<BankCreationService>();
-            builder.RegisterType<BankQueryService>();
-            builder.RegisterType<CompanyCreationService>();
-            builder.RegisterType<CompanyQueryService>();
-            builder.RegisterType<OrganizationQueryService>();
-            builder.RegisterType<OrganizationCreationService>();
+            builder.RegisterType<BankService>();
+            builder.RegisterType<CompanyService>();
+            builder.RegisterType<OrganizationService>();
         }
     }
 }

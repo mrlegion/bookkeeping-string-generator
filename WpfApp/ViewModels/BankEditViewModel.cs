@@ -126,7 +126,7 @@ namespace WpfApp.ViewModels
                     else
                     {
                         System.Diagnostics.Debug.WriteLine("Creation new bank");
-                        var service = ServiceLocator.Current.GetInstance<BankCreationService>();
+                        var service = ServiceLocator.Current.GetInstance<BankService>();
                         service.CreateBank(_bank);
                     }
                     

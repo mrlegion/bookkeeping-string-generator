@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DAL;
 using DAL.Repository.Interface;
 using Infrastructure.Entities;
 using Mehdime.DbScope.Interfaces;
 
 namespace Domain.Services
 {
-    public class BankCreationService
+    public class BankService
     {
         private readonly IDbContextScopeFactory _dbContextScopeFactory;
         private readonly IBankRepository _bankRepository;
 
-        public BankCreationService(IDbContextScopeFactory dbContextScopeFactory, IBankRepository bankRepository)
+        public BankService(IDbContextScopeFactory dbContextScopeFactory, IBankRepository bankRepository)
         {
             _dbContextScopeFactory = dbContextScopeFactory 
                                      ?? throw new ArgumentNullException(nameof(dbContextScopeFactory));
@@ -41,6 +42,26 @@ namespace Domain.Services
                 foreach (Bank bank in banks)
                     _bankRepository.Add(bank);
                 dbScopeContext.SaveChanges();
+            }
+        }
+
+        public Bank GetBank(int id)
+        {
+            if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
+
+            using (var dbScopeContext = _dbContextScopeFactory.CreateReadOnly())
+            {
+                var dbContext = dbScopeContext.DbContexts.Get<BookkeepingLibraryContext>();
+                return dbContext.Banks.Find(id);
+            }
+        }
+
+        public IEnumerable<Bank> GetAllBanks()
+        {
+            using (var dbContextScope = _dbContextScopeFactory.CreateReadOnly())
+            {
+                var dbContext = dbContextScope.DbContexts.Get<BookkeepingLibraryContext>();
+                return dbContext.Banks.ToList();
             }
         }
     }

@@ -1,24 +1,34 @@
-﻿using DAL.Repository.Interface;
-using Infrastructure.Entities;
-using Mehdime.DbScope.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DAL.Repository.Interface;
 using Infrastructure.Dto;
+using Infrastructure.Entities;
+using Mehdime.DbScope.Interfaces;
 
 namespace Domain.Services
 {
-    public class OrganizationQueryService
+    public class OrganizationService
     {
         private readonly IDbContextScopeFactory _dbContextScopeFactory;
         private readonly IOrganizationRepository _organizationRepository;
 
-        public OrganizationQueryService(IDbContextScopeFactory dbContextScopeFactory, IOrganizationRepository organizationRepository)
+        public OrganizationService(IDbContextScopeFactory dbContextScopeFactory, IOrganizationRepository organizationRepository)
         {
             _dbContextScopeFactory = dbContextScopeFactory
-                                     ?? throw new ArgumentNullException(nameof(dbContextScopeFactory));
+                ?? throw new ArgumentNullException(nameof(dbContextScopeFactory));
             _organizationRepository = organizationRepository
-                                      ?? throw new ArgumentNullException(nameof(organizationRepository));
+                ?? throw new ArgumentNullException(nameof(organizationRepository));
+        }
+
+        public void CreateOrganization(Organization organization)
+        {
+            if (organization == null) throw new ArgumentNullException(nameof(organization));
+            using (var dbContextScope = _dbContextScopeFactory.Create())
+            {
+                _organizationRepository.Add(organization);
+                dbContextScope.SaveChanges();
+            }
         }
 
         public Organization GetOrganization(int id)

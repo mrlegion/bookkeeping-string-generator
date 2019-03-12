@@ -62,12 +62,9 @@
   <ItemGroup>
     <Compile Include="DomainModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\BankCreationService.cs" />
-    <Compile Include="Services\BankQueryService.cs" />
-    <Compile Include="Services\CompanyCreationService.cs" />
-    <Compile Include="Services\CompanyQueryService.cs" />
-    <Compile Include="Services\OrganizationCreationService.cs" />
-    <Compile Include="Services\OrganizationQueryService.cs" />
+    <Compile Include="Services\BankService.cs" />
+    <Compile Include="Services\CompanyService.cs" />
+    <Compile Include="Services\OrganizationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">

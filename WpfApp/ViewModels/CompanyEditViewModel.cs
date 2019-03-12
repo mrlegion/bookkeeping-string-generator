@@ -113,7 +113,7 @@ namespace WpfApp.ViewModels
                 }
                 else
                 {
-                    var service = ServiceLocator.Current.GetInstance<CompanyCreationService>();
+                    var service = ServiceLocator.Current.GetInstance<CompanyService>();
                     service.CreateCompany(_company);
                     System.Diagnostics.Debug.WriteLine("Create new company");
                 }

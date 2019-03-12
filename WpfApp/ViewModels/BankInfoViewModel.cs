@@ -15,7 +15,7 @@ namespace WpfApp.ViewModels
     {
         public BankInfoViewModel(IFrameNavigationService navigationService) : base(navigationService)
         {
-            var service = ServiceLocator.Current.GetInstance<BankQueryService>();
+            var service = ServiceLocator.Current.GetInstance<BankService>();
             Banks = service.GetAllBanks();
         }
 
