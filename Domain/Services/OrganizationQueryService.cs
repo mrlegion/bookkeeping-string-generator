@@ -26,7 +26,7 @@ namespace Domain.Services
             if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
             using (_dbContextScopeFactory.CreateReadOnly())
             {
-                var organization = _organizationRepository.GetOrganization(id);
+                var organization = _organizationRepository.Get(id);
                 if (organization == null)
                     throw new ArgumentException($"Invalid value provided for id: [{id}]. Couldn't find a organization with this ID.");
                 return organization;
@@ -37,7 +37,7 @@ namespace Domain.Services
         {
             using (_dbContextScopeFactory.CreateReadOnly())
             {
-                return _organizationRepository.GetOrganizations();
+                return _organizationRepository.GetAll();
             }
         }
 

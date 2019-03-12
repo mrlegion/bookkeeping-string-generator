@@ -23,7 +23,7 @@ namespace Domain.Services
             if (organization == null) throw new ArgumentNullException(nameof(organization));
             using (var dbContextScope = _dbContextScopeFactory.Create())
             {
-                _organizationRepository.AddOrganization(organization);
+                _organizationRepository.Add(organization);
                 dbContextScope.SaveChanges();
             }
         }

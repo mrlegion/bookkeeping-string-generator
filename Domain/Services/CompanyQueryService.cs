@@ -15,11 +15,8 @@ namespace Domain.Services
 
         public CompanyQueryService(IDbContextScopeFactory dbContextScopeFactory, ICompanyRepository companyRepository)
         {
-            if (dbContextScopeFactory == null) throw new ArgumentNullException(nameof(dbContextScopeFactory));
-            if (companyRepository == null) throw new ArgumentNullException(nameof(companyRepository));
-
-            _dbContextScopeFactory = dbContextScopeFactory;
-            _companyRepository = companyRepository;
+            _dbContextScopeFactory = dbContextScopeFactory ?? throw new ArgumentNullException(nameof(dbContextScopeFactory));
+            _companyRepository = companyRepository ?? throw new ArgumentNullException(nameof(companyRepository));
         }
 
         public Company GetCompany(int id)
