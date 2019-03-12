@@ -105,8 +105,8 @@ namespace WpfApp.ViewModels
                         {
                             _organization = ServiceLocator.Current.GetInstance<OrganizationService>().GetOrganization(dto.Id);
                             AccountNumber = _organization.AccountNumber;
-                            SelectCompany = ServiceLocator.Current.GetInstance<CompanyService>().GetCompany(dto.CompanyId);
-                            SelectBank = ServiceLocator.Current.GetInstance<BankService>().GetBank(dto.BankId);
+                            SelectCompany = _organization.Company;
+                            SelectBank = _organization.Bank;
                         }
                 }));
             }
@@ -126,13 +126,15 @@ namespace WpfApp.ViewModels
                     _organization.Company = SelectCompany;
                     _organization.Bank = SelectBank;
 
+                    var service = ServiceLocator.Current.GetInstance<OrganizationService>();
+
                     if (IsEditable())
                     {
                         System.Diagnostics.Debug.WriteLine("Update organization");
+                        service.UpdateOrganization(_organization);
                     }
                     else
                     {
-                        var service = ServiceLocator.Current.GetInstance<OrganizationService>();
                         service.CreateOrganization(_organization);
                         System.Diagnostics.Debug.WriteLine("Create new organization");
                     }

@@ -107,13 +107,15 @@ namespace WpfApp.ViewModels
                     _company.Kpp = CompanyKpp;
                 }
 
+                var service = ServiceLocator.Current.GetInstance<CompanyService>();
+
                 if (IsEditable())
                 {
                     System.Diagnostics.Debug.WriteLine("Update company");
+                    service.UpdateCompany(_company);
                 }
                 else
                 {
-                    var service = ServiceLocator.Current.GetInstance<CompanyService>();
                     service.CreateCompany(_company);
                     System.Diagnostics.Debug.WriteLine("Create new company");
                 }

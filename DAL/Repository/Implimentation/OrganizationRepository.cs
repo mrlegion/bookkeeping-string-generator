@@ -34,7 +34,8 @@ namespace DAL.Repository.Implimentation
         public Organization Get(int id)
         {
             if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
-            return DbContext.Organizations.Find(id);
+            var result = DbContext.Organizations.Include(o => o.Bank).Include(o => o.Company).First(o => o.Id == id);
+            return result;
         }
 
         public async Task<Organization> GetAsync(int id)
@@ -102,9 +103,12 @@ namespace DAL.Repository.Implimentation
         public void Update(Organization organization)
         {
             if (organization == null) throw new ArgumentNullException(nameof(organization));
-            DbContext.Companies.Attach(organization.Company);
-            DbContext.Banks.Attach(organization.Bank);
-            DbContext.Entry(organization).State = EntityState.Modified;
+            var org = Get(organization.Id);
+            var bank = DbContext.Banks.Find(organization.Bank.Id);
+            var company = DbContext.Companies.Find(organization.Company.Id);
+            org.Bank = bank;
+            org.Company = company;
+            org.AccountNumber = organization.AccountNumber;
         }
 
         public void Delete(Organization organization)

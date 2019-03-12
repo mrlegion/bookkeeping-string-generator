@@ -66,5 +66,45 @@ namespace Domain.Services
                 return await _organizationRepository.GetAllSimpeInfoAsync();
             }
         }
+
+        public void UpdateOrganization(Organization organization)
+        {
+            if (organization == null) throw new ArgumentNullException(nameof(organization));
+            using (var dbContextScope = _dbContextScopeFactory.Create())
+            {
+                _organizationRepository.Update(organization);
+                dbContextScope.SaveChanges();
+            }
+        }
+
+        public async Task UpdateOrganizationAsync(Organization organization)
+        {
+            if (organization == null) throw new ArgumentNullException(nameof(organization));
+            using (var dbContextScope = _dbContextScopeFactory.Create())
+            {
+                _organizationRepository.Update(organization);
+                await dbContextScope.SaveChangeAsync();
+            }
+        }
+
+        public void DeleteOrganization(Organization organization)
+        {
+            if (organization == null) throw new ArgumentNullException(nameof(organization));
+            using (var dbContextScope = _dbContextScopeFactory.Create())
+            {
+                _organizationRepository.Delete(organization);
+                dbContextScope.SaveChanges();
+            }
+        }
+
+        public async Task DeleteOrganizationAsync(Organization organization)
+        {
+            if (organization == null) throw new ArgumentNullException(nameof(organization));
+            using (var dbContextScope = _dbContextScopeFactory.Create())
+            {
+                _organizationRepository.Delete(organization);
+                await dbContextScope.SaveChangeAsync();
+            }
+        }
     }
 }

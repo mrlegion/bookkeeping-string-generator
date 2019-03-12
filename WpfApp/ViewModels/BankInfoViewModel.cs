@@ -43,5 +43,23 @@ namespace WpfApp.ViewModels
                 }));
             }
         }
+
+        private RelayCommand<object> _deleteItemCommand;
+
+        public RelayCommand<object> DeleteItemCommand
+        {
+            get
+            {
+                return _deleteItemCommand ?? (_deleteItemCommand = new RelayCommand<object>((o) =>
+                {
+                    if (o != null)
+                        if (o is Bank bank)
+                        {
+                            var service = ServiceLocator.Current.GetInstance<BankService>();
+                            service.DeleteBank(bank);
+                        }
+                }));
+            }
+        }
     }
 }

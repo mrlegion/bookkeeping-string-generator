@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DAL;
 using DAL.Repository.Interface;
 using Infrastructure.Entities;
@@ -62,6 +63,46 @@ namespace Domain.Services
             {
                 var dbContext = dbContextScope.DbContexts.Get<BookkeepingLibraryContext>();
                 return dbContext.Banks.ToList();
+            }
+        }
+
+        public void UpdateBank(Bank bank)
+        {
+            if (bank == null) throw new ArgumentNullException(nameof(bank));
+            using (var dbContextScope = _dbContextScopeFactory.Create())
+            {
+                _bankRepository.Update(bank);
+                dbContextScope.SaveChanges();
+            }
+        }
+
+        public async Task UpdateBankAsync(Bank bank)
+        {
+            if (bank == null) throw new ArgumentNullException(nameof(bank));
+            using (var dbContextScope = _dbContextScopeFactory.Create())
+            {
+                _bankRepository.Update(bank);
+                await dbContextScope.SaveChangeAsync();
+            }
+        }
+
+        public void DeleteBank(Bank bank)
+        {
+            if (bank == null) throw new ArgumentNullException(nameof(bank));
+            using (var dbContextScope = _dbContextScopeFactory.Create())
+            {
+                _bankRepository.Delete(bank);
+                dbContextScope.SaveChanges();
+            }
+        }
+
+        public async Task DeleteBankAsync(Bank bank)
+        {
+            if (bank == null) throw new ArgumentNullException(nameof(bank));
+            using (var dbContextScope = _dbContextScopeFactory.Create())
+            {
+                _bankRepository.Delete(bank);
+                await dbContextScope.SaveChangeAsync();
             }
         }
     }

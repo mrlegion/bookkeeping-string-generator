@@ -119,14 +119,16 @@ namespace WpfApp.ViewModels
                     _bank.Bik = BankBik;
                     _bank.AccountNumber = BankAccountNumber;
 
-
-
+                    var service = ServiceLocator.Current.GetInstance<BankService>();
+                    
                     if (NavigationService.Parameter != null)
+                    {
                         System.Diagnostics.Debug.WriteLine("Update bank");
+                        service.UpdateBank(_bank);
+                    }
                     else
                     {
                         System.Diagnostics.Debug.WriteLine("Creation new bank");
-                        var service = ServiceLocator.Current.GetInstance<BankService>();
                         service.CreateBank(_bank);
                     }
                     

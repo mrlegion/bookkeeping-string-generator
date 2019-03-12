@@ -61,5 +61,45 @@ namespace Domain.Services
                 return dbContext.Companies.ToList();
             }
         }
+
+        public void UpdateCompany(Company company)
+        {
+            if (company == null) throw new ArgumentNullException(nameof(company));
+            using (var dbContextScope = _dbContextScopeFactory.Create())
+            {
+                _companyRepository.Update(company);
+                dbContextScope.SaveChanges();
+            }
+        }
+
+        public async Task UpdateCompanyAsync(Company company)
+        {
+            if (company == null) throw new ArgumentNullException(nameof(company));
+            using (var dbContextScope = _dbContextScopeFactory.Create())
+            {
+                _companyRepository.Update(company);
+                await dbContextScope.SaveChangeAsync();
+            }
+        }
+
+        public void DeleteCompany(Company company)
+        {
+            if (company == null) throw new ArgumentNullException(nameof(company));
+            using (var dbContextScope = _dbContextScopeFactory.Create())
+            {
+                _companyRepository.Delete(company);
+                dbContextScope.SaveChanges();
+            }
+        }
+
+        public async Task DeleteCompanyAsync(Company company)
+        {
+            if (company == null) throw new ArgumentNullException(nameof(company));
+            using (var dbContextScope = _dbContextScopeFactory.Create())
+            {
+                _companyRepository.Delete(company);
+                await dbContextScope.SaveChangeAsync();
+            }
+        }
     }
 }
