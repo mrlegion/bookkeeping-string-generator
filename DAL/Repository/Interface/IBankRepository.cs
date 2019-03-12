@@ -8,5 +8,6 @@ namespace DAL.Repository.Interface
         Bank Get(int id);
         Task<Bank> GetAsync(int id);
         void Add(Bank bank);
+        void Update(Bank bank);
     }
 }

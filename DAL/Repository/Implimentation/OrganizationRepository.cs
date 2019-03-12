@@ -31,32 +31,32 @@ namespace DAL.Repository.Implimentation
                                        ?? throw new ArgumentNullException(nameof(ambientDbContextLocator));
         }
 
-        public Organization GetOrganization(int id)
+        public Organization Get(int id)
         {
             if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
             return DbContext.Organizations.Find(id);
         }
 
-        public async Task<Organization> GetOrganizationAsync(int id)
+        public async Task<Organization> GetAsync(int id)
         {
             if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
             return await DbContext.Organizations.FindAsync(id);
         }
 
-        public IEnumerable<Organization> GetOrganizations()
+        public IEnumerable<Organization> GetAll()
         {
             return DbContext.Organizations.ToList();
         }
 
-        public async Task<IEnumerable<Organization>> GetOrganizationsAsync()
+        public async Task<IEnumerable<Organization>> GetAllAsync()
         {
             return await DbContext.Organizations.ToListAsync();
         }
 
-        public IEnumerable<Organization> GetOrganizations(params int[] ids)
+        public IEnumerable<Organization> GetAll(params int[] ids)
         {
             if (ids.Length == 0) throw new ArgumentNullException(nameof(ids));
-            return ids.Select(GetOrganization).ToList();
+            return ids.Select(Get).ToList();
         }
 
         public IEnumerable<OrganizationSimpleDto> GetAllSimpeInfo()
@@ -91,12 +91,20 @@ namespace DAL.Repository.Implimentation
                 }).ToListAsync();
         }
 
-        public void AddOrganization(Organization organization)
+        public void Add(Organization organization)
         {
             if (organization == null) throw new ArgumentNullException(nameof(organization));
             DbContext.Companies.Attach(organization.Company);
             DbContext.Banks.Attach(organization.Bank);
             DbContext.Organizations.Add(organization);
+        }
+
+        public void Update(Organization organization)
+        {
+            if (organization == null) throw new ArgumentNullException(nameof(organization));
+            DbContext.Companies.Attach(organization.Company);
+            DbContext.Banks.Attach(organization.Bank);
+            DbContext.Entry(organization).State = EntityState.Modified;
         }
     }
 }

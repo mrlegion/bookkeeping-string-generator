@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using DAL.Repository.Interface;
 using Infrastructure.Entities;
@@ -24,23 +25,31 @@ namespace DAL.Repository.Implimentation
 
         public CompanyRepository(IAmbientDbContextLocator ambientDbContextLocator)
         {
-            if (ambientDbContextLocator == null) throw new ArgumentNullException(nameof(ambientDbContextLocator));
-            _ambientDbContextLocator = ambientDbContextLocator;
+            _ambientDbContextLocator = ambientDbContextLocator ?? throw new ArgumentNullException(nameof(ambientDbContextLocator));
         }
 
         public Company Get(int id)
         {
+            if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
             return DbContext.Companies.Find(id);
         }
 
         public async Task<Company> GetAsync(int id)
         {
+            if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
             return await DbContext.Companies.FindAsync(id);
         }
 
         public void Add(Company company)
         {
+            if (company == null) throw new ArgumentNullException(nameof(company));
             DbContext.Companies.Add(company);
+        }
+
+        public void Update(Company company)
+        {
+            if (company == null) throw new ArgumentNullException(nameof(company));
+            DbContext.Entry(company).State = EntityState.Modified;
         }
     }
 }

@@ -7,13 +7,14 @@ namespace DAL.Repository.Interface
 {
     public interface IOrganizationRepository
     {
-        Organization GetOrganization(int id);
-        Task<Organization> GetOrganizationAsync(int id);
-        IEnumerable<Organization> GetOrganizations();
-        Task<IEnumerable<Organization>> GetOrganizationsAsync();
-        IEnumerable<Organization> GetOrganizations(params int[] ids);
+        Organization Get(int id);
+        Task<Organization> GetAsync(int id);
+        IEnumerable<Organization> GetAll();
+        Task<IEnumerable<Organization>> GetAllAsync();
+        IEnumerable<Organization> GetAll(params int[] ids);
         IEnumerable<OrganizationSimpleDto> GetAllSimpeInfo();
         Task<IEnumerable<OrganizationSimpleDto>> GetAllSimpeInfoAsync();
-        void AddOrganization(Organization organization);
+        void Add(Organization organization);
+        void Update(Organization organization);
     }
 }

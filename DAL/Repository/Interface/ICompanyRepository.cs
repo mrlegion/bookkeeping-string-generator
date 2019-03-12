@@ -8,5 +8,6 @@ namespace DAL.Repository.Interface
         Company Get(int id);
         Task<Company> GetAsync(int id);
         void Add(Company company);
+        void Update(Company company);
     }
 }

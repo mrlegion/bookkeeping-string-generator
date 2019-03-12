@@ -2,6 +2,7 @@
 using Infrastructure.Entities;
 using Mehdime.DbScope.Interfaces;
 using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace DAL.Repository.Implimentation
@@ -43,6 +44,12 @@ namespace DAL.Repository.Implimentation
         {
             if (bank == null) throw new ArgumentNullException(nameof(bank));
             DbContext.Banks.Add(bank);
+        }
+
+        public void Update(Bank bank)
+        {
+            if (bank == null) throw new ArgumentNullException(nameof(bank));
+            DbContext.Entry(bank).State = EntityState.Modified;
         }
     }
 }
