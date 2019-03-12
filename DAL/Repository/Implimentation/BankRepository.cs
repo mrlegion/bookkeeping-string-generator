@@ -3,6 +3,7 @@ using Infrastructure.Entities;
 using Mehdime.DbScope.Interfaces;
 using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DAL.Repository.Implimentation
@@ -55,7 +56,9 @@ namespace DAL.Repository.Implimentation
         public void Delete(Bank bank)
         {
             if (bank == null) throw new ArgumentNullException(nameof(bank));
-            DbContext.Entry(bank).State = EntityState.Deleted;
+            var del = DbContext.Banks.FirstOrDefault(b => b.Id == bank.Id);
+            if (del == null) throw new ArgumentNullException(nameof(del));
+            DbContext.Banks.Remove(del);
         }
     }
 }
