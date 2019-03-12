@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Entities
 {
@@ -23,6 +21,20 @@ namespace Infrastructure.Entities
             City = city;
             Bik = bik;
             AccountNumber = accountNumber;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj != null)
+                if (obj is Bank bank)
+                {
+                    return this.Id == bank.Id &&
+                           this.Name == bank.Name &&
+                           this.City == bank.City &&
+                           this.Bik == bank.Bik &&
+                           this.AccountNumber == bank.AccountNumber;
+                }
+            return false;
         }
     }
 }

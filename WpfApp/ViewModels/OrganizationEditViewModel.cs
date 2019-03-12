@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CommonServiceLocator;
 using Domain.Services;
 using GalaSoft.MvvmLight.Command;
@@ -81,6 +82,16 @@ namespace WpfApp.ViewModels
             }
         }
 
+        private int _selectedCompanyIndex;
+
+        public const string SelectedCompanyIndexPropertyName = "SelectedCompanyIndex";
+
+        public int SelectedCompanyIndex
+        {
+            get { return _selectedCompanyIndex; }
+            set { Set(SelectedCompanyIndexPropertyName, ref _selectedCompanyIndex, value); }
+        }
+
         private RelayCommand _onLoadedCommand;
 
         public RelayCommand OnLoadedCommand
@@ -92,8 +103,7 @@ namespace WpfApp.ViewModels
                     if (IsEditable())
                         if (NavigationService.Parameter is OrganizationSimpleDto dto)
                         {
-                            _organization = ServiceLocator.Current.GetInstance<OrganizationQueryService>()
-                                .GetOrganization(dto.Id);
+                            _organization = ServiceLocator.Current.GetInstance<OrganizationQueryService>().GetOrganization(dto.Id);
                             AccountNumber = _organization.AccountNumber;
                             SelectCompany = ServiceLocator.Current.GetInstance<CompanyQueryService>().GetCompany(dto.CompanyId);
                             SelectBank = ServiceLocator.Current.GetInstance<BankQueryService>().GetBank(dto.BankId);

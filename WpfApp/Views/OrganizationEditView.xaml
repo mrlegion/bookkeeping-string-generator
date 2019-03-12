@@ -52,7 +52,8 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <ComboBox Grid.Column="0"
-                                      SelectedItem="{Binding SelectCompany, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                      IsSynchronizedWithCurrentItem="True"
+                                      SelectedItem="{Binding SelectCompany, UpdateSourceTrigger=PropertyChanged}"
                                       ItemsSource="{Binding Companies}"
                                       md:HintAssist.Hint="Выбрать компанию"
                                       Style="{StaticResource MaterialDesignFloatingHintComboBox}">
@@ -84,6 +85,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <ComboBox Grid.Column="0" 
+                                      IsSynchronizedWithCurrentItem="True"
                                       SelectedItem="{Binding SelectBank, UpdateSourceTrigger=PropertyChanged}"
                                       ItemsSource="{Binding Banks}"
                                       md:HintAssist.Hint="Выбрать банк"

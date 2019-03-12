@@ -21,5 +21,19 @@ namespace Infrastructure.Entities
             Inn = inn;
             Kpp = kpp;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj != null)
+                if (obj is Company company)
+                {
+                    return this.Id == company.Id &&
+                           this.Name == company.Name &&
+                           this.Inn == company.Inn &&
+                           this.Kpp == company.Kpp;
+                }
+
+            return false;
+        }
     }
 }

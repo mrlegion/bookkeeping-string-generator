@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Entities
 {
-    public class Organization : IDataErrorInfo
+    public class Organization
     {
         public int Id { get; set; }
         public string AccountNumber { get; set; }
@@ -24,24 +24,5 @@ namespace Infrastructure.Entities
             Bank = bank;
             AccountNumber = accountNumber;
         }
-
-        public string this[string columnName]
-        {
-            get
-            {
-                string error = String.Empty;
-                switch (columnName)
-                {
-                    case nameof(AccountNumber):
-                        if (AccountNumber.Length < 20)
-                            error = "Длина номера счёта не может быть пустой или быть меньше двадцати знаков!";
-                        break;
-                }
-
-                return error;
-            }
-        }
-
-        public string Error { get { throw new NotImplementedException(); } }
     }
 }

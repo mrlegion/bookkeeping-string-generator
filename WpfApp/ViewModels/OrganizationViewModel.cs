@@ -14,7 +14,6 @@ namespace WpfApp.ViewModels
         public OrganizationViewModel(IFrameNavigationService navigationService) : base(navigationService)
         {
             Title = "Информация об организациях";
-            Init();
         }
 
         private IEnumerable<OrganizationSimpleDto> _organizations;
@@ -55,6 +54,19 @@ namespace WpfApp.ViewModels
                     if (o != null)
                         if (o is OrganizationSimpleDto dto)
                             NavigationService.NavigateTo("OrganizationEdit", dto);
+                }));
+            }
+        }
+
+        private RelayCommand _onLoadedCommand;
+
+        public RelayCommand OnLoadedCommand
+        {
+            get
+            {
+                return _onLoadedCommand ?? (_onLoadedCommand = new RelayCommand(() =>
+                {
+                    Init();
                 }));
             }
         }
