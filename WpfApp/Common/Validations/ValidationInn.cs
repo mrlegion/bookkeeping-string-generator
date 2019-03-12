@@ -14,7 +14,7 @@ namespace WpfApp.Common.Validations
             if (string.IsNullOrWhiteSpace(inn) || string.IsNullOrEmpty(inn))
                 return new ValidationResult(false, "Номер ИНН не может быть пустым!");
 
-            if (inn.Length == 9) return ValidationResult.ValidResult;
+            if (inn.Length >= 9 && inn.Length <= 12) return ValidationResult.ValidResult;
 
             return new ValidationResult(false, "Номер ИНН не может быть короче или больше 9 символов!");
         }
