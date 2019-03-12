@@ -51,5 +51,11 @@ namespace DAL.Repository.Implimentation
             if (bank == null) throw new ArgumentNullException(nameof(bank));
             DbContext.Entry(bank).State = EntityState.Modified;
         }
+
+        public void Delete(Bank bank)
+        {
+            if (bank == null) throw new ArgumentNullException(nameof(bank));
+            DbContext.Entry(bank).State = EntityState.Deleted;
+        }
     }
 }

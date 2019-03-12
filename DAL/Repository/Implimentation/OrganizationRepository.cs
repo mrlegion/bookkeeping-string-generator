@@ -106,5 +106,11 @@ namespace DAL.Repository.Implimentation
             DbContext.Banks.Attach(organization.Bank);
             DbContext.Entry(organization).State = EntityState.Modified;
         }
+
+        public void Delete(Organization organization)
+        {
+            if (organization == null) throw new ArgumentNullException(nameof(organization));
+            DbContext.Entry(organization).State = EntityState.Deleted;
+        }
     }
 }

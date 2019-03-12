@@ -16,5 +16,6 @@ namespace DAL.Repository.Interface
         Task<IEnumerable<OrganizationSimpleDto>> GetAllSimpeInfoAsync();
         void Add(Organization organization);
         void Update(Organization organization);
+        void Delete(Organization organization);
     }
 }

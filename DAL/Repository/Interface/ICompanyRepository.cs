@@ -9,5 +9,6 @@ namespace DAL.Repository.Interface
         Task<Company> GetAsync(int id);
         void Add(Company company);
         void Update(Company company);
+        void Delete(Company company);
     }
 }

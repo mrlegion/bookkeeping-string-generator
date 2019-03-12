@@ -51,5 +51,11 @@ namespace DAL.Repository.Implimentation
             if (company == null) throw new ArgumentNullException(nameof(company));
             DbContext.Entry(company).State = EntityState.Modified;
         }
+
+        public void Delete(Company company)
+        {
+            if (company == null) throw new ArgumentNullException(nameof(company));
+            DbContext.Entry(company).State = EntityState.Deleted;
+        }
     }
 }
