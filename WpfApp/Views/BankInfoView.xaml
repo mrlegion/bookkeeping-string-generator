@@ -61,6 +61,26 @@
                     Binding="{Binding AccountNumber}"
                     FontStyle="Italic"
                     Width="1*"/>
+                <DataGridTemplateColumn Header="Управление">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Style="{StaticResource MaterialDesignToolButton}"
+                                        Padding="5 0"
+                                        Command="{Binding DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}"
+                                        Height="Auto">
+                                    <md:PackIcon Kind="Edit"/>
+                                </Button>
+                                <Button Style="{StaticResource MaterialDesignToolButton}"
+                                        Padding="5 0"
+                                        Height="Auto">
+                                    <md:PackIcon Kind="Delete"/>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
