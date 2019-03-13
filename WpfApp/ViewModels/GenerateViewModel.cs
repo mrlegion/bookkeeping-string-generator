@@ -1,40 +1,16 @@
 ﻿using GalaSoft.MvvmLight;
+using WpfApp.Service;
 
 namespace WpfApp.ViewModels
 {
     /// <summary>
     /// Description this class
     /// </summary>
-    public class GenerateViewModel : ViewModelBase
+    public class GenerateViewModel : ViewModelCustom
     {
-        #region Fields
-
-        
-
-        #endregion
-
-        #region Ctor
-
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        #region Commands
-
-        #endregion
-
-        #region Public methods
-
-        #endregion
-
-        #region Private methods
-
-        #endregion
-
-        #region Exceptions
-
-        #endregion
+        public GenerateViewModel(IFrameNavigationService navigationService) : base(navigationService)
+        {
+            Title = "Создание файла";
+        }
     }
 }
