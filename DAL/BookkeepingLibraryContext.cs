@@ -21,8 +21,10 @@ namespace DAL
 
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Company> Companies { get; set; }
-        public DbSet<PaymentOrder> PaymentOrders { get; set; }
         public DbSet<Organization> Organizations { get; set; }
-        public DbSet<PaymentType> PaymentTypes { get; set; }
+
+        // ToDo: it is realy need? Maybe it is need deleted
+        //public DbSet<PaymentOrder> PaymentOrders { get; set; }
+        //public DbSet<PaymentType> PaymentTypes { get; set; }
     }
 }

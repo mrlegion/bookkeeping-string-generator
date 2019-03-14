@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace SumToString
+namespace Domain.Helpers
 {
-    public static class Model
+    public class MoneyToString : IIntToString
     {
         private static string[] _numberStrings = new[]
         {
@@ -17,34 +17,22 @@ namespace SumToString
             "миллиардов", "миллиард", "миллиарда", "миллиарда", "миллиарда", "миллиардов", "миллиардов", "миллиардов", "миллиардов", "миллиардов"
         };
 
-        private static readonly List<string> Rub = 
-            new List<string>() {"рублей", "рубль", "рубля", "рубля", "рубля", "рублей", "рублей", "рублей", "рублей", "рублей"};
+        private static readonly List<string> Rub =
+            new List<string>() { "рублей", "рубль", "рубля", "рубля", "рубля", "рублей", "рублей", "рублей", "рублей", "рублей" };
 
-        private static readonly List<string> Kop = 
-            new List<string>() {"копеек", "копейка", "копейки", "копейки", "копейки", "копеек", "копеек", "копеек", "копеек", "копеек"};
+        private static readonly List<string> Kop =
+            new List<string>() { "копеек", "копейка", "копейки", "копейки", "копейки", "копеек", "копеек", "копеек", "копеек", "копеек" };
 
         private static string _negative;
         private static string _price;
         private static string[][] _naming;
 
-        static Model()
+        public MoneyToString()
         {
             FillNamingArray();
         }
 
-        private static void FillNamingArray()
-        {
-            int c = 0;
-            _naming = new string[10][];
-            for (int i = 0; i < 10; i++)
-                _naming[i] = new string[_numberStrings.Length / 10];
-
-            for (int i = 0; i < _numberStrings.Length / 10; i++)
-                for (int j = 0; j < 10; j++)
-                    _naming[j][i] = _numberStrings[c++];
-        }
-
-        public static string NumberToString(string money, bool fullNameKop = true)
+        public string NumberToString(string money, bool fullNameKop = true)
         {
             if (string.IsNullOrEmpty(money))
                 throw new ArgumentNullException(nameof(money));
@@ -84,7 +72,19 @@ namespace SumToString
             return ru.ToFistUpper();
         }
 
-        private static string GetNaming(string price, List<string> list, MoneyType type)
+        private void FillNamingArray()
+        {
+            int c = 0;
+            _naming = new string[10][];
+            for (int i = 0; i < 10; i++)
+                _naming[i] = new string[_numberStrings.Length / 10];
+
+            for (int i = 0; i < _numberStrings.Length / 10; i++)
+                for (int j = 0; j < 10; j++)
+                    _naming[j][i] = _numberStrings[c++];
+        }
+
+        private string GetNaming(string price, List<string> list, MoneyType type)
         {
             string result = "";
 
@@ -105,7 +105,7 @@ namespace SumToString
                     units = _naming[GetNumber(i + 1, 1)][0];
 
                     if (units == "один" && (i == 3 || type == MoneyType.Kop))
-                        units =  "одна";
+                        units = "одна";
 
                     if (units == "два" && (i == 3 || type == MoneyType.Kop))
                         units = "две";
@@ -138,13 +138,13 @@ namespace SumToString
             return result.Substring(1);
         }
 
-        private static int GetNumber(int start, int length)
+        private int GetNumber(int start, int length)
         {
             if (start > _price.Length) return 0;
             else return Int32.Parse(_price.Substring(_price.Length - start, length));
         }
 
-        private static string GetNamingKop(string kop)
+        private string GetNamingKop(string kop)
         {
             if (string.IsNullOrEmpty(kop) || string.IsNullOrWhiteSpace(kop))
                 return "00 копеек";
@@ -163,51 +163,6 @@ namespace SumToString
             return "00 копеек";
         }
 
-        private static string ToFistUpper(this string s)
-        {
-            if (string.IsNullOrEmpty(s))
-                throw new ArgumentNullException(nameof(s));
-
-            string[] sArray = s.Split(' ');
-
-            if (sArray.Length == 0)
-                throw new ArgumentOutOfRangeException(nameof(sArray));
-
-            for (int i = 0; i < sArray.Length; i++)
-            {
-                if (i == 0)
-                    sArray[i] = (sArray[i].Substring(0, 1).ToUpper()) + (sArray[i].Substring(1).ToLower());
-                else sArray[i] = sArray[i].ToLower();
-            }
-
-            return string.Join(" ", sArray);
-        }
-
-        private static string ToFirstOnEachUpper(this string s)
-        {
-            if (string.IsNullOrEmpty(s))
-                throw new ArgumentNullException(nameof(s));
-
-            string[] sArray = s.Split(' ');
-
-            if (sArray.Length == 0)
-                throw new ArgumentOutOfRangeException(nameof(sArray));
-
-            for (int i = 0; i < sArray.Length; i++)
-            {
-                if (sArray[i].Length > 1)
-                    sArray[i] = (sArray[i].Substring(0, 1).ToUpper()) + (sArray[i].Substring(1).ToLower());
-                else sArray[i] = sArray[i].ToUpper();
-            }
-
-            return string.Join(" ", sArray);
-        }
-    }
-
-    enum MoneyType
-    {
-        None,
-        Rub,
-        Kop
+        
     }
 }

@@ -14,6 +14,7 @@ namespace DAL.Repository.Interface
         IEnumerable<Organization> GetAll(params int[] ids);
         IEnumerable<OrganizationSimpleDto> GetAllSimpeInfo();
         Task<IEnumerable<OrganizationSimpleDto>> GetAllSimpeInfoAsync();
+        IEnumerable<OrganizationFullDto> GetAllFullInfo();
         void Add(Organization organization);
         void Update(Organization organization);
         void Delete(Organization organization);

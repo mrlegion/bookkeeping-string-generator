@@ -6,7 +6,8 @@ namespace Infrastructure.Entities
 {
     public class PaymentOrder
     {
-        public int Id { get; set; }
+        // Todo: deleted
+        //public int Id { get; set; }
         public int Number { get; set; }
         public DateTime Date { get; set; }
         public DateTime InDate { get; set; }
@@ -15,7 +16,7 @@ namespace Infrastructure.Entities
         public int Total { get; set; }
         public string TotalText { get; set; }
         public string Description { get; set; }
-        public PaymentType TypeOfPayment { get; set; }
+        public string TypeOfPayment { get; set; }
         public Organization Payer { get; set; }
         public Organization Recipient { get; set; }
         public string TypeOfPaying { get; set; }

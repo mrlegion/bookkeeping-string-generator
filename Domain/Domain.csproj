@@ -61,6 +61,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainModule.cs" />
+    <Compile Include="Helpers\FontCase.cs" />
+    <Compile Include="Helpers\IIntToString.cs" />
+    <Compile Include="Helpers\MoneyToString.cs" />
+    <Compile Include="Helpers\MoneyType.cs" />
+    <Compile Include="Model\Generator.cs" />
+    <Compile Include="Model\IGenerator.cs" />
+    <Compile Include="Model\ISaver.cs" />
+    <Compile Include="Model\Saver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BankService.cs" />
     <Compile Include="Services\CompanyService.cs" />

@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
+using CommonServiceLocator;
+using Domain.Helpers;
+using Domain.Services;
 using GalaSoft.MvvmLight;
+using Infrastructure.Dto;
 using Infrastructure.Entities;
 using WpfApp.Service;
 
@@ -22,13 +26,17 @@ namespace WpfApp.ViewModels
         private string _typeOfPaying;
         private string _queuePayment;
 
+        private IIntToString _converter;
+
         private bool _useOneDate;
 
         private bool _autoTotalText;
 
-        public GenerateViewModel(IFrameNavigationService navigationService) : base(navigationService)
+        public GenerateViewModel(IFrameNavigationService navigationService, IIntToString converter) : base(navigationService)
         {
             Title = "Создание файла";
+            _converter = converter;
+            Organizations = ServiceLocator.Current.GetInstance<OrganizationService>().GetOrganizations();
         }
 
         public int NumberOrder
@@ -68,7 +76,11 @@ namespace WpfApp.ViewModels
         public string Total
         {
             get { return _total; }
-            set { Set(nameof(Total), ref _total, value); }
+            set
+            {
+                Set(nameof(Total), ref _total, value);
+                if (AutoTotalText) ConvertTotalToString();
+            }
         }
 
         public string TotalText
@@ -132,7 +144,21 @@ namespace WpfApp.ViewModels
         public bool AutoTotalText
         {
             get { return _autoTotalText; }
-            set { Set(nameof(AutoTotalText), ref _autoTotalText, value); }
+            set
+            {
+                Set(nameof(AutoTotalText), ref _autoTotalText, value);
+                if (value) ConvertTotalToString();
+            }
+        }
+
+        private void ConvertTotalToString()
+        {
+            if (string.IsNullOrWhiteSpace(Total) || string.IsNullOrEmpty(Total))
+            {
+                TotalText = "Введите сумму";
+                return;
+            }
+            TotalText = _converter.NumberToString(Total);
         }
 
         private void SetAllDateToOne()

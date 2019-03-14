@@ -67,6 +67,14 @@ namespace Domain.Services
             }
         }
 
+        public IEnumerable<OrganizationFullDto> GetAllFullInfo()
+        {
+            using (_dbContextScopeFactory.CreateReadOnly())
+            {
+                return _organizationRepository.GetAllFullInfo();
+            }
+        }
+
         public void UpdateOrganization(Organization organization)
         {
             if (organization == null) throw new ArgumentNullException(nameof(organization));

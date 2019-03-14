@@ -46,7 +46,7 @@ namespace DAL.Repository.Implimentation
 
         public IEnumerable<Organization> GetAll()
         {
-            return DbContext.Organizations.ToList();
+            return DbContext.Organizations.Include(o => o.Company).Include(o => o.Bank).ToList();
         }
 
         public async Task<IEnumerable<Organization>> GetAllAsync()
@@ -90,6 +90,27 @@ namespace DAL.Repository.Implimentation
                     BankName = o.Bank.Name,
                     AccountNumber = o.AccountNumber
                 }).ToListAsync();
+        }
+
+        public IEnumerable<OrganizationFullDto> GetAllFullInfo()
+        {
+            return DbContext.Organizations
+                .Include(o => o.Company)
+                .Include(o => o.Bank)
+                .Select(o => new OrganizationFullDto()
+                {
+                    Id = o.Id,
+                    CompanyId = o.Company.Id,
+                    CompanyName = o.Company.Name,
+                    CompanyInn = o.Company.Inn,
+                    CompanyKpp = o.Company.Kpp,
+                    BankId = o.Bank.Id,
+                    BankName = o.Bank.Name,
+                    BankCity = o.Bank.City,
+                    BankBik = o.Bank.Bik,
+                    BankAccountNumber = o.Bank.AccountNumber,
+                    AccountNumber = o.AccountNumber
+                }).ToList();
         }
 
         public void Add(Organization organization)

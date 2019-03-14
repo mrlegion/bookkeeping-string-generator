@@ -152,14 +152,71 @@
                         </Grid.ColumnDefinitions>
                         <ComboBox Grid.Column="0"
                                   ItemsSource="{Binding Organizations}"
+                                  
                                   SelectedItem="{Binding Payer}"
                                   md:HintAssist.Hint="Выбирете плательщика"
-                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding Company.Name}" FontSize="14" FontWeight="SemiBold"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="ИНН: " FontStyle="Italic" FontSize="10"/>
+                                                <TextBlock Text="{Binding Company.Inn}" FontStyle="Italic" FontSize="10"/>
+                                                <TextBlock Text="; КПП: " FontStyle="Italic" FontSize="10"/>
+                                                <TextBlock Text="{Binding Company.Kpp}" FontStyle="Italic" FontSize="10"/>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Bank.Name}" FontSize="12" FontWeight="SemiBold"/>
+                                            <TextBlock Text=" ( " FontSize="12" FontWeight="SemiBold"/>
+                                            <TextBlock Text="{Binding Bank.City}" FontSize="12" FontStyle="Italic"/>
+                                            <TextBlock Text=" )" FontSize="12" FontWeight="SemiBold"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Номер счёта: " FontSize="12" FontStyle="Italic"/>
+                                            <TextBlock Text="{Binding AccountNumber}" FontSize="12" FontStyle="Italic"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                         <ComboBox Grid.Column="2"
                                   ItemsSource="{Binding Organizations}"
                                   SelectedItem="{Binding Recipient}"
                                   md:HintAssist.Hint="Выбирете получателя"
-                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding Company.Name}" FontSize="14" FontWeight="SemiBold"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="ИНН: " FontStyle="Italic" FontSize="10"/>
+                                                <TextBlock Text="{Binding Company.Inn}" FontStyle="Italic" FontSize="10"/>
+                                                <TextBlock Text="; КПП: " FontStyle="Italic" FontSize="10"/>
+                                                <TextBlock Text="{Binding Company.Kpp}" FontStyle="Italic" FontSize="10"/>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Bank.Name}" FontSize="12" FontWeight="SemiBold"/>
+                                            <TextBlock Text=" ( " FontSize="12" FontWeight="SemiBold"/>
+                                            <TextBlock Text="{Binding Bank.City}" FontSize="12" FontStyle="Italic"/>
+                                            <TextBlock Text=" )" FontSize="12" FontWeight="SemiBold"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Номер счёта: " FontSize="12" FontStyle="Italic"/>
+                                            <TextBlock Text="{Binding AccountNumber}" FontSize="12" FontStyle="Italic"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </Grid>
 
                     <StackPanel Orientation="Vertical"
