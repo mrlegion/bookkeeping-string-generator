@@ -7,33 +7,32 @@ namespace Domain.Model
 {
     public class Saver : ISaver
     {
-        private FileInfo _file;
-        private FileStream _stream;
+        private string _file;
 
         public void InitFile(string path)
         {
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException(nameof(path));
-            _file = new FileInfo(path);
-            if (_file.Exists) _file.Delete();
-            _file.Create();
-        }
-
-        public void SaveChanges()
-        {
-            _stream?.Close();
+            _file = path;
+            File.Create(_file).Close();
         }
 
         public void WriteLine(string line)
         {
-            using (StreamWriter steam = new StreamWriter(_stream, Encoding.Unicode))
+            using (StreamWriter steam = new StreamWriter(_file))
             {
-
+                steam.WriteLine(line);
             }
         }
 
         public void WriteLines(IEnumerable<string> lines)
         {
-            throw new System.NotImplementedException();
+            using (StreamWriter stream = new StreamWriter(_file))
+            {
+                foreach (string line in lines)
+                {
+                    stream.WriteLine(line);
+                }
+            }
         }
     }
 }

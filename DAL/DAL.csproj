@@ -86,8 +86,6 @@
     <Compile Include="CompanyFluentMap.cs" />
     <Compile Include="DalModule.cs" />
     <Compile Include="OrganizationFluentMap.cs" />
-    <Compile Include="PayFluentMap.cs" />
-    <Compile Include="PaymentOrderFluentMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Implimentation\BankRepository.cs" />
     <Compile Include="Repository\Implimentation\CompanyRepository.cs" />
