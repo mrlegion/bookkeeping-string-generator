@@ -274,7 +274,7 @@
                                 DockPanel.Dock="Bottom" 
                                 HorizontalAlignment="Center" 
                                 VerticalAlignment="Bottom">
-                        <Button Margin="10 0" Style="{StaticResource MaterialDesignFlatButton}">
+                        <Button Margin="10 0" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding GenerateCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Kind="ContentSave"/>
                                 <TextBlock Text="Генерировать" Margin="5 0 0 0"/>

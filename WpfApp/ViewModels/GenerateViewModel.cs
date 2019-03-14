@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CommonServiceLocator;
 using Domain.Helpers;
+using Domain.Model;
 using Domain.Services;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using Infrastructure.Dto;
 using Infrastructure.Entities;
 using WpfApp.Service;
@@ -12,10 +15,10 @@ namespace WpfApp.ViewModels
     public class GenerateViewModel : ViewModelCustom
     {
         private int _numberOrder;
-        private string _date;
-        private string _inDate;
-        private string _outDate;
-        private string _acceptDate;
+        private DateTime _date;
+        private DateTime _inDate;
+        private DateTime _outDate;
+        private DateTime _acceptDate;
         private string _total;
         private string _totalText;
         private IEnumerable<Organization> _organizations;
@@ -27,12 +30,14 @@ namespace WpfApp.ViewModels
         private string _queuePayment;
 
         private IIntToString _converter;
+        private IGenerator _generator;
 
         private bool _useOneDate;
 
         private bool _autoTotalText;
+        private RelayCommand _generateCommand;
 
-        public GenerateViewModel(IFrameNavigationService navigationService, IIntToString converter) : base(navigationService)
+        public GenerateViewModel(IFrameNavigationService navigationService, IIntToString converter, IGenerator generator) : base(navigationService)
         {
             Title = "Создание файла";
             _converter = converter;
@@ -45,7 +50,7 @@ namespace WpfApp.ViewModels
             set { Set(nameof(NumberOrder), ref _numberOrder, value); }
         }
 
-        public string Date
+        public DateTime Date
         {
             get { return _date; }
             set
@@ -55,19 +60,19 @@ namespace WpfApp.ViewModels
             }
         }
 
-        public string InDate
+        public DateTime InDate
         {
             get { return _inDate; }
             set { Set(nameof(InDate), ref _inDate, value); }
         }
 
-        public string OutDate
+        public DateTime OutDate
         {
             get { return _outDate; }
             set { Set(nameof(OutDate), ref _outDate, value); }
         }
 
-        public string AcceptDate
+        public DateTime AcceptDate
         {
             get { return _acceptDate; }
             set { Set(nameof(AcceptDate), ref _acceptDate, value); }
@@ -148,6 +153,34 @@ namespace WpfApp.ViewModels
             {
                 Set(nameof(AutoTotalText), ref _autoTotalText, value);
                 if (value) ConvertTotalToString();
+            }
+        }
+
+        public RelayCommand GenerateCommand
+        {
+            get
+            {
+                return _generateCommand ?? (_generateCommand = new RelayCommand(() =>
+                {
+                    var item = new PaymentOrder()
+                    {
+                        Number = this.NumberOrder,
+                        Date = this.Date,
+                        InDate = this.InDate,
+                        OutDate = this.OutDate,
+                        AcceptDate = this.AcceptDate,
+                        Total = this.Total,
+                        TotalText = this.TotalText,
+                        Description = this.Description,
+                        Payer = this.Payer,
+                        Recipient = this.Recipient,
+                        TypeOfPayment = this.PaymentType,
+                        TypeOfPaying = this.TypeOfPaying,
+                        QueuePayment = this.QueuePayment
+                    };
+
+                    _generator.OnGenerate(item);
+                }));
             }
         }
 
