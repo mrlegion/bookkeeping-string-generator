@@ -48,6 +48,7 @@
                                        Style="{StaticResource MaterialDesignTitleTextBlock}"/>
                         <TextBox Width="170"
                                  FontSize="16"
+                                 Text="{Binding NumberOrder, UpdateSourceTrigger=PropertyChanged}"
                                  HorizontalAlignment="Left"/>
                     </StackPanel>
 
@@ -66,26 +67,35 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <DatePicker md:HintAssist.Hint="Дата платежки"
+                                        SelectedDate="{Binding Date, UpdateSourceTrigger=PropertyChanged}"
+                                        SelectedDateFormat="Short"
                                         Grid.Column="0"
                                         Margin="0 0 15 0"
                                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
                             <DatePicker md:HintAssist.Hint="Поступ. в банк плат."
+                                        SelectedDateFormat="Short"
+                                        SelectedDate="{Binding InDate, UpdateSourceTrigger=PropertyChanged}"
                                         IsEnabled="{Binding ElementName=OneDateEnabled, Path=IsChecked, Converter={StaticResource InverseBooleanConverter}}"
                                         Grid.Column="1"
                                         Margin="15 0"
                                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
                             <DatePicker md:HintAssist.Hint="Списано со сч. плат."
+                                        SelectedDateFormat="Short"
+                                        SelectedDate="{Binding OutDate, UpdateSourceTrigger=PropertyChanged}"
                                         IsEnabled="{Binding ElementName=OneDateEnabled, Path=IsChecked, Converter={StaticResource InverseBooleanConverter}}"
                                         Grid.Column="2"
                                         Margin="15 0"
                                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
                             <DatePicker md:HintAssist.Hint="Дата проведения"
+                                        SelectedDateFormat="Short"
+                                        SelectedDate="{Binding AcceptDate, UpdateSourceTrigger=PropertyChanged}"
                                         IsEnabled="{Binding ElementName=OneDateEnabled, Path=IsChecked, Converter={StaticResource InverseBooleanConverter}}"
                                         Grid.Column="3"
                                         Margin="15 0 0 0"
                                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
                         </Grid>
                         <CheckBox Content="Использовать дату платежки для всех дат"
+                                  IsChecked="{Binding UseOneDate, UpdateSourceTrigger=PropertyChanged}"
                                   Margin="0 10 0 0"
                                   x:Name="OneDateEnabled"
                                   ToolTip="Установить все даты в одно значение"/>
@@ -96,8 +106,8 @@
                                     Margin="0 0 0 30"
                                     DockPanel.Dock="Top">
                         <TextBlock Text="Сумма"
-                                       Margin="0 0 0 10"
-                                       Style="{StaticResource MaterialDesignTitleTextBlock}"/>
+                                   Margin="0 0 0 10"
+                                   Style="{StaticResource MaterialDesignTitleTextBlock}"/>
                         <Grid DockPanel.Dock="Top" VerticalAlignment="Top">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="3*" />
@@ -111,20 +121,23 @@
                             </Grid.RowDefinitions>
 
                             <TextBox Grid.Column="0"
-                                         Grid.Row="0"
-                                         md:HintAssist.Hint="Сумма платежки"
-                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                     Grid.Row="0"
+                                     Text="{Binding Total, UpdateSourceTrigger=PropertyChanged}"
+                                     md:HintAssist.Hint="Сумма платежки"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
                             <TextBox Grid.Column="2"
-                                         Grid.Row="0"
-                                         md:HintAssist.Hint="Сумма платежки прописью"
-                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                         IsEnabled="{Binding ElementName=SummText, Path=IsChecked, Converter={StaticResource InverseBooleanConverter}}"/>
+                                     Grid.Row="0"
+                                     Text="{Binding TotalText, UpdateSourceTrigger=PropertyChanged}"
+                                     md:HintAssist.Hint="Сумма платежки прописью"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                     IsEnabled="{Binding ElementName=SummText, Path=IsChecked, Converter={StaticResource InverseBooleanConverter}}"/>
 
                             <CheckBox Grid.Row="1"
                                       Grid.Column="2"
                                       x:Name="SummText"
                                       Margin="0 10 0 0"
+                                      IsChecked="{Binding AutoTotalText, UpdateSourceTrigger=PropertyChanged}"
                                       Content="Автоматически генерировать сумму прописью"/>
                         </Grid>
                     </StackPanel>
@@ -138,26 +151,31 @@
                             <ColumnDefinition Width="5*" />
                         </Grid.ColumnDefinitions>
                         <ComboBox Grid.Column="0"
-                                      md:HintAssist.Hint="Выбирете плательщика"
-                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                                  ItemsSource="{Binding Organizations}"
+                                  SelectedItem="{Binding Payer}"
+                                  md:HintAssist.Hint="Выбирете плательщика"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
                         <ComboBox Grid.Column="2"
-                                      md:HintAssist.Hint="Выбирете получателя"
-                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                                  ItemsSource="{Binding Organizations}"
+                                  SelectedItem="{Binding Recipient}"
+                                  md:HintAssist.Hint="Выбирете получателя"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
                     </Grid>
 
                     <StackPanel Orientation="Vertical"
-                                    Margin="0 0 0 30"
-                                    DockPanel.Dock="Top"
-                                    VerticalAlignment="Top">
+                                Margin="0 0 0 30"
+                                DockPanel.Dock="Top"
+                                VerticalAlignment="Top">
                         <TextBlock Text="Назначение платежа"
-                                       Margin="0 0 0 10"
-                                       Style="{StaticResource MaterialDesignTitleTextBlock}"/>
+                                   Margin="0 0 0 10"
+                                   Style="{StaticResource MaterialDesignTitleTextBlock}"/>
                         <TextBox AcceptsReturn="True"
-                                     md:HintAssist.Hint="Описание платежа"
-                                     TextWrapping="Wrap"
-                                     VerticalScrollBarVisibility="Auto"
-                                     Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
-                                     Height="150"/>
+                                 md:HintAssist.Hint="Описание платежа"
+                                 TextWrapping="Wrap"
+                                 Text="{Binding Description}"
+                                 VerticalScrollBarVisibility="Auto"
+                                 Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                                 Height="150"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical"
@@ -177,15 +195,18 @@
                                 <ColumnDefinition Width="4*" />
                             </Grid.ColumnDefinitions>
 
-                            <ComboBox md:HintAssist.Hint="Вид платежа"
-                                      Grid.Column="0"
-                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                            <TextBox Grid.Column="0" 
+                                     Text="{Binding PaymentType, UpdateSourceTrigger=PropertyChanged}"
+                                     md:HintAssist.Hint="Вид оплаты"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
                             <TextBox Grid.Column="2" 
+                                     Text="{Binding TypeOfPaying, UpdateSourceTrigger=PropertyChanged}"
                                      md:HintAssist.Hint="Вид оплаты"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
                             <TextBox Grid.Column="4" 
+                                     Text="{Binding QueuePayment, UpdateSourceTrigger=PropertyChanged}"
                                      md:HintAssist.Hint="Очередность платежа"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         </Grid>
