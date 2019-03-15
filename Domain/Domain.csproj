@@ -63,8 +63,9 @@
     <Compile Include="DomainModule.cs" />
     <Compile Include="Helpers\FontCase.cs" />
     <Compile Include="Helpers\IIntToString.cs" />
-    <Compile Include="Helpers\MoneyToString.cs" />
+    <Compile Include="Helpers\TextCase.cs" />
     <Compile Include="Helpers\MoneyType.cs" />
+    <Compile Include="Helpers\RuDateAndMoneyConverter.cs" />
     <Compile Include="Model\Generator.cs" />
     <Compile Include="Model\IGenerator.cs" />
     <Compile Include="Model\ISaver.cs" />

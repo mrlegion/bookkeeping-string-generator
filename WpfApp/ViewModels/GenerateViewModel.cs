@@ -195,7 +195,11 @@ namespace WpfApp.ViewModels
                 TotalText = "Введите сумму";
                 return;
             }
-            TotalText = _converter.NumberToString(Total);
+
+            var s = Total.Replace('-', ',');
+            s = s.Replace('.', ',');
+
+            TotalText = RuDateAndMoneyConverter.CurrencyToTxt(Double.Parse(s), true);
         }
 
         private void SetAllDateToOne()
