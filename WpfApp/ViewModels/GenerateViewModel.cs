@@ -29,8 +29,8 @@ namespace WpfApp.ViewModels
         private string _typeOfPaying;
         private string _queuePayment;
 
-        private IIntToString _converter;
-        private IGenerator _generator;
+        private readonly IIntToString _converter;
+        private readonly IGenerator _generator;
 
         private bool _useOneDate;
 
@@ -41,7 +41,10 @@ namespace WpfApp.ViewModels
         {
             Title = "Создание файла";
             _converter = converter;
+            _generator = generator;
             Organizations = ServiceLocator.Current.GetInstance<OrganizationService>().GetOrganizations();
+            Date = DateTime.Now;
+            SetAllDateToOne();
         }
 
         public int NumberOrder
@@ -180,6 +183,7 @@ namespace WpfApp.ViewModels
                     };
 
                     _generator.OnGenerate(item);
+                    NavigationService.GoBack();
                 }));
             }
         }

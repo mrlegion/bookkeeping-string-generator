@@ -41,6 +41,7 @@ namespace Domain.Helpers
             string kop = "";
 
             money = money.Replace('.', ',');
+            money = money.Replace('-', ',');
             money = Regex.Replace(money, "/[\f\n\r\t\v]/g", "");
 
             if (money.Substring(0, 1) == "-")

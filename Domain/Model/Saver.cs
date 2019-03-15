@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace Domain.Model
 {
@@ -17,7 +18,7 @@ namespace Domain.Model
 
         public void WriteLine(string line)
         {
-            using (StreamWriter steam = new StreamWriter(_file))
+            using (StreamWriter steam = new StreamWriter(File.OpenWrite(_file), Encoding.Unicode))
             {
                 steam.WriteLine(line);
             }
@@ -25,7 +26,7 @@ namespace Domain.Model
 
         public void WriteLines(IEnumerable<string> lines)
         {
-            using (StreamWriter stream = new StreamWriter(_file))
+            using (StreamWriter stream = new StreamWriter(File.OpenWrite(_file), Encoding.Unicode))
             {
                 foreach (string line in lines)
                 {

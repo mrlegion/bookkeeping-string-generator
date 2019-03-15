@@ -13,8 +13,8 @@ namespace Infrastructure.Entities
         public Company Company { get; set; }
         public Bank Bank { get; set; }
 
-        public ICollection<PaymentOrder> PayerOrders { get; set; }
-        public ICollection<PaymentOrder> RecipientOrders { get; set; }
+        //public ICollection<PaymentOrder> PayerOrders { get; set; }
+        //public ICollection<PaymentOrder> RecipientOrders { get; set; }
 
         public Organization() {}
 

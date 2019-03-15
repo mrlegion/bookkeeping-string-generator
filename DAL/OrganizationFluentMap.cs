@@ -19,11 +19,8 @@ namespace DAL
             Property(o => o.Id)
                 .HasColumnName("organization_id");
 
-            HasMany(o => o.PayerOrders)
-                .WithRequired(p => p.Payer);
-
-            HasMany(o => o.RecipientOrders)
-                .WithRequired(p => p.Recipient);
+            //HasMany(o => o.PayerOrders).WithRequired(p => p.Payer);
+            //HasMany(o => o.RecipientOrders).WithRequired(p => p.Recipient);
         }
     }
 }
