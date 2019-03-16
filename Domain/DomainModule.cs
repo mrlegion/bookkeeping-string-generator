@@ -17,7 +17,6 @@ namespace Domain
             builder.RegisterType<BankService>();
             builder.RegisterType<CompanyService>();
             builder.RegisterType<OrganizationService>();
-            builder.RegisterType<MoneyToString>().As<IIntToString>();
             builder.RegisterType<Saver>().As<ISaver>();
             builder.RegisterType<Generator>().As<IGenerator>();
         }

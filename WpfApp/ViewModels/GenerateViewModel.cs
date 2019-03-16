@@ -4,9 +4,8 @@ using CommonServiceLocator;
 using Domain.Helpers;
 using Domain.Model;
 using Domain.Services;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using Infrastructure.Dto;
+using GalaSoft.MvvmLight.Messaging;
 using Infrastructure.Entities;
 using WpfApp.Service;
 
@@ -29,7 +28,6 @@ namespace WpfApp.ViewModels
         private string _typeOfPaying;
         private string _queuePayment;
 
-        private readonly IIntToString _converter;
         private readonly IGenerator _generator;
 
         private bool _useOneDate;
@@ -37,14 +35,17 @@ namespace WpfApp.ViewModels
         private bool _autoTotalText;
         private RelayCommand _generateCommand;
 
-        public GenerateViewModel(IFrameNavigationService navigationService, IIntToString converter, IGenerator generator) : base(navigationService)
+        public GenerateViewModel(IFrameNavigationService navigationService, IGenerator generator) : base(navigationService)
         {
             Title = "Создание файла";
-            _converter = converter;
             _generator = generator;
             Organizations = ServiceLocator.Current.GetInstance<OrganizationService>().GetOrganizations();
             Date = DateTime.Now;
             SetAllDateToOne();
+            TypeOfPaying = "01";
+            PaymentType = "0";
+            QueuePayment = "5";
+
         }
 
         public int NumberOrder
@@ -182,7 +183,7 @@ namespace WpfApp.ViewModels
                         QueuePayment = this.QueuePayment
                     };
 
-                    _generator.OnGenerate(item);
+                    Messenger.Default.Send(new NotificationMessage<PaymentOrder>(item, "Add new item to Queue Payment Order"));
                     NavigationService.GoBack();
                 }));
             }

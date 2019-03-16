@@ -74,7 +74,7 @@
                     Width="150"
                     Height="Auto"
                     Command="{Binding NavigateToCommand}"
-                    CommandParameter="Generate"
+                    CommandParameter="GenerateList"
                     Margin="20 0">
                 <Grid>
                     <Grid.RowDefinitions>

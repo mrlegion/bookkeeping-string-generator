@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Infrastructure.Entities;
 
@@ -41,7 +42,23 @@ namespace Domain.Model
 
         public void OnGenerateList(IEnumerable<PaymentOrder> orders)
         {
-            throw new System.NotImplementedException();
+            if (orders == null) throw new ArgumentNullException(nameof(orders));
+            if (!orders.Any()) throw new ArgumentException("In orders not fount items, please check orders list");
+
+            var list = new List<string>();
+            list.Add(GenerateInfoLine());
+            foreach (var order in orders)
+            {
+                var baseInfo = BaseInfoToString(order);
+                var payer = OrganizationInfoToString(order.Payer);
+                var recipient = OrganizationInfoToString(order.Recipient).TrimEnd('\u0009');
+
+                list.Add(baseInfo + payer + recipient);
+            }
+
+            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "combine.txt");
+            _saver.InitFile(path);
+            _saver.WriteLines(list);
         }
 
         public Task OnGenerateListAsync(IEnumerable<PaymentOrder> orders)

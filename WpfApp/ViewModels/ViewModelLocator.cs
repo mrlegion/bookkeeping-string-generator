@@ -32,6 +32,7 @@ namespace WpfApp.ViewModels
             builder.RegisterType<GenerateViewModel>();
             builder.RegisterType<HomeViewModel>();
             builder.RegisterType<OrganizationEditViewModel>();
+            builder.RegisterType<GenerateListViewModel>().SingleInstance();
 
             // register view
             builder.RegisterType<ShellWindow>();
@@ -44,6 +45,7 @@ namespace WpfApp.ViewModels
             builder.RegisterType<GenerateView>();
             builder.RegisterType<HomeView>();
             builder.RegisterType<OrganizationEditView>();
+            builder.RegisterType<GenerateListView>();
 
             var container = builder.Build();
             ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocator(container));
@@ -59,6 +61,7 @@ namespace WpfApp.ViewModels
         public GenerateViewModel Generate => ServiceLocator.Current.GetInstance<GenerateViewModel>();
         public HomeViewModel Home => ServiceLocator.Current.GetInstance<HomeViewModel>();
         public OrganizationEditViewModel OrganizationEdit => ServiceLocator.Current.GetInstance<OrganizationEditViewModel>();
+        public GenerateListViewModel GenerateList => ServiceLocator.Current.GetInstance<GenerateListViewModel>();
 
         internal class NavigationModule : Module
         {
@@ -74,6 +77,7 @@ namespace WpfApp.ViewModels
                 service.Configure("Home", new Uri("..\\Views\\HomeView.xaml", UriKind.Relative));
                 service.Configure("Generate", new Uri("..\\Views\\GenerateView.xaml", UriKind.Relative));
                 service.Configure("OrganizationEdit", new Uri("..\\Views\\OrganizationEditView.xaml", UriKind.Relative));
+                service.Configure("GenerateList", new Uri("..\\Views\\GenerateListView.xaml", UriKind.Relative));
                 builder.Register(c => service).As<IFrameNavigationService>();
             }
         }

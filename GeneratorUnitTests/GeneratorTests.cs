@@ -16,7 +16,6 @@ namespace GeneratorUnitTests
         [SetUp]
         public void SetUp()
         {
-            var moneyToSting = new MoneyToString();
 
             var payer = new Organization(new Company("Company1", "123456789012", "0"),
                 new Bank("Bank1", "City1", "123456789", "12345678901234567890"),
@@ -38,7 +37,7 @@ namespace GeneratorUnitTests
                 OutDate = dt,
                 AcceptDate = dt,
                 Total = "3250.48",
-                TotalText = moneyToSting.NumberToString("3250.48"),
+                TotalText = RuDateAndMoneyConverter.CurrencyToTxt(Double.Parse("3250,48"), true),
                 Description = "Description for test Payment order",
                 Payer = payer,
                 Recipient = repicient,
