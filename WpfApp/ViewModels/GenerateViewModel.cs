@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using CommonServiceLocator;
 using Domain.Helpers;
 using Domain.Model;
@@ -28,6 +29,8 @@ namespace WpfApp.ViewModels
         private string _typeOfPaying;
         private string _queuePayment;
 
+        private Regex _regex;
+
         private readonly IGenerator _generator;
 
         private bool _useOneDate;
@@ -35,7 +38,8 @@ namespace WpfApp.ViewModels
         private bool _autoTotalText;
         private RelayCommand _generateCommand;
 
-        public GenerateViewModel(IFrameNavigationService navigationService, IGenerator generator) : base(navigationService)
+        public GenerateViewModel(IFrameNavigationService navigationService, IGenerator generator) : base(
+            navigationService)
         {
             Title = "Создание файла";
             _generator = generator;
@@ -45,18 +49,17 @@ namespace WpfApp.ViewModels
             TypeOfPaying = "01";
             PaymentType = "0";
             QueuePayment = "5";
-
         }
 
         public int NumberOrder
         {
-            get { return _numberOrder; }
-            set { Set(nameof(NumberOrder), ref _numberOrder, value); }
+            get => _numberOrder;
+            set => Set(nameof(NumberOrder), ref _numberOrder, value);
         }
 
         public DateTime Date
         {
-            get { return _date; }
+            get => _date;
             set
             {
                 Set(nameof(Date), ref _date, value);
@@ -66,27 +69,30 @@ namespace WpfApp.ViewModels
 
         public DateTime InDate
         {
-            get { return _inDate; }
-            set { Set(nameof(InDate), ref _inDate, value); }
+            get => _inDate;
+            set => Set(nameof(InDate), ref _inDate, value);
         }
 
         public DateTime OutDate
         {
-            get { return _outDate; }
-            set { Set(nameof(OutDate), ref _outDate, value); }
+            get => _outDate;
+            set => Set(nameof(OutDate), ref _outDate, value);
         }
 
         public DateTime AcceptDate
         {
-            get { return _acceptDate; }
-            set { Set(nameof(AcceptDate), ref _acceptDate, value); }
+            get => _acceptDate;
+            set => Set(nameof(AcceptDate), ref _acceptDate, value);
         }
 
         public string Total
         {
-            get { return _total; }
+            get => _total;
             set
             {
+                value = Regex.Replace(value, "([0-9]*[-]{0,1}[0-9]*)", "");
+                value = Regex.Replace(value, "\\.|,", "-");
+
                 Set(nameof(Total), ref _total, value);
                 if (AutoTotalText) ConvertTotalToString();
             }
@@ -94,55 +100,55 @@ namespace WpfApp.ViewModels
 
         public string TotalText
         {
-            get { return _totalText; }
-            set { Set(nameof(TotalText), ref _totalText, value); }
+            get => _totalText;
+            set => Set(nameof(TotalText), ref _totalText, value);
         }
 
         public IEnumerable<Organization> Organizations
         {
-            get { return _organizations; }
-            set { Set(nameof(Organizations), ref _organizations, value); }
+            get => _organizations;
+            set => Set(nameof(Organizations), ref _organizations, value);
         }
 
         public Organization Payer
         {
-            get { return _payer; }
-            set { Set(nameof(Payer), ref _payer, value); }
+            get => _payer;
+            set => Set(nameof(Payer), ref _payer, value);
         }
 
         public Organization Recipient
         {
-            get { return _recipient; }
-            set { Set(nameof(Recipient), ref _recipient, value); }
+            get => _recipient;
+            set => Set(nameof(Recipient), ref _recipient, value);
         }
 
         public string Description
         {
-            get { return _description; }
-            set { Set(nameof(Description), ref _description, value); }
+            get => _description;
+            set => Set(nameof(Description), ref _description, value);
         }
 
         public string PaymentType
         {
-            get { return _paymentType; }
-            set { Set(nameof(PaymentType), ref _paymentType, value); }
+            get => _paymentType;
+            set => Set(nameof(PaymentType), ref _paymentType, value);
         }
 
         public string TypeOfPaying
         {
-            get { return _typeOfPaying; }
-            set { Set(nameof(TypeOfPaying), ref _typeOfPaying, value); }
+            get => _typeOfPaying;
+            set => Set(nameof(TypeOfPaying), ref _typeOfPaying, value);
         }
 
         public string QueuePayment
         {
-            get { return _queuePayment; }
-            set { Set(nameof(QueuePayment), ref _queuePayment, value); }
+            get => _queuePayment;
+            set => Set(nameof(QueuePayment), ref _queuePayment, value);
         }
 
         public bool UseOneDate
         {
-            get { return _useOneDate; }
+            get => _useOneDate;
             set
             {
                 Set(nameof(UseOneDate), ref _useOneDate, value);
@@ -152,7 +158,7 @@ namespace WpfApp.ViewModels
 
         public bool AutoTotalText
         {
-            get { return _autoTotalText; }
+            get => _autoTotalText;
             set
             {
                 Set(nameof(AutoTotalText), ref _autoTotalText, value);
@@ -166,21 +172,21 @@ namespace WpfApp.ViewModels
             {
                 return _generateCommand ?? (_generateCommand = new RelayCommand(() =>
                 {
-                    var item = new PaymentOrder()
+                    var item = new PaymentOrder
                     {
-                        Number = this.NumberOrder,
-                        Date = this.Date,
-                        InDate = this.InDate,
-                        OutDate = this.OutDate,
-                        AcceptDate = this.AcceptDate,
-                        Total = this.Total,
-                        TotalText = this.TotalText,
-                        Description = this.Description,
-                        Payer = this.Payer,
-                        Recipient = this.Recipient,
-                        TypeOfPayment = this.PaymentType,
-                        TypeOfPaying = this.TypeOfPaying,
-                        QueuePayment = this.QueuePayment
+                        Number = NumberOrder,
+                        Date = Date,
+                        InDate = InDate,
+                        OutDate = OutDate,
+                        AcceptDate = AcceptDate,
+                        Total = Total,
+                        TotalText = TotalText,
+                        Description = Description,
+                        Payer = Payer,
+                        Recipient = Recipient,
+                        TypeOfPayment = PaymentType,
+                        TypeOfPaying = TypeOfPaying,
+                        QueuePayment = QueuePayment
                     };
 
                     Messenger.Default.Send(new NotificationMessage<PaymentOrder>(item, "Add new item to Queue Payment Order"));
@@ -198,9 +204,8 @@ namespace WpfApp.ViewModels
             }
 
             var s = Total.Replace('-', ',');
-            s = s.Replace('.', ',');
 
-            TotalText = RuDateAndMoneyConverter.CurrencyToTxt(Double.Parse(s), true);
+            TotalText = RuDateAndMoneyConverter.CurrencyToTxt(double.Parse(s), true);
         }
 
         private void SetAllDateToOne()

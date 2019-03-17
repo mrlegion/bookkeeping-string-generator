@@ -3,8 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:WpfApp.Views"
       xmlns:converters="clr-namespace:WpfApp.Common.Converters"
+      xmlns:behaviors="clr-namespace:WpfApp.Common.Behaviors"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -49,7 +50,12 @@
                         <TextBox Width="170"
                                  FontSize="16"
                                  Text="{Binding NumberOrder, UpdateSourceTrigger=PropertyChanged}"
-                                 HorizontalAlignment="Left"/>
+                                 HorizontalAlignment="Left">
+                            <i:Interaction.Behaviors>
+                                <behaviors:OnlyNumberEnterBehavior RegularExpression="^\d+$"
+                                                                   MaxLength="10"/>
+                            </i:Interaction.Behaviors>
+                        </TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical"
