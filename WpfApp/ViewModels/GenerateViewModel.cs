@@ -29,8 +29,6 @@ namespace WpfApp.ViewModels
         private string _typeOfPaying;
         private string _queuePayment;
 
-        private Regex _regex;
-
         private readonly IGenerator _generator;
 
         private bool _useOneDate;
@@ -54,7 +52,11 @@ namespace WpfApp.ViewModels
         public int NumberOrder
         {
             get => _numberOrder;
-            set => Set(nameof(NumberOrder), ref _numberOrder, value);
+            set
+            {
+                Set(nameof(NumberOrder), ref _numberOrder, value);
+                GenerateCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public DateTime Date
@@ -94,13 +96,18 @@ namespace WpfApp.ViewModels
 
                 Set(nameof(Total), ref _total, value);
                 if (AutoTotalText) ConvertTotalToString();
+                GenerateCommand.RaiseCanExecuteChanged();
             }
         }
 
         public string TotalText
         {
             get => _totalText;
-            set => Set(nameof(TotalText), ref _totalText, value);
+            set
+            {
+                Set(nameof(TotalText), ref _totalText, value);
+                GenerateCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public IEnumerable<Organization> Organizations
@@ -112,13 +119,21 @@ namespace WpfApp.ViewModels
         public Organization Payer
         {
             get => _payer;
-            set => Set(nameof(Payer), ref _payer, value);
+            set
+            {
+                Set(nameof(Payer), ref _payer, value);
+                GenerateCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public Organization Recipient
         {
             get => _recipient;
-            set => Set(nameof(Recipient), ref _recipient, value);
+            set
+            {
+                Set(nameof(Recipient), ref _recipient, value);
+                GenerateCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public string Description
@@ -130,19 +145,31 @@ namespace WpfApp.ViewModels
         public string PaymentType
         {
             get => _paymentType;
-            set => Set(nameof(PaymentType), ref _paymentType, value);
+            set
+            {
+                Set(nameof(PaymentType), ref _paymentType, value);
+                GenerateCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public string TypeOfPaying
         {
             get => _typeOfPaying;
-            set => Set(nameof(TypeOfPaying), ref _typeOfPaying, value);
+            set
+            {
+                Set(nameof(TypeOfPaying), ref _typeOfPaying, value);
+                GenerateCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public string QueuePayment
         {
             get => _queuePayment;
-            set => Set(nameof(QueuePayment), ref _queuePayment, value);
+            set
+            {
+                Set(nameof(QueuePayment), ref _queuePayment, value);
+                GenerateCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public bool UseOneDate
@@ -190,7 +217,7 @@ namespace WpfApp.ViewModels
 
                     Messenger.Default.Send(new NotificationMessage<PaymentOrder>(item, "Add new item to Queue Payment Order"));
                     NavigationService.GoBack();
-                }));
+                }, IsValidInfo));
             }
         }
 
@@ -210,6 +237,20 @@ namespace WpfApp.ViewModels
         private void SetAllDateToOne()
         {
             InDate = OutDate = AcceptDate = Date;
+        }
+
+        private bool IsValidInfo()
+        {
+            bool recipient = Recipient != null;
+            bool payer = Payer != null;
+            bool totalInfo = !string.IsNullOrEmpty(Total) && !string.IsNullOrWhiteSpace(Total) &&
+                             !string.IsNullOrEmpty(TotalText) && !string.IsNullOrWhiteSpace(TotalText);
+            bool options = !string.IsNullOrEmpty(TypeOfPaying) && !string.IsNullOrWhiteSpace(TypeOfPaying) &&
+                           !string.IsNullOrEmpty(PaymentType) && !string.IsNullOrWhiteSpace(PaymentType) &&
+                           !string.IsNullOrEmpty(QueuePayment) && !string.IsNullOrWhiteSpace(QueuePayment);
+            bool number = NumberOrder > 0;
+
+            return number && totalInfo && payer && recipient && options;
         }
     }
 }
