@@ -90,7 +90,6 @@ namespace WpfApp.ViewModels
             get => _total;
             set
             {
-                value = Regex.Replace(value, "([0-9]*[-]{0,1}[0-9]*)", "");
                 value = Regex.Replace(value, "\\.|,", "-");
 
                 Set(nameof(Total), ref _total, value);

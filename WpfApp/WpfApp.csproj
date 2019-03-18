@@ -110,6 +110,7 @@
     <Compile Include="Common\Validations\ValidationBik.cs" />
     <Compile Include="Common\Validations\ValidationInn.cs" />
     <Compile Include="Common\Validations\ValidationKpp.cs" />
+    <Compile Include="Common\Validations\ValidationTotal.cs" />
     <Compile Include="Service\FrameNavigationService.cs" />
     <Compile Include="Service\IFrameNavigationService.cs" />
     <Compile Include="ViewModels\AdministrationViewModel.cs" />

@@ -6,6 +6,7 @@
       xmlns:converters="clr-namespace:WpfApp.Common.Converters"
       xmlns:behaviors="clr-namespace:WpfApp.Common.Behaviors"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:validations="clr-namespace:WpfApp.Common.Validations"
       mc:Ignorable="d"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -128,9 +129,16 @@
 
                             <TextBox Grid.Column="0"
                                      Grid.Row="0"
-                                     Text="{Binding Total, UpdateSourceTrigger=PropertyChanged}"
                                      md:HintAssist.Hint="Сумма платежки"
-                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                <TextBox.Text>
+                                    <Binding Path="Total" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validations:ValidationTotal/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
 
                             <TextBox Grid.Column="2"
                                      Grid.Row="0"
