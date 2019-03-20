@@ -51,13 +51,24 @@
                            Margin="10 0"/>
             </StackPanel>
 
-            <Button Grid.Column="1"
-                    Padding="15 0"
-                    Style="{StaticResource MaterialDesignToolButton}">
-                <md:PackIcon Kind="Gear"
-                             Width="20"
-                             Height="20"/>
-            </Button>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Column="1">
+                <Button Padding="10 0"
+                        ToolTip="Основные настройки программы"
+                        Style="{StaticResource MaterialDesignToolButton}">
+                    <md:PackIcon Kind="Gear"
+                                 Width="20"
+                                 Height="20"/>
+                </Button>
+                <Button Padding="10 0"
+                        ToolTip="FAQ"
+                        Style="{StaticResource MaterialDesignToolButton}">
+                    <md:PackIcon Kind="QuestionMarkCircle"
+                                 Width="20"
+                                 Height="20"/>
+                </Button>
+            </StackPanel>
+            
         </Grid>
         
         <Frame x:Name="RootFrame"

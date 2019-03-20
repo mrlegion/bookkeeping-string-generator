@@ -51,6 +51,14 @@ namespace Domain.Services
             }
         }
 
+        public Task<IEnumerable<Organization>> GetOrganizationAsync()
+        {
+            using (_dbContextScopeFactory.CreateReadOnly())
+            {
+                return _organizationRepository.GetAllAsync();
+            }
+        }
+
         public IEnumerable<OrganizationSimpleDto> GetAllSimpleInfo()
         {
             using (_dbContextScopeFactory.CreateReadOnly())

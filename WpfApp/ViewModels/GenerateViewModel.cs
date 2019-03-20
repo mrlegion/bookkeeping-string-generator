@@ -41,12 +41,13 @@ namespace WpfApp.ViewModels
         {
             Title = "Создание файла";
             _generator = generator;
-            Organizations = ServiceLocator.Current.GetInstance<OrganizationService>().GetOrganizations();
             Date = DateTime.Now;
             SetAllDateToOne();
             TypeOfPaying = "01";
             PaymentType = "0";
             QueuePayment = "5";
+
+
         }
 
         public int NumberOrder

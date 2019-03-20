@@ -51,7 +51,7 @@ namespace DAL.Repository.Implimentation
 
         public async Task<IEnumerable<Organization>> GetAllAsync()
         {
-            return await DbContext.Organizations.ToListAsync();
+            return await DbContext.Organizations.Include(o => o.Bank).Include(o => o.Company).ToListAsync();
         }
 
         public IEnumerable<Organization> GetAll(params int[] ids)
