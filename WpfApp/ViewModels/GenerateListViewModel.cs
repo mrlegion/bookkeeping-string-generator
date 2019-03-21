@@ -144,6 +144,8 @@ namespace WpfApp.ViewModels
                                 MessageBoxImage.Information);
                         else MessageBox.Show("Ошибка при попытки удалить платежное поручение!", "Ошибка", MessageBoxButton.OK,
                             MessageBoxImage.Error);
+
+                        ClearListCommand.RaiseCanExecuteChanged();
                     }
                 }));
             }

@@ -51,6 +51,7 @@
                    Style="{StaticResource MaterialDesignHeadlineTextBlock}"/>
         <DockPanel Grid.Row="1">
             <DataGrid DockPanel.Dock="Top"
+                      x:Name="OrderDataGrid"
                   Margin="0 5 0 10"
                   CanUserSortColumns="True"
                   CanUserAddRows="False"
@@ -62,20 +63,20 @@
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Детали" Command="{Binding ViewDetailCommand, Mode=OneWay}"
-                                  CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}">
+                                  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=SelectedItem}">
                             <MenuItem.Icon>
                                 <md:PackIcon Kind="Eye"/>
                             </MenuItem.Icon>
                         </MenuItem>
                         <MenuItem Header="Редактирование" Command="{Binding ViewDetailCommand, Mode=OneWay}"
-                                  CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}">
+                                  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=SelectedItem}">
                             <MenuItem.Icon>
                                 <md:PackIcon Kind="Edit"/>
                             </MenuItem.Icon>
                         </MenuItem>
                         <Separator/>
                         <MenuItem Header="Удалить" Command="{Binding DeleteItemCommand, Mode=OneWay}"
-                                  CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}">
+                                  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=SelectedItem}">
                             <MenuItem.Icon>
                                 <md:PackIcon Kind="Delete"/>
                             </MenuItem.Icon>
