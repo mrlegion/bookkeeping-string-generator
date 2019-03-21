@@ -2,7 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Windows;
+using CommonServiceLocator;
+using Domain.Helpers;
 using Domain.Model;
+using Domain.Services;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Infrastructure.Entities;
@@ -111,13 +114,13 @@ namespace WpfApp.ViewModels
             }
         }
 
-        private RelayCommand<PaymentOrder> _editItemCommand;
+        private RelayCommand<object> _editItemCommand;
 
-        public RelayCommand<PaymentOrder> EditItemCommand
+        public RelayCommand<object> EditItemCommand
         {
             get
             {
-                return _editItemCommand ?? (_editItemCommand = new RelayCommand<PaymentOrder>((o) =>
+                return _editItemCommand ?? (_editItemCommand = new RelayCommand<object>((o) =>
                 {
                     if (o == null) return;
                     NavigationService.NavigateTo("Generate", o);
@@ -149,6 +152,35 @@ namespace WpfApp.ViewModels
 
                         ClearListCommand.RaiseCanExecuteChanged();
                     }
+                }));
+            }
+        }
+
+        private RelayCommand _addNewItemToListCommand;
+
+        public RelayCommand AddNewItemToListCommand
+        {
+            get
+            {
+                return _addNewItemToListCommand ?? (_addNewItemToListCommand = new RelayCommand(() =>
+                {
+                    var item = new PaymentOrder()
+                    {
+                        Number = new Random().Next(10, 9999),
+                        Date = DateTime.Now,
+                        InDate = DateTime.Now,
+                        OutDate = DateTime.Now,
+                        AcceptDate = DateTime.Now,
+                        Total = "3424-56",
+                        TotalText = RuDateAndMoneyConverter.CurrencyToTxt(3424.56d, true),
+                        Description = "SomeOne Description",
+                        Payer = ServiceLocator.Current.GetInstance<OrganizationService>().GetOrganization(7),
+                        Recipient = ServiceLocator.Current.GetInstance<OrganizationService>().GetOrganization(2),
+                        TypeOfPaying = "01",
+                        TypeOfPayment = "электронно",
+                        QueuePayment = "5"
+                    };
+                    Orders.Add(item);
                 }));
             }
         }
