@@ -14,6 +14,32 @@
       DataContext="{Binding GenerateList, Source={StaticResource Locator}}"
       Title="{Binding Title}">
 
+    <Page.Resources>
+
+        <ContextMenu x:Key="DataGridMainContextMenu">
+            <MenuItem Header="Детали" Command="{Binding DataContext.ViewDetailCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                      CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}">
+                <MenuItem.Icon>
+                    <md:PackIcon Kind="Eye"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Редактирование" Command="{Binding DataContext.ViewDetailCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                      CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}">
+                <MenuItem.Icon>
+                    <md:PackIcon Kind="Edit"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <Separator/>
+            <MenuItem Header="Удалить" Command="{Binding DataContext.ViewDetailCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                      CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}">
+                <MenuItem.Icon>
+                    <md:PackIcon Kind="Delete"/>
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+
+    </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -33,6 +59,29 @@
                   ItemsSource="{Binding Orders}"
                   md:DataGridAssist.CellPadding="13 8 8 8"
                   md:DataGridAssist.ColumnHeaderPadding="8">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Детали" Command="{Binding ViewDetailCommand, Mode=OneWay}"
+                                  CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}">
+                            <MenuItem.Icon>
+                                <md:PackIcon Kind="Eye"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Редактирование" Command="{Binding ViewDetailCommand, Mode=OneWay}"
+                                  CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}">
+                            <MenuItem.Icon>
+                                <md:PackIcon Kind="Edit"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="Удалить" Command="{Binding DeleteItemCommand, Mode=OneWay}"
+                                  CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}">
+                            <MenuItem.Icon>
+                                <md:PackIcon Kind="Delete"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
                 <DataGrid.Columns>
                     <md:MaterialDataGridTextColumn 
                     Header="Номер"
@@ -57,11 +106,18 @@
                     Binding="{Binding Recipient.Company.Name}"
                     FontStyle="Italic"
                     Width="1.5*"/>
-                    <!--<DataGridTemplateColumn Header="Управление">
+                    <DataGridTemplateColumn Header="Управление">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <Button Style="{StaticResource MaterialDesignToolButton}"
+                                        Padding="5 0"
+                                        Command="{Binding DataContext.ViewDetailCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}"
+                                        Height="Auto">
+                                    <md:PackIcon Kind="Eye"/>
+                                </Button>
+                                    <Button Style="{StaticResource MaterialDesignToolButton}"
                                         Padding="5 0"
                                         Command="{Binding DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                         CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}"
@@ -78,7 +134,7 @@
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>-->
+                </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel Orientation="Horizontal" 

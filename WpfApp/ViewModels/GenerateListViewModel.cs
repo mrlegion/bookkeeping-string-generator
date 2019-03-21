@@ -99,6 +99,56 @@ namespace WpfApp.ViewModels
             }
         }
 
+        private RelayCommand<PaymentOrder> _viewDetailCommand;
+
+        public RelayCommand<PaymentOrder> ViewDetailCommand
+        {
+            get
+            {
+                return _viewDetailCommand ?? (_viewDetailCommand = new RelayCommand<PaymentOrder>((o) =>
+                {
+                }));
+            }
+        }
+
+        private RelayCommand<PaymentOrder> _editItemCommand;
+
+        public RelayCommand<PaymentOrder> EditItemCommand
+        {
+            get
+            {
+                return _editItemCommand ?? (_editItemCommand = new RelayCommand<PaymentOrder>((o) =>
+                {
+                }));
+            }
+        }
+
+        private RelayCommand<PaymentOrder> _deleteItemCommand;
+
+        public RelayCommand<PaymentOrder> DeleteItemCommand
+        {
+            get
+            {
+                return _deleteItemCommand ?? (_deleteItemCommand = new RelayCommand<PaymentOrder>((o) =>
+                {
+                    if (o == null) return; // Todo : Сообщить пользователю, что не выбран никакой объект
+
+                    var result = MessageBox.Show("Вы точно хотите удалить выбранное платежное поручение?",
+                        "Удаление платежного поручения", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        bool deleted = Orders.Remove(o);
+                        if (deleted)
+                            MessageBox.Show("Платежное поручение успешно удалено!", "Успешно", MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+                        else MessageBox.Show("Ошибка при попытки удалить платежное поручение!", "Ошибка", MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+                    }
+                }));
+            }
+        }
+
         private bool OrderIsEmptyOrNull() => Orders == null || Orders.Count == 0;
     }
 }
