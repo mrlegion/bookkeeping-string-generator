@@ -26,6 +26,14 @@ namespace WpfApp.ViewModels
             NavigationService = navigationService;
         }
 
+        private bool _isOpenDialog;
+
+        public bool IsOpenDialog
+        {
+            get { return _isOpenDialog; }
+            set { Set(nameof(IsOpenDialog), ref _isOpenDialog, value); }
+        }
+
         private RelayCommand<string> _navigateToCommand;
 
         public RelayCommand<string> NavigateToCommand

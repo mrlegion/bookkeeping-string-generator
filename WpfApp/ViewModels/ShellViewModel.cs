@@ -1,6 +1,8 @@
 ﻿using System.Windows;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using MaterialDesignThemes.Wpf;
+using WpfApp.Common;
 using WpfApp.Service;
 
 namespace WpfApp.ViewModels
@@ -10,38 +12,23 @@ namespace WpfApp.ViewModels
     /// </summary>
     public class ShellViewModel : ViewModelCustom
     {
-        #region Fields
-
-        #endregion
-
-        #region Ctor
         public ShellViewModel(IFrameNavigationService navigationService) : base(navigationService)
         {
+            //Messenger.Default.Register<NotificationMessage<ContentDialogTransfer>>(this, (m) =>
+            //{
+            //    if (m.Content is ContentDialogTransfer contentDialog)
+            //    {
+            //        if (!contentDialog.IsOpen)
+            //        {
+            //            IsOpenDialog = false;
+            //            return;
+            //        }
+            //        var view = contentDialog.Content;
+            //        var result = DialogHost.Show(view, "RootDialogHost");
+            //    }
+            //});
         }
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        #region Commands
-
-        #endregion
-
-        #region Public methods
-
-        #endregion
-
-        #region Private methods
-
-        #endregion
-
-        #region Exceptions
-
-        #endregion
-
         
-
         private RelayCommand _onExitCommand;
 
         public RelayCommand OnExitCommand

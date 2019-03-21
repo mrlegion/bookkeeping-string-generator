@@ -107,5 +107,12 @@
                 </Button>
             </StackPanel>
         </Grid>
+
+        <md:DialogHost Grid.Row="0"
+                       Grid.RowSpan="3"
+                       x:Name="RootDialogHost"
+                       IsOpen="{Binding IsOpenDialog, Mode=OneWay}">
+
+        </md:DialogHost>
     </Grid>
 </Window>
