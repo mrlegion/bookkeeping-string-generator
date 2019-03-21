@@ -97,5 +97,23 @@
                 ToolTip="Добавить новый банк">
             <md:PackIcon Kind="Add" Width="25" Height="25"/>
         </Button>
+
+        <md:DialogHost Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                       IsOpen="{Binding IsLoadData, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
+            <md:DialogHost.DialogContent>
+                <StackPanel Orientation="Vertical"
+                            Margin="30 20">
+                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                 IsIndeterminate="True"
+                                 Margin="0 0 0 10"/>
+                    <TextBlock Text="Загрузка данных,"
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource PrimaryHueMidBrush}"/>
+                    <TextBlock Text="подождите..."
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource PrimaryHueMidBrush}"/>
+                </StackPanel>
+            </md:DialogHost.DialogContent>
+        </md:DialogHost>
     </Grid>
 </Page>

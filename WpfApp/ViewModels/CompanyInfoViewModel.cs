@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Windows;
 using CommonServiceLocator;
 using Domain.Services;
@@ -13,8 +14,22 @@ namespace WpfApp.ViewModels
         public CompanyInfoViewModel(IFrameNavigationService navigationService)
             : base(navigationService)
         {
-            var service = ServiceLocator.Current.GetInstance<CompanyService>();
-            Companies = service.GetAllCompanies();
+            IsLoadData = true;
+            ThreadPool.QueueUserWorkItem(o =>
+            {
+                var service = ServiceLocator.Current.GetInstance<CompanyService>();
+                var list = service.GetAllCompanies();
+                Companies = list;
+                IsLoadData = false;
+            });
+        }
+
+        private bool _isLoadData;
+
+        public bool IsLoadData
+        {
+            get { return _isLoadData; }
+            set { Set(nameof(IsLoadData), ref _isLoadData, value); }
         }
 
         private IEnumerable<Company> _companies;

@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using CommonServiceLocator;
 using Domain.Services;
 using GalaSoft.MvvmLight.Command;
 using Infrastructure.Dto;
-using Infrastructure.Entities;
 using WpfApp.Service;
 
 namespace WpfApp.ViewModels
@@ -16,6 +14,24 @@ namespace WpfApp.ViewModels
         public OrganizationViewModel(IFrameNavigationService navigationService) : base(navigationService)
         {
             Title = "Информация об организациях";
+
+            IsLoadData = true;
+            ThreadPool.QueueUserWorkItem(o =>
+            {
+                var service = ServiceLocator.Current.GetInstance<OrganizationService>();
+                var list = service.GetAllSimpleInfoAsync().Result;
+                Organizations = list;
+                IsLoadData = false;
+            });
+
+        }
+
+        private bool _isLoadData;
+
+        public bool IsLoadData
+        {
+            get { return _isLoadData; }
+            set { Set(nameof(IsLoadData), ref _isLoadData, value); }
         }
 
         private IEnumerable<OrganizationSimpleDto> _organizations;
@@ -27,24 +43,7 @@ namespace WpfApp.ViewModels
             get { return _organizations; }
             set { Set(OrganizationsPropertyName, ref _organizations, value); }
         }
-
-        private bool _inProgress;
-
-        public const string InProgressPropertyName = "InProgress";
-
-        public bool InProgress
-        {
-            get { return _inProgress; }
-            set { Set(InProgressPropertyName, ref _inProgress, value); }
-        }
-
-        private async void Init()
-        {
-            InProgress = true;
-            Organizations = await ServiceLocator.Current.GetInstance<OrganizationService>().GetAllSimpleInfoAsync().ConfigureAwait(false);
-            InProgress = false;
-        }
-
+        
         private RelayCommand<object> _editItemCommand;
 
         public RelayCommand<object> EditItemCommand
@@ -57,16 +56,6 @@ namespace WpfApp.ViewModels
                         if (o is OrganizationSimpleDto dto)
                             NavigationService.NavigateTo("OrganizationEdit", dto);
                 }));
-            }
-        }
-
-        private RelayCommand _onLoadedCommand;
-
-        public RelayCommand OnLoadedCommand
-        {
-            get
-            {
-                return _onLoadedCommand ?? (_onLoadedCommand = new RelayCommand(Init));
             }
         }
 

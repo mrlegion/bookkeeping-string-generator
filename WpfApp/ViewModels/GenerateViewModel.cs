@@ -54,7 +54,6 @@ namespace WpfApp.ViewModels
                 var service = ServiceLocator.Current.GetInstance<OrganizationService>();
                 var list = service.GetOrganizationAsync().Result;
                 Organizations = list;
-                Thread.Sleep(200);
                 IsLoadedData = false;
             });
         }

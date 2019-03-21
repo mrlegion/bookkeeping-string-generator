@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Windows;
 using CommonServiceLocator;
 using Domain.Services;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Infrastructure.Entities;
 using WpfApp.Service;
@@ -16,8 +16,23 @@ namespace WpfApp.ViewModels
     {
         public BankInfoViewModel(IFrameNavigationService navigationService) : base(navigationService)
         {
-            var service = ServiceLocator.Current.GetInstance<BankService>();
-            Banks = service.GetAllBanks();
+            IsLoadData = true;
+
+            ThreadPool.QueueUserWorkItem(o =>
+            {
+                var service = ServiceLocator.Current.GetInstance<BankService>();
+                var list = service.GetAllBanks();
+                Banks = list;
+                IsLoadData = false;
+            });
+        }
+
+        private bool _isLoadData;
+
+        public bool IsLoadData
+        {
+            get { return _isLoadData; }
+            set { Set(nameof(IsLoadData), ref _isLoadData, value); }
         }
 
         private IEnumerable<Bank> _banks;
