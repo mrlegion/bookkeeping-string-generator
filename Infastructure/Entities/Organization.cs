@@ -13,9 +13,6 @@ namespace Infrastructure.Entities
         public Company Company { get; set; }
         public Bank Bank { get; set; }
 
-        //public ICollection<PaymentOrder> PayerOrders { get; set; }
-        //public ICollection<PaymentOrder> RecipientOrders { get; set; }
-
         public Organization() {}
 
         public Organization(Company company, Bank bank, string accountNumber)
@@ -23,6 +20,16 @@ namespace Infrastructure.Entities
             Company = company;
             Bank = bank;
             AccountNumber = accountNumber;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Organization o)
+                return Id == o.Id &&
+                       AccountNumber == o.AccountNumber &&
+                       Company.Equals(o.Company) &&
+                       Bank.Equals(o.Bank);
+            return false;
         }
     }
 }

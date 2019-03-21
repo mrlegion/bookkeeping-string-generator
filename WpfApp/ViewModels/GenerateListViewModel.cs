@@ -119,6 +119,8 @@ namespace WpfApp.ViewModels
             {
                 return _editItemCommand ?? (_editItemCommand = new RelayCommand<PaymentOrder>((o) =>
                 {
+                    if (o == null) return;
+                    NavigationService.NavigateTo("Generate", o);
                 }));
             }
         }

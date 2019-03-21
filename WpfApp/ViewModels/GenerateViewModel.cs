@@ -15,7 +15,7 @@ namespace WpfApp.ViewModels
 {
     public class GenerateViewModel : ViewModelCustom
     {
-        private int _numberOrder;
+        private int _number;
         private DateTime _date;
         private DateTime _inDate;
         private DateTime _outDate;
@@ -26,7 +26,7 @@ namespace WpfApp.ViewModels
         private Organization _payer;
         private Organization _recipient;
         private string _description;
-        private string _paymentType;
+        private string _typeOfPayment;
         private string _typeOfPaying;
         private string _queuePayment;
 
@@ -41,21 +41,45 @@ namespace WpfApp.ViewModels
             navigationService)
         {
             Title = "Создание файла";
-            IsLoadedData = true;
             _generator = generator;
             Date = DateTime.Now;
             SetAllDateToOne();
+
+            AutoTotalText = true;
+            UseOneDate = true;
             TypeOfPaying = "01";
-            PaymentType = "0";
+            TypeOfPayment = "электронно";
             QueuePayment = "5";
 
             ThreadPool.QueueUserWorkItem(o =>
             {
+                IsLoadedData = true;
                 var service = ServiceLocator.Current.GetInstance<OrganizationService>();
                 var list = service.GetOrganizationAsync().Result;
                 Organizations = list;
                 IsLoadedData = false;
             });
+            
+            if (NavigationService.Parameter != null)
+                if (NavigationService.Parameter is PaymentOrder order)
+                    FillAllInformation(order);
+        }
+
+        private void FillAllInformation(PaymentOrder order)
+        {
+            Number = order.Number;
+            Date = order.Date;
+            InDate = order.InDate;
+            OutDate = order.OutDate;
+            AcceptDate = order.AcceptDate;
+            Total = order.Total;
+            TotalText = order.TotalText;
+            Description = order.Description;
+            Payer = order.Payer;
+            Recipient = order.Recipient;
+            TypeOfPaying = order.TypeOfPaying;
+            TypeOfPayment = order.TypeOfPayment;
+            QueuePayment = order.QueuePayment;
         }
 
         private bool _isLoadedData;
@@ -66,12 +90,12 @@ namespace WpfApp.ViewModels
             set { Set(nameof(IsLoadedData), ref _isLoadedData, value); }
         }
 
-        public int NumberOrder
+        public int Number
         {
-            get => _numberOrder;
+            get => _number;
             set
             {
-                Set(nameof(NumberOrder), ref _numberOrder, value);
+                Set(nameof(Number), ref _number, value);
                 GenerateCommand.RaiseCanExecuteChanged();
             }
         }
@@ -159,12 +183,12 @@ namespace WpfApp.ViewModels
             set => Set(nameof(Description), ref _description, value);
         }
 
-        public string PaymentType
+        public string TypeOfPayment
         {
-            get => _paymentType;
+            get => _typeOfPayment;
             set
             {
-                Set(nameof(PaymentType), ref _paymentType, value);
+                Set(nameof(TypeOfPayment), ref _typeOfPayment, value);
                 GenerateCommand.RaiseCanExecuteChanged();
             }
         }
@@ -217,7 +241,7 @@ namespace WpfApp.ViewModels
                 {
                     var item = new PaymentOrder
                     {
-                        Number = NumberOrder,
+                        Number = Number,
                         Date = Date,
                         InDate = InDate,
                         OutDate = OutDate,
@@ -227,7 +251,7 @@ namespace WpfApp.ViewModels
                         Description = Description,
                         Payer = Payer,
                         Recipient = Recipient,
-                        TypeOfPayment = PaymentType,
+                        TypeOfPayment = TypeOfPayment,
                         TypeOfPaying = TypeOfPaying,
                         QueuePayment = QueuePayment
                     };
@@ -263,9 +287,9 @@ namespace WpfApp.ViewModels
             bool totalInfo = !string.IsNullOrEmpty(Total) && !string.IsNullOrWhiteSpace(Total) &&
                              !string.IsNullOrEmpty(TotalText) && !string.IsNullOrWhiteSpace(TotalText);
             bool options = !string.IsNullOrEmpty(TypeOfPaying) && !string.IsNullOrWhiteSpace(TypeOfPaying) &&
-                           !string.IsNullOrEmpty(PaymentType) && !string.IsNullOrWhiteSpace(PaymentType) &&
+                           !string.IsNullOrEmpty(TypeOfPayment) && !string.IsNullOrWhiteSpace(TypeOfPayment) &&
                            !string.IsNullOrEmpty(QueuePayment) && !string.IsNullOrWhiteSpace(QueuePayment);
-            bool number = NumberOrder > 0;
+            bool number = Number > 0;
 
             return number && totalInfo && payer && recipient && options;
         }

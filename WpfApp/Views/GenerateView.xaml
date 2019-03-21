@@ -50,7 +50,7 @@
                                        Style="{StaticResource MaterialDesignTitleTextBlock}"/>
                         <TextBox Width="170"
                                  FontSize="16"
-                                 Text="{Binding NumberOrder, UpdateSourceTrigger=PropertyChanged}"
+                                 Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}"
                                  HorizontalAlignment="Left">
                             <i:Interaction.Behaviors>
                                 <behaviors:OnlyNumberEnterBehavior RegularExpression="^\d+$"
@@ -165,9 +165,8 @@
                             <ColumnDefinition Width="5*" />
                         </Grid.ColumnDefinitions>
                         <ComboBox Grid.Column="0"
-                                  ItemsSource="{Binding Organizations}"
-                                  
-                                  SelectedItem="{Binding Payer}"
+                                  ItemsSource="{Binding Organizations, Mode=OneWay}"
+                                  SelectedItem="{Binding Payer, Mode=TwoWay}"
                                   md:HintAssist.Hint="Выбирете плательщика"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                             <ComboBox.ItemTemplate>
@@ -199,8 +198,8 @@
                             </ComboBox.ItemTemplate>
                         </ComboBox>
                         <ComboBox Grid.Column="2"
-                                  ItemsSource="{Binding Organizations}"
-                                  SelectedItem="{Binding Recipient}"
+                                  ItemsSource="{Binding Organizations, Mode=OneWay}"
+                                  SelectedItem="{Binding Recipient, Mode=TwoWay}"
                                   md:HintAssist.Hint="Выбирете получателя"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                             <ComboBox.ItemTemplate>
@@ -267,7 +266,7 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBox Grid.Column="0" 
-                                     Text="{Binding PaymentType, UpdateSourceTrigger=PropertyChanged}"
+                                     Text="{Binding TypeOfPayment, UpdateSourceTrigger=PropertyChanged}"
                                      md:HintAssist.Hint="Вид оплаты"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
@@ -288,10 +287,11 @@
                                 DockPanel.Dock="Bottom" 
                                 HorizontalAlignment="Center" 
                                 VerticalAlignment="Bottom">
-                        <Button Margin="10 0" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding GenerateCommand}">
+                        <Button Margin="10 0" Style="{StaticResource MaterialDesignFlatButton}" 
+                                Command="{Binding GenerateCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Kind="ContentSave"/>
-                                <TextBlock Text="Генерировать" Margin="5 0 0 0"/>
+                                <TextBlock Text="Сохранить" Margin="5 0 0 0"/>
                             </StackPanel>
                         </Button>
                         <Button Margin="10 0" Style="{StaticResource MaterialDesignFlatAccentButton}"
