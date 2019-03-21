@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Windows;
 using Domain.Model;
 using GalaSoft.MvvmLight.Command;
@@ -31,8 +32,17 @@ namespace WpfApp.ViewModels
                 {
                     Orders.Add(order);
                     GenerateCommand.RaiseCanExecuteChanged();
+                    ClearListCommand.RaiseCanExecuteChanged();
                 }
             });
+        }
+
+        private bool _isLoadData;
+
+        public bool IsLoadData
+        {
+            get { return _isLoadData; }
+            set { Set(nameof(IsLoadData), ref _isLoadData, value); }
         }
 
         private ObservableCollection<PaymentOrder> _orders;
@@ -40,19 +50,33 @@ namespace WpfApp.ViewModels
         public ObservableCollection<PaymentOrder> Orders
         {
             get { return _orders; }
-            set { Set(nameof(Orders), ref _orders, value); }
+            set
+            {
+                Set(nameof(Orders), ref _orders, value);
+                ClearListCommand.RaiseCanExecuteChanged();
+            }
         }
 
-        private RelayCommand _addItemCommand;
+        private RelayCommand _clearListCommand;
 
-        public RelayCommand AddItemCommand
+        public RelayCommand ClearListCommand
         {
             get
             {
-                return _addItemCommand ?? (_addItemCommand = new RelayCommand(() =>
-                           {
-                               NavigationService.NavigateTo("GenerateList");
-                           }));
+                return _clearListCommand ?? (_clearListCommand = new RelayCommand(() =>
+                {
+                    if (Orders == null) return;
+                    if (Orders.Count == 0) return;
+
+                    // Todo: Переделать на DialogHost
+                    var result = MessageBox.Show("Вы точно хотите очистить список платежных поручений?",
+                        "Очистка списка", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        Orders.Clear();
+                        ClearListCommand.RaiseCanExecuteChanged();
+                    }
+                }, () => !OrderIsEmptyOrNull()));
             }
         }
 
@@ -64,10 +88,17 @@ namespace WpfApp.ViewModels
             {
                 return _generateCommand ?? (_generateCommand = new RelayCommand(() =>
                 {
-                    _generator.OnGenerateList(Orders);
-                    MessageBox.Show("Сборка файла");
+                    IsLoadData = true;
+                    ThreadPool.QueueUserWorkItem(o =>
+                    {
+                        _generator.OnGenerateList(Orders);
+                        Thread.Sleep(1000);
+                        IsLoadData = false;
+                    });
                 }, () => Orders.Count > 0));
             }
         }
+
+        private bool OrderIsEmptyOrNull() => Orders == null || Orders.Count == 0;
     }
 }

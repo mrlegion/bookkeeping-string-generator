@@ -81,16 +81,29 @@
                 </DataGridTemplateColumn>-->
                 </DataGrid.Columns>
             </DataGrid>
-            <Button VerticalAlignment="Bottom"
-                    Style="{StaticResource MaterialDesignToolButton}"
-                    HorizontalAlignment="Center"
-                    Command="{Binding GenerateCommand}"
-                    Padding="15 0">
-                <StackPanel Orientation="Horizontal">
-                    <md:PackIcon Kind="FileDocument"/>
-                    <TextBlock Text="Собрать файл" Margin="7 0 0 0"/>
-                </StackPanel>
-            </Button>
+            <StackPanel Orientation="Horizontal" 
+                        DockPanel.Dock="Bottom" 
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Center">
+                <Button Style="{StaticResource MaterialDesignToolButton}"
+                        Command="{Binding GenerateCommand}"
+                        Foreground="{StaticResource PrimaryHueMidBrush}"
+                        Padding="15 0">
+                    <StackPanel Orientation="Horizontal">
+                        <md:PackIcon Kind="FileDocument"/>
+                        <TextBlock Text="Собрать файл" Margin="7 0 0 0"/>
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource MaterialDesignToolButton}"
+                        Command="{Binding ClearListCommand}"
+                        Padding="15 0">
+                    <StackPanel Orientation="Horizontal">
+                        <md:PackIcon Kind="Clear"/>
+                        <TextBlock Text="Очистить список" Margin="7 0 0 0"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            
         </DockPanel>
         
         <Button Grid.Column="0" Grid.Row="0" 
@@ -104,5 +117,23 @@
                 ToolTip="Добавить новую платежку">
             <md:PackIcon Kind="Add" Width="25" Height="25"/>
         </Button>
+
+        <md:DialogHost Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                       IsOpen="{Binding IsLoadData, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
+            <md:DialogHost.DialogContent>
+                <StackPanel Orientation="Vertical"
+                            Margin="30 20">
+                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                 IsIndeterminate="True"
+                                 Margin="0 0 0 10"/>
+                    <TextBlock Text="Сборка файла,"
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource PrimaryHueMidBrush}"/>
+                    <TextBlock Text="подождите..."
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource PrimaryHueMidBrush}"/>
+                </StackPanel>
+            </md:DialogHost.DialogContent>
+        </md:DialogHost>
     </Grid>
 </Page>
