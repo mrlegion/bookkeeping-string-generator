@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading;
 using CommonServiceLocator;
 using Domain.Helpers;
 using Domain.Model;
@@ -40,6 +41,7 @@ namespace WpfApp.ViewModels
             navigationService)
         {
             Title = "Создание файла";
+            IsLoadedData = true;
             _generator = generator;
             Date = DateTime.Now;
             SetAllDateToOne();
@@ -47,7 +49,22 @@ namespace WpfApp.ViewModels
             PaymentType = "0";
             QueuePayment = "5";
 
+            ThreadPool.QueueUserWorkItem(o =>
+            {
+                var service = ServiceLocator.Current.GetInstance<OrganizationService>();
+                var list = service.GetOrganizationAsync().Result;
+                Organizations = list;
+                Thread.Sleep(200);
+                IsLoadedData = false;
+            });
+        }
 
+        private bool _isLoadedData;
+
+        public bool IsLoadedData
+        {
+            get { return _isLoadedData; }
+            set { Set(nameof(IsLoadedData), ref _isLoadedData, value); }
         }
 
         public int NumberOrder
