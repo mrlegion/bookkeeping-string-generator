@@ -18,7 +18,6 @@ namespace WpfApp.ViewModels
     {
         #region Fields
 
-        private bool _isLoadData;
         private IEnumerable<Company> _companies;
         private RelayCommand<object> _editItemCommand;
         private RelayCommand<object> _deleteItemCommand;
@@ -37,14 +36,7 @@ namespace WpfApp.ViewModels
         #endregion
 
         #region Properties
-
-        public bool IsLoadData
-        {
-            get { return _isLoadData; }
-            set { Set(nameof(IsLoadData), ref _isLoadData, value); }
-        }
-
-
+        
         public IEnumerable<Company> Companies
         {
             get { return _companies; }

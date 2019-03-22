@@ -54,6 +54,8 @@ namespace WpfApp.ViewModels
             builder.RegisterType<LoadDialogViewModel>();
             builder.RegisterType<CompanyDetailsDialogView>();
             builder.RegisterType<CompanyDetailsDialogViewModel>();
+            builder.RegisterType<BankDetailDialogView>();
+            builder.RegisterType<BankDetailDialogViewModel>();
 
             var container = builder.Build();
             ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocator(container));

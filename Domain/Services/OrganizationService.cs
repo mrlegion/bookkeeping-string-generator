@@ -72,6 +72,15 @@ namespace Domain.Services
             }
         }
 
+        public IEnumerable<Organization> GetOrganizationByBankId(int id)
+        {
+            if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
+            using (_dbContextScopeFactory.CreateReadOnly())
+            {
+                return _organizationRepository.GetAllByBankId(id);
+            }
+        }
+
         public IEnumerable<OrganizationSimpleDto> GetAllSimpleInfo()
         {
             using (_dbContextScopeFactory.CreateReadOnly())

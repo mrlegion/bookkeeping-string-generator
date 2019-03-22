@@ -24,6 +24,7 @@ namespace WpfApp.ViewModels
         private IEnumerable<Bank> _banks;
         private RelayCommand<object> _editItemCommand;
         private RelayCommand<object> _deleteItemCommand;
+        private RelayCommand<object> _viewItemCommand;
 
         #endregion
 
@@ -31,13 +32,7 @@ namespace WpfApp.ViewModels
 
         public BankInfoViewModel(IFrameNavigationService navigationService) : base(navigationService)
         {
-
-            ThreadPool.QueueUserWorkItem(o =>
-            {
-                var service = ServiceLocator.Current.GetInstance<BankService>();
-                var list = service.GetAllBanks();
-                Banks = list;
-            });
+            BankInfoInitialize();
         }
 
         #endregion
@@ -80,6 +75,29 @@ namespace WpfApp.ViewModels
                             service.DeleteBank(bank);
                             Banks = service.GetAllBanks();
                         }
+                }));
+            }
+        }
+
+        public RelayCommand<object> ViewItemCommand
+        {
+            get
+            {
+                return _viewItemCommand ?? (_viewItemCommand = new RelayCommand<object>(async (o) =>
+                {
+                    if (o is Bank bank)
+                    {
+                        var content = ServiceLocator.Current.GetInstance<BankDetailDialogView>();
+                        var model = ServiceLocator.Current.GetInstance<BankDetailDialogViewModel>();
+                        model.Bank = bank;
+                        content.DataContext = model;
+                        var request = await DialogHost.Show(content, "RootDialogHost");
+                        if (request is bool result)
+                            if (result)
+                                NavigationService.NavigateTo("BankEdit", bank);
+                    }
+
+                    
                 }));
             }
         }

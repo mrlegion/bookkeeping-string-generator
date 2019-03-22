@@ -116,8 +116,12 @@
     <Compile Include="Common\Validations\ValidationTotal.cs" />
     <Compile Include="Service\FrameNavigationService.cs" />
     <Compile Include="Service\IFrameNavigationService.cs" />
+    <Compile Include="UserControls\ViewModels\BankDetailDialogViewModel.cs" />
     <Compile Include="UserControls\ViewModels\CompanyDetailsDialogViewModel.cs" />
     <Compile Include="UserControls\ViewModels\LoadDialogViewModel.cs" />
+    <Compile Include="UserControls\Views\BankDetailDialogView.xaml.cs">
+      <DependentUpon>BankDetailDialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Views\CompanyDetailsDialogView.xaml.cs">
       <DependentUpon>CompanyDetailsDialogView.xaml</DependentUpon>
     </Compile>
@@ -213,6 +217,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="UserControls\Views\BankDetailDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Views\CompanyDetailsDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
