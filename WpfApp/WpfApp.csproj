@@ -116,6 +116,9 @@
     <Compile Include="Common\Validations\ValidationTotal.cs" />
     <Compile Include="Service\FrameNavigationService.cs" />
     <Compile Include="Service\IFrameNavigationService.cs" />
+    <Compile Include="UserControls\Views\LoadDialogView.xaml.cs">
+      <DependentUpon>LoadDialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\AdministrationViewModel.cs" />
     <Compile Include="ViewModels\BankEditViewModel.cs" />
     <Compile Include="ViewModels\BankInfoViewModel.cs" />
@@ -203,8 +206,14 @@
       <Name>Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="UserControls\ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="UserControls\Views\LoadDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AdministrationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

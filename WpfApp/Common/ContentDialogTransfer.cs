@@ -1,5 +1,4 @@
-﻿using System.Windows.Controls;
-
+﻿
 namespace WpfApp.Common
 {
     public class ContentDialogTransfer
@@ -8,9 +7,9 @@ namespace WpfApp.Common
 
         public ContentDialogType DialogType { get; }
 
-        public UserControl Content { get; }
+        public System.Windows.Controls.UserControl Content { get; }
 
-        public ContentDialogTransfer(bool isOpen, ContentDialogType dialogType, UserControl content)
+        public ContentDialogTransfer(bool isOpen, ContentDialogType dialogType, System.Windows.Controls.UserControl content)
         {
             IsOpen = isOpen;
             DialogType = dialogType;

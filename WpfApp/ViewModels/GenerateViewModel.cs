@@ -15,6 +15,8 @@ namespace WpfApp.ViewModels
 {
     public class GenerateViewModel : ViewModelCustom
     {
+        #region Fields
+
         private int _number;
         private DateTime _date;
         private DateTime _inDate;
@@ -29,13 +31,15 @@ namespace WpfApp.ViewModels
         private string _typeOfPayment;
         private string _typeOfPaying;
         private string _queuePayment;
-
         private readonly IGenerator _generator;
-
         private bool _useOneDate;
-
         private bool _autoTotalText;
         private RelayCommand _generateCommand;
+        private bool _isLoadData;
+
+        #endregion
+
+        #region Construct
 
         public GenerateViewModel(IFrameNavigationService navigationService, IGenerator generator) : base(
             navigationService)
@@ -53,11 +57,11 @@ namespace WpfApp.ViewModels
 
             ThreadPool.QueueUserWorkItem(o =>
             {
-                IsLoadedData = true;
+                IsLoadData = true;
                 var service = ServiceLocator.Current.GetInstance<OrganizationService>();
                 var list = service.GetOrganizationAsync().Result;
                 Organizations = list;
-                IsLoadedData = false;
+                IsLoadData = false;
             });
             
             if (NavigationService.Parameter != null)
@@ -65,29 +69,14 @@ namespace WpfApp.ViewModels
                     FillAllInformation(order);
         }
 
-        private void FillAllInformation(PaymentOrder order)
-        {
-            Number = order.Number;
-            Date = order.Date;
-            InDate = order.InDate;
-            OutDate = order.OutDate;
-            AcceptDate = order.AcceptDate;
-            Total = order.Total;
-            TotalText = order.TotalText;
-            Description = order.Description;
-            Payer = order.Payer;
-            Recipient = order.Recipient;
-            TypeOfPaying = order.TypeOfPaying;
-            TypeOfPayment = order.TypeOfPayment;
-            QueuePayment = order.QueuePayment;
-        }
+        #endregion
 
-        private bool _isLoadedData;
+        #region Properties
 
-        public bool IsLoadedData
+        public bool IsLoadData
         {
-            get { return _isLoadedData; }
-            set { Set(nameof(IsLoadedData), ref _isLoadedData, value); }
+            get { return _isLoadData; }
+            set { Set(nameof(IsLoadData), ref _isLoadData, value); }
         }
 
         public int Number
@@ -262,6 +251,27 @@ namespace WpfApp.ViewModels
             }
         }
 
+        #endregion
+
+        #region Public Methods
+
+        private void FillAllInformation(PaymentOrder order)
+        {
+            Number = order.Number;
+            Date = order.Date;
+            InDate = order.InDate;
+            OutDate = order.OutDate;
+            AcceptDate = order.AcceptDate;
+            Total = order.Total;
+            TotalText = order.TotalText;
+            Description = order.Description;
+            Payer = order.Payer;
+            Recipient = order.Recipient;
+            TypeOfPaying = order.TypeOfPaying;
+            TypeOfPayment = order.TypeOfPayment;
+            QueuePayment = order.QueuePayment;
+        }
+
         private void ConvertTotalToString()
         {
             if (string.IsNullOrWhiteSpace(Total) || string.IsNullOrEmpty(Total))
@@ -293,5 +303,7 @@ namespace WpfApp.ViewModels
 
             return number && totalInfo && payer && recipient && options;
         }
+
+        #endregion
     }
 }

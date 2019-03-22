@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:ml="http://www.galasoft.ch/mvvmlight"
+      xmlns:uc="clr-namespace:WpfApp.UserControls.Views"
       mc:Ignorable="d"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -93,20 +94,10 @@
         </Button>
 
         <md:DialogHost Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
-                       IsOpen="{Binding IsLoadData, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
+                       IsOpen="{Binding IsLoadData, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                       Style="{StaticResource MaterialDesignEmbeddedDialogHost}">
             <md:DialogHost.DialogContent>
-                <StackPanel Orientation="Vertical"
-                            Margin="30 20">
-                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
-                                 IsIndeterminate="True"
-                                 Margin="0 0 0 10"/>
-                    <TextBlock Text="Загрузка данных,"
-                               HorizontalAlignment="Center"
-                               Foreground="{StaticResource PrimaryHueMidBrush}"/>
-                    <TextBlock Text="подождите..."
-                               HorizontalAlignment="Center"
-                               Foreground="{StaticResource PrimaryHueMidBrush}"/>
-                </StackPanel>
+                <uc:LoadDialogView Text="Загрузка данных&#x0a;Подождите..."/>
             </md:DialogHost.DialogContent>
         </md:DialogHost>
     </Grid>

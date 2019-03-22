@@ -15,7 +15,21 @@ namespace WpfApp.ViewModels
 {
     public class GenerateListViewModel : ViewModelCustom
     {
+        #region Fields
+
         private readonly IGenerator _generator;
+        private bool _isLoadData;
+        private ObservableCollection<PaymentOrder> _orders;
+        private RelayCommand _clearListCommand;
+        private RelayCommand _generateCommand;
+        private RelayCommand<PaymentOrder> _viewDetailCommand;
+        private RelayCommand<object> _editItemCommand;
+        private RelayCommand<PaymentOrder> _deleteItemCommand;
+        private RelayCommand _addNewItemToListCommand;
+
+        #endregion
+
+        #region Construct
 
         public GenerateListViewModel(IFrameNavigationService navigationService, IGenerator generator) : base(navigationService)
         {
@@ -40,15 +54,15 @@ namespace WpfApp.ViewModels
             });
         }
 
-        private bool _isLoadData;
+        #endregion
+
+        #region Properties
 
         public bool IsLoadData
         {
             get { return _isLoadData; }
             set { Set(nameof(IsLoadData), ref _isLoadData, value); }
         }
-
-        private ObservableCollection<PaymentOrder> _orders;
 
         public ObservableCollection<PaymentOrder> Orders
         {
@@ -59,8 +73,6 @@ namespace WpfApp.ViewModels
                 ClearListCommand.RaiseCanExecuteChanged();
             }
         }
-
-        private RelayCommand _clearListCommand;
 
         public RelayCommand ClearListCommand
         {
@@ -83,8 +95,6 @@ namespace WpfApp.ViewModels
             }
         }
 
-        private RelayCommand _generateCommand;
-
         public RelayCommand GenerateCommand
         {
             get
@@ -102,8 +112,6 @@ namespace WpfApp.ViewModels
             }
         }
 
-        private RelayCommand<PaymentOrder> _viewDetailCommand;
-
         public RelayCommand<PaymentOrder> ViewDetailCommand
         {
             get
@@ -113,8 +121,6 @@ namespace WpfApp.ViewModels
                 }));
             }
         }
-
-        private RelayCommand<object> _editItemCommand;
 
         public RelayCommand<object> EditItemCommand
         {
@@ -127,8 +133,6 @@ namespace WpfApp.ViewModels
                 }));
             }
         }
-
-        private RelayCommand<PaymentOrder> _deleteItemCommand;
 
         public RelayCommand<PaymentOrder> DeleteItemCommand
         {
@@ -155,8 +159,6 @@ namespace WpfApp.ViewModels
                 }));
             }
         }
-
-        private RelayCommand _addNewItemToListCommand;
 
         public RelayCommand AddNewItemToListCommand
         {
@@ -185,6 +187,12 @@ namespace WpfApp.ViewModels
             }
         }
 
+        #endregion
+
+        #region Private methods
+
         private bool OrderIsEmptyOrNull() => Orders == null || Orders.Count == 0;
+
+        #endregion
     }
 }

@@ -15,9 +15,9 @@ namespace WpfApp.ViewModels
         {
             Title = "Информация об организациях";
 
-            IsLoadData = true;
             ThreadPool.QueueUserWorkItem(o =>
             {
+                IsLoadData = true;
                 var service = ServiceLocator.Current.GetInstance<OrganizationService>();
                 var list = service.GetAllSimpleInfoAsync().Result;
                 Organizations = list;
