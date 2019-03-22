@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:WpfApp"
              xmlns:vm="clr-namespace:WpfApp.ViewModels"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              StartupUri="Views/ShellWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -12,9 +13,9 @@
                 <ResourceDictionary
                     Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary
-                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Orange.xaml" />
+                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Red.xaml" />
                 <ResourceDictionary
-                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Red.xaml" />
+                    Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lightgreen.xaml" />
                 <ResourceDictionary>
                     <vm:ViewModelLocator x:Key="Locator" />
                 </ResourceDictionary>
@@ -37,6 +38,29 @@
                             </Trigger>
                         </Style.Triggers>
                     </Style>
+
+                    <!--Контекстное меню-->
+                    <ContextMenu x:Key="ContextMenuDataGridMain">
+                        <MenuItem Header="Просмотр" Command="{Binding ViewItemCommand, Mode=OneWay}"
+                                  CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItem}">
+                            <MenuItem.Icon>
+                                <md:PackIcon Kind="Eye" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Редактирование" Command="{Binding EditItemCommand, Mode=OneWay}"
+                                  CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItem}">
+                            <MenuItem.Icon>
+                                <md:PackIcon Kind="Edit" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Header="Удалить" Command="{Binding DeleteItemCommand, Mode=OneWay}"
+                                  CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItem}">
+                            <MenuItem.Icon>
+                                <md:PackIcon Kind="Delete" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

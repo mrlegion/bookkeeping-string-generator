@@ -10,6 +10,7 @@ namespace DAL.Repository.Interface
         Organization Get(int id);
         Task<Organization> GetAsync(int id);
         IEnumerable<Organization> GetAll();
+        IEnumerable<Organization> GetAllByCompanyId(int id);
         Task<IEnumerable<Organization>> GetAllAsync();
         IEnumerable<Organization> GetAll(params int[] ids);
         IEnumerable<OrganizationSimpleDto> GetAllSimpeInfo();

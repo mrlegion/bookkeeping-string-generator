@@ -47,7 +47,8 @@
                                    FontWeight="SemiBold"
                                    Width="150"/>
                         <TextBlock Text="{Binding Inn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                   x:Name="Inn"/>
+                                   x:Name="Inn"
+                                   FontStyle="Italic"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal"
@@ -58,7 +59,8 @@
                                    FontWeight="SemiBold"
                                    Width="150"/>
                         <TextBlock Text="{Binding Kpp, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                   x:Name="Kpp"/>
+                                   x:Name="Kpp"
+                                   FontStyle="Italic"/>
                     </StackPanel>
 
                     <Expander DockPanel.Dock="Top"
@@ -66,9 +68,35 @@
                               Margin="25 20 0 0"
                               FontWeight="SemiBold"
                               Header="Организации">
-                        <ListView>
-                            <ListViewItem>123</ListViewItem>
-                            <ListViewItem>123</ListViewItem>
+                        <ListView ItemsSource="{Binding Organizations, Mode=OneWay}" FontWeight="Regular">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Text="Наименование банка: " Grid.Row="0" Grid.Column="0" Margin="0 0 0 5"/>
+                                        <Separator Style="{StaticResource MaterialDesignLightSeparator}" Grid.Row="0" Grid.Column="1" Margin="5 0" />
+                                        <TextBlock Text="{Binding Bank.Name}" Grid.Row="0" Grid.Column="2" FontWeight="SemiBold"/>
+
+                                        <TextBlock Text="БИК банка: " Grid.Row="1" Grid.Column="0" Margin="0 0 0 5"/>
+                                        <Separator Style="{StaticResource MaterialDesignSeparator}" Grid.Row="1" Grid.Column="1" Margin="5 0" />
+                                        <TextBlock Text="{Binding Bank.Bik}" Grid.Row="1" Grid.Column="2" FontStyle="Italic"/>
+
+                                        <TextBlock Text="Номер счёта: " Grid.Row="2" Grid.Column="0" Margin="0 0 0 5"/>
+                                        <Separator Style="{StaticResource MaterialDesignSeparator}" Grid.Row="2" Grid.Column="1" Margin="5 0" />
+                                        <TextBlock Text="{Binding AccountNumber}" Grid.Row="2" Grid.Column="2" FontStyle="Italic"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
                         </ListView>
                     </Expander>
                 </DockPanel>

@@ -1,7 +1,12 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
+
+using CommonServiceLocator;
+
+using Domain.Services;
+
 using Infrastructure.Entities;
+
 using WpfApp.Service;
 using WpfApp.ViewModels;
 
@@ -45,11 +50,25 @@ namespace WpfApp.UserControls.ViewModels
             set { Set(nameof(Kpp), ref _kpp, value); }
         }
 
+        private IEnumerable<Organization> _organizations;
+
+        public IEnumerable<Organization> Organizations
+        {
+            get { return _organizations; }
+            set { Set(nameof(Organizations), ref _organizations, value); }
+        }
+
         private void InitializeFields()
         {
             Name = Company.Name;
             Inn = Company.Inn;
             Kpp = Company.Kpp;
+
+            ThreadPool.QueueUserWorkItem((o) =>
+            {
+                var service = ServiceLocator.Current.GetInstance<OrganizationService>();
+                Organizations = service.GetOrganizationByCompanyId(Company.Id);
+            });
         }
 
         public CompanyDetailsDialogViewModel(IFrameNavigationService navigationService) : base(navigationService)

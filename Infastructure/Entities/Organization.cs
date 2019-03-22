@@ -31,5 +31,10 @@ namespace Infrastructure.Entities
                        Bank.Equals(o.Bank);
             return false;
         }
+
+        public override string ToString()
+        {
+            return $"{Company.Name} | {Bank.Name} | {AccountNumber}";
+        }
     }
 }

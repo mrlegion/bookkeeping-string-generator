@@ -35,11 +35,12 @@
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   ItemsSource="{Binding Companies}"
+                  ContextMenu="{DynamicResource ContextMenuDataGridMain}"
                   md:DataGridAssist.CellPadding="13 8 8 8"
                   md:DataGridAssist.ColumnHeaderPadding="8">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
-                    <ml:EventToCommand Command="{Binding EditItemCommand}"
+                    <ml:EventToCommand Command="{Binding ViewItemCommand}"
                                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
@@ -99,15 +100,5 @@
                 ToolTip="Добавить новую компанию">
             <md:PackIcon Kind="Add" Width="25" Height="25"/>
         </Button>
-
-        <!--<md:DialogHost Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
-                       Identifier="RootDialogHost"
-                       Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
-                       IsOpen="{Binding IsLoadData, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
-            <md:DialogHost.DialogContent>
-                <uc:LoadDialogView Text="Загрузка данных,&#x0a;Подождите..."/>
-            </md:DialogHost.DialogContent>
-        </md:DialogHost>-->
-
     </Grid>
 </Page>

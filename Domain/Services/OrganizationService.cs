@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+
 using DAL.Repository.Interface;
+
 using Infrastructure.Dto;
 using Infrastructure.Entities;
+
 using Mehdime.DbScope.Interfaces;
 
 namespace Domain.Services
@@ -56,6 +60,15 @@ namespace Domain.Services
             using (_dbContextScopeFactory.CreateReadOnly())
             {
                 return _organizationRepository.GetAllAsync();
+            }
+        }
+
+        public IEnumerable<Organization> GetOrganizationByCompanyId(int id)
+        {
+            if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
+            using (_dbContextScopeFactory.CreateReadOnly())
+            {
+                return _organizationRepository.GetAllByCompanyId(id);
             }
         }
 

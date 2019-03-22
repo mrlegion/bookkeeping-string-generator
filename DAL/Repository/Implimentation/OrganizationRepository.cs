@@ -49,6 +49,12 @@ namespace DAL.Repository.Implimentation
             return DbContext.Organizations.Include(o => o.Company).Include(o => o.Bank).ToList();
         }
 
+        public IEnumerable<Organization> GetAllByCompanyId(int id)
+        {
+            var result = DbContext.Organizations.Include(o => o.Company).Include(o => o.Bank).Where(o => o.Company.Id == id).ToList();
+            return result;
+        }
+
         public async Task<IEnumerable<Organization>> GetAllAsync()
         {
             return await DbContext.Organizations.Include(o => o.Bank).Include(o => o.Company).ToListAsync();
