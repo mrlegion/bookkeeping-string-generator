@@ -110,7 +110,8 @@
 
         <md:DialogHost Grid.Row="0"
                        Grid.RowSpan="3"
-                       x:Name="RootDialogHost"
+                       Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
+                       Identifier="RootDialogHost"
                        IsOpen="{Binding IsOpenDialog, Mode=OneWay}">
 
         </md:DialogHost>

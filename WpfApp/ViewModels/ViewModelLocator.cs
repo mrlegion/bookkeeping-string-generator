@@ -5,6 +5,8 @@ using CommonServiceLocator;
 using Domain;
 using GalaSoft.MvvmLight.Ioc;
 using WpfApp.Service;
+using WpfApp.UserControls.ViewModels;
+using WpfApp.UserControls.Views;
 using WpfApp.Views;
 
 namespace WpfApp.ViewModels
@@ -47,6 +49,12 @@ namespace WpfApp.ViewModels
             builder.RegisterType<OrganizationEditView>();
             builder.RegisterType<GenerateListView>();
 
+            // register dialogs
+            builder.RegisterType<LoadDialogView>();
+            builder.RegisterType<LoadDialogViewModel>();
+            builder.RegisterType<CompanyDetailsDialogView>();
+            builder.RegisterType<CompanyDetailsDialogViewModel>();
+
             var container = builder.Build();
             ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocator(container));
         }
@@ -62,6 +70,10 @@ namespace WpfApp.ViewModels
         public HomeViewModel Home => ServiceLocator.Current.GetInstance<HomeViewModel>();
         public OrganizationEditViewModel OrganizationEdit => ServiceLocator.Current.GetInstance<OrganizationEditViewModel>();
         public GenerateListViewModel GenerateList => ServiceLocator.Current.GetInstance<GenerateListViewModel>();
+
+        // dialogs
+        public LoadDialogViewModel LoadDialog => ServiceLocator.Current.GetInstance<LoadDialogViewModel>();
+        public CompanyDetailsDialogViewModel CompanyDetailsDialog => ServiceLocator.Current.GetInstance<CompanyDetailsDialogViewModel>();
 
         internal class NavigationModule : Module
         {

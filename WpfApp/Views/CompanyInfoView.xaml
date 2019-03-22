@@ -62,6 +62,13 @@
                             <StackPanel Orientation="Horizontal">
                                 <Button Style="{StaticResource MaterialDesignToolButton}"
                                         Padding="5 0"
+                                        Command="{Binding DataContext.ViewItemCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}"
+                                        Height="Auto">
+                                    <md:PackIcon Kind="Eye"/>
+                                </Button>
+                                <Button Style="{StaticResource MaterialDesignToolButton}"
+                                        Padding="5 0"
                                         Command="{Binding DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType=Page}}"
                                         CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}"
                                         Height="Auto">
@@ -93,13 +100,14 @@
             <md:PackIcon Kind="Add" Width="25" Height="25"/>
         </Button>
 
-        <md:DialogHost Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+        <!--<md:DialogHost Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                       Identifier="RootDialogHost"
                        Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
                        IsOpen="{Binding IsLoadData, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
             <md:DialogHost.DialogContent>
                 <uc:LoadDialogView Text="Загрузка данных,&#x0a;Подождите..."/>
             </md:DialogHost.DialogContent>
-        </md:DialogHost>
+        </md:DialogHost>-->
 
     </Grid>
 </Page>

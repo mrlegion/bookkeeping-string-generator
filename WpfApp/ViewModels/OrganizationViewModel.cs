@@ -1,50 +1,47 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Windows;
 using CommonServiceLocator;
 using Domain.Services;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Threading;
 using Infrastructure.Dto;
+using MaterialDesignThemes.Wpf;
 using WpfApp.Service;
+using WpfApp.UserControls.ViewModels;
+using WpfApp.UserControls.Views;
 
 namespace WpfApp.ViewModels
 {
     public class OrganizationViewModel : ViewModelCustom
     {
+        #region Fields
+
+        private IEnumerable<OrganizationSimpleDto> _organizations;
+        private RelayCommand<object> _editItemCommand;
+        private RelayCommand<object> _deleteItemCommand;
+
+        #endregion
+
+        #region Construct
+
         public OrganizationViewModel(IFrameNavigationService navigationService) : base(navigationService)
         {
             Title = "Информация об организациях";
 
-            ThreadPool.QueueUserWorkItem(o =>
-            {
-                IsLoadData = true;
-                var service = ServiceLocator.Current.GetInstance<OrganizationService>();
-                var list = service.GetAllSimpleInfoAsync().Result;
-                Organizations = list;
-                IsLoadData = false;
-            });
-
+            OrganizationInitialize();
         }
 
-        private bool _isLoadData;
+        #endregion
 
-        public bool IsLoadData
-        {
-            get { return _isLoadData; }
-            set { Set(nameof(IsLoadData), ref _isLoadData, value); }
-        }
-
-        private IEnumerable<OrganizationSimpleDto> _organizations;
-
-        public const string OrganizationsPropertyName = "Organizations";
+        #region Properties
 
         public IEnumerable<OrganizationSimpleDto> Organizations
         {
             get { return _organizations; }
-            set { Set(OrganizationsPropertyName, ref _organizations, value); }
+            set { Set(nameof(Organizations), ref _organizations, value); }
         }
-        
-        private RelayCommand<object> _editItemCommand;
 
         public RelayCommand<object> EditItemCommand
         {
@@ -58,8 +55,6 @@ namespace WpfApp.ViewModels
                 }));
             }
         }
-
-        private RelayCommand<object> _deleteItemCommand;
 
         public RelayCommand<object> DeleteItemCommand
         {
@@ -81,5 +76,30 @@ namespace WpfApp.ViewModels
                 }));
             }
         }
+
+        #endregion
+
+        #region Private Methods
+
+        private void OrganizationInitialize()
+        {
+            var content = ServiceLocator.Current.GetInstance<LoadDialogView>();
+            var model = ServiceLocator.Current.GetInstance<LoadDialogViewModel>();
+            model.Message = $"Загрузка данных{Environment.NewLine}Подождите...";
+            content.DataContext = model;
+            DialogHost.Show(content, "RootDialogHost",
+                delegate (object sender, DialogOpenedEventArgs args)
+                {
+                    ThreadPool.QueueUserWorkItem((o) =>
+                    {
+                        var service = ServiceLocator.Current.GetInstance<OrganizationService>();
+                        var list = service.GetAllSimpleInfoAsync().Result;
+                        Organizations = list;
+                        DispatcherHelper.CheckBeginInvokeOnUI(() => { args.Session.Close(false); });
+                    });
+                });
+        }
+
+        #endregion
     }
 }

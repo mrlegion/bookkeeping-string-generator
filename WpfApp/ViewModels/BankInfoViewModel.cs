@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Windows;
 using CommonServiceLocator;
 using Domain.Services;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Threading;
 using Infrastructure.Entities;
+using MaterialDesignThemes.Wpf;
 using WpfApp.Service;
+using WpfApp.UserControls.ViewModels;
+using WpfApp.UserControls.Views;
 
 namespace WpfApp.ViewModels
 {
@@ -14,38 +19,36 @@ namespace WpfApp.ViewModels
     /// </summary>
     public class BankInfoViewModel : ViewModelCustom
     {
+        #region Fields
+
+        private IEnumerable<Bank> _banks;
+        private RelayCommand<object> _editItemCommand;
+        private RelayCommand<object> _deleteItemCommand;
+
+        #endregion
+
+        #region Construct
+
         public BankInfoViewModel(IFrameNavigationService navigationService) : base(navigationService)
         {
-            IsLoadData = true;
 
             ThreadPool.QueueUserWorkItem(o =>
             {
                 var service = ServiceLocator.Current.GetInstance<BankService>();
                 var list = service.GetAllBanks();
                 Banks = list;
-                IsLoadData = false;
             });
         }
 
-        private bool _isLoadData;
+        #endregion
 
-        public bool IsLoadData
-        {
-            get { return _isLoadData; }
-            set { Set(nameof(IsLoadData), ref _isLoadData, value); }
-        }
-
-        private IEnumerable<Bank> _banks;
-
-        public const string BanksPropertyName = "Banks";
+        #region Properties
 
         public IEnumerable<Bank> Banks
         {
             get { return _banks; }
-            set { Set(BanksPropertyName, ref _banks, value); }
+            set { Set(nameof(Banks), ref _banks, value); }
         }
-
-        private RelayCommand<object> _editItemCommand;
 
         public RelayCommand<object> EditItemCommand
         {
@@ -59,8 +62,6 @@ namespace WpfApp.ViewModels
                 }));
             }
         }
-
-        private RelayCommand<object> _deleteItemCommand;
 
         public RelayCommand<object> DeleteItemCommand
         {
@@ -82,5 +83,30 @@ namespace WpfApp.ViewModels
                 }));
             }
         }
+
+        #endregion
+
+        #region Private Methods
+
+        private void BankInfoInitialize()
+        {
+            var content = ServiceLocator.Current.GetInstance<LoadDialogView>();
+            var model = ServiceLocator.Current.GetInstance<LoadDialogViewModel>();
+            model.Message = $"Загрузка данных{Environment.NewLine}Подождите...";
+            content.DataContext = model;
+            DialogHost.Show(content, "RootDialogHost",
+                delegate (object sender, DialogOpenedEventArgs args)
+                {
+                    ThreadPool.QueueUserWorkItem((o) =>
+                    {
+                        var service = ServiceLocator.Current.GetInstance<BankService>();
+                        var list = service.GetAllBanks();
+                        Banks = list;
+                        DispatcherHelper.CheckBeginInvokeOnUI(() => { args.Session.Close(false); });
+                    });
+                });
+        }
+
+        #endregion
     }
 }

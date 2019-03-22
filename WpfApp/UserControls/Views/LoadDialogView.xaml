@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d"
+             DataContext="{Binding LoadDialog, Source={StaticResource Locator}}"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{x:Null}"
@@ -20,7 +21,7 @@
                          Margin="0 0 0 10"/>
             <TextBlock HorizontalAlignment="Center"
                        TextAlignment="Center"
-                       x:Name="Message"/>
+                       Text="{Binding Message, Mode=OneWay}"/>
         </StackPanel>
     </Grid>
 </UserControl>

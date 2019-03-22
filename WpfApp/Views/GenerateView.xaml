@@ -307,13 +307,5 @@
                 </DockPanel>
             </Grid>
         </ScrollViewer>
-
-        <md:DialogHost Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
-                       Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
-                       IsOpen="{Binding IsLoadData, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
-            <md:DialogHost.DialogContent>
-                <uc:LoadDialogView Text="Загрузка данных,&#x0a;Подождите..."/>
-            </md:DialogHost.DialogContent>
-        </md:DialogHost>
     </Grid>
 </Page>
