@@ -21,7 +21,7 @@ namespace WpfApp.ViewModels
         private IEnumerable<Company> _companies;
         private RelayCommand<object> _editItemCommand;
         private RelayCommand<object> _deleteItemCommand;
-        private RelayCommand<Company> _viewItemCommand;
+        private RelayCommand<object> _viewItemCommand;
 
         #endregion
 
@@ -77,21 +77,23 @@ namespace WpfApp.ViewModels
             }
         }
 
-        public RelayCommand<Company> ViewItemCommand
+        public RelayCommand<object> ViewItemCommand
         {
             get
             {
-                return _viewItemCommand ?? (_viewItemCommand = new RelayCommand<Company>(async (o) =>
+                return _viewItemCommand ?? (_viewItemCommand = new RelayCommand<object>(async (o) =>
                 {
-                    if (o == null) return;
+                    if (o is Company company)
+                    {
+                        var content = ServiceLocator.Current.GetInstance<CompanyDetailsDialogView>();
+                        ((CompanyDetailsDialogViewModel)content.DataContext).Company = company;
 
-                    var content = ServiceLocator.Current.GetInstance<CompanyDetailsDialogView>();
-                    var model = ServiceLocator.Current.GetInstance<CompanyDetailsDialogViewModel>();
-                    model.Company = o;
-                    content.DataContext = model;
-                    var result = await DialogHost.Show(content, "RootDialogHost");
-                    if (result is bool b)
-                        if (b) NavigationService.NavigateTo("CompanyEdit", o);
+                        var result = await DialogHost.Show(content, "RootDialogHost");
+                        if (result is bool b)
+                            if (b) NavigationService.NavigateTo("CompanyEdit", o);
+                    }
+
+                    
                 }));
             }
         }
@@ -103,9 +105,8 @@ namespace WpfApp.ViewModels
         private void CompanyInfoInitialize()
         {
             var content = ServiceLocator.Current.GetInstance<LoadDialogView>();
-            var model = ServiceLocator.Current.GetInstance<LoadDialogViewModel>();
-            model.Message = $"Загрузка данных{Environment.NewLine}Подождите...";
-            content.DataContext = model;
+            ((LoadDialogViewModel)content.DataContext).Message = $"Загрузка данных{Environment.NewLine}Подождите...";
+
             DialogHost.Show(content, "RootDialogHost",
                 delegate (object sender, DialogOpenedEventArgs args)
                 {

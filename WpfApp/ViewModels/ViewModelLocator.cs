@@ -76,6 +76,7 @@ namespace WpfApp.ViewModels
         // dialogs
         public LoadDialogViewModel LoadDialog => ServiceLocator.Current.GetInstance<LoadDialogViewModel>();
         public CompanyDetailsDialogViewModel CompanyDetailsDialog => ServiceLocator.Current.GetInstance<CompanyDetailsDialogViewModel>();
+        public BankDetailDialogViewModel BankDetailDialog => ServiceLocator.Current.GetInstance<BankDetailDialogViewModel>();
 
         internal class NavigationModule : Module
         {

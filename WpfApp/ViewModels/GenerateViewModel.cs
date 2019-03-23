@@ -58,35 +58,11 @@ namespace WpfApp.ViewModels
             TypeOfPayment = "электронно";
             QueuePayment = "5";
 
-            ThreadPool.QueueUserWorkItem(o =>
-            {
-                var service = ServiceLocator.Current.GetInstance<OrganizationService>();
-                var list = service.GetOrganizationAsync().Result;
-                Organizations = list;
-            });
+            GenerateInitialize();
 
             if (NavigationService.Parameter != null)
                 if (NavigationService.Parameter is PaymentOrder order)
                     FillAllInformation(order);
-        }
-
-        private void GenerateInitialize()
-        {
-            var content = ServiceLocator.Current.GetInstance<LoadDialogView>();
-            var model = ServiceLocator.Current.GetInstance<LoadDialogViewModel>();
-            model.Message = $"Загрузка данных{Environment.NewLine}Подождите...";
-            content.DataContext = model;
-            DialogHost.Show(content, "RootDialogHost",
-                delegate (object sender, DialogOpenedEventArgs args)
-            {
-                ThreadPool.QueueUserWorkItem(o =>
-                {
-                    var service = ServiceLocator.Current.GetInstance<OrganizationService>();
-                    var list = service.GetOrganizationAsync().Result;
-                    Organizations = list;
-                    DispatcherHelper.CheckBeginInvokeOnUI(() => args.Session.Close(false));
-                });
-            });
         }
 
         #endregion
@@ -316,6 +292,24 @@ namespace WpfApp.ViewModels
             bool number = Number > 0;
 
             return number && totalInfo && payer && recipient && options;
+        }
+
+        private void GenerateInitialize()
+        {
+            var content = ServiceLocator.Current.GetInstance<LoadDialogView>();
+            ((LoadDialogViewModel)content.DataContext).Message = $"Загрузка данных{Environment.NewLine}Подождите...";
+
+            DialogHost.Show(content, "RootDialogHost",
+                delegate (object sender, DialogOpenedEventArgs args)
+                {
+                    ThreadPool.QueueUserWorkItem(o =>
+                    {
+                        var service = ServiceLocator.Current.GetInstance<OrganizationService>();
+                        var list = service.GetOrganizationAsync().Result;
+                        Organizations = list;
+                        DispatcherHelper.CheckBeginInvokeOnUI(() => args.Session.Close(false));
+                    });
+                });
         }
 
         #endregion

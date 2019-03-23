@@ -88,9 +88,8 @@ namespace WpfApp.ViewModels
                     if (o is Bank bank)
                     {
                         var content = ServiceLocator.Current.GetInstance<BankDetailDialogView>();
-                        var model = ServiceLocator.Current.GetInstance<BankDetailDialogViewModel>();
-                        model.Bank = bank;
-                        content.DataContext = model;
+                        ((BankDetailDialogViewModel)content.DataContext).Bank = bank;
+
                         var request = await DialogHost.Show(content, "RootDialogHost");
                         if (request is bool result)
                             if (result)
@@ -109,9 +108,8 @@ namespace WpfApp.ViewModels
         private void BankInfoInitialize()
         {
             var content = ServiceLocator.Current.GetInstance<LoadDialogView>();
-            var model = ServiceLocator.Current.GetInstance<LoadDialogViewModel>();
-            model.Message = $"Загрузка данных{Environment.NewLine}Подождите...";
-            content.DataContext = model;
+            ((LoadDialogViewModel)content.DataContext).Message = $"Загрузка данных{Environment.NewLine}Подождите...";
+
             DialogHost.Show(content, "RootDialogHost",
                 delegate (object sender, DialogOpenedEventArgs args)
                 {

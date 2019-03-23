@@ -10,6 +10,7 @@
              TextElement.FontWeight="Regular"
              TextElement.FontSize="14"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+             DataContext="{Binding BankDetailDialog, Source={StaticResource Locator}}"
              mc:Ignorable="d" MinWidth="600">
     <ScrollViewer>
         <DockPanel>
