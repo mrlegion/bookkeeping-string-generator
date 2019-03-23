@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using CommonServiceLocator;
 using Domain.Services;
 using GalaSoft.MvvmLight.Command;
@@ -10,6 +12,7 @@ using Infrastructure.Entities;
 using MaterialDesignThemes.Wpf;
 using WpfApp.Common;
 using WpfApp.Service;
+using WpfApp.UserControls;
 using WpfApp.UserControls.ViewModels;
 using WpfApp.UserControls.Views;
 
@@ -86,15 +89,10 @@ namespace WpfApp.ViewModels
                 {
                     if (o is Company company)
                     {
-                        var content = ServiceLocator.Current.GetInstance<CompanyDetailsDialogView>();
-                        ((CompanyDetailsDialogViewModel)content.DataContext).Company = company;
-
-                        var result = await DialogHost.Show(content, "RootDialogHost");
-                        if (result is bool b)
-                            if (b) NavigationService.NavigateTo("CompanyEdit", o);
+                        var result =
+                            await DialogHelper.ViewDetailDialog<CompanyDetailsDialogView, CompanyDetailsDialogViewModel>(company);
+                        if (result) NavigationService.NavigateTo("CompanyEdit", o);
                     }
-
-                    
                 }));
             }
         }

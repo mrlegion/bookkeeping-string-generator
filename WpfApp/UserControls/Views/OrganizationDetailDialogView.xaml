@@ -1,0 +1,159 @@
+﻿<UserControl x:Class="WpfApp.UserControls.Views.OrganizationDetailDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             Background="{DynamicResource MaterialDesignPaper}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="14"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+             DataContext="{Binding OrganizationDetailDialog, Source={StaticResource Locator}}"
+             MinWidth="600">
+    <ScrollViewer>
+        <DockPanel Margin="20 0">
+            <TextBlock DockPanel.Dock="Top"
+                       HorizontalAlignment="Center"
+                       Text="Информация о организации:"
+                       Margin="0 30"
+                       Style="{StaticResource MaterialDesignTitleTextBlock}"/>
+
+            <Grid DockPanel.Dock="Top"
+                  VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <DockPanel Grid.Column="1">
+                    <!--Company info-->
+                    <GroupBox DockPanel.Dock="Top" Header="Информация о компании:">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal"
+                                        DockPanel.Dock="Top"
+                                        VerticalAlignment="Top"
+                                        Margin="10 5">
+                                <TextBlock Text="Наименование:"
+                                           FontWeight="SemiBold"
+                                           Width="150"/>
+                                <TextBlock Text="{Binding Organization.Company.Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal"
+                                        DockPanel.Dock="Top"
+                                        VerticalAlignment="Top"
+                                        Margin="10 5">
+                                <TextBlock Text="ИНН компании:"
+                                           FontWeight="SemiBold"
+                                           Width="150"/>
+                                <TextBlock Text="{Binding Organization.Company.Inn, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                           FontStyle="Italic"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal"
+                                        DockPanel.Dock="Top"
+                                        VerticalAlignment="Top"
+                                        Margin="10 5">
+                                <TextBlock Text="КПП компании:"
+                                           FontWeight="SemiBold"
+                                           Width="150"/>
+                                <TextBlock Text="{Binding Organization.Company.Kpp, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                           FontStyle="Italic"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Информация о банке:"
+                              DockPanel.Dock="Top">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal"
+                                        DockPanel.Dock="Top"
+                                        VerticalAlignment="Top"
+                                        Margin="10 5">
+                                <TextBlock Text="Наименование:"
+                                           FontWeight="SemiBold"
+                                           Width="150"/>
+                                <TextBlock Text="{Binding Organization.Bank.Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal"
+                                        DockPanel.Dock="Top"
+                                        VerticalAlignment="Top"
+                                        Margin="10 5">
+                                <TextBlock Text="БИК банка:"
+                                           FontWeight="SemiBold"
+                                           Width="150"/>
+                                <TextBlock Text="{Binding Organization.Bank.Bik, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                           FontStyle="Italic"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal"
+                                        DockPanel.Dock="Top"
+                                        VerticalAlignment="Top"
+                                        Margin="10 5">
+                                <TextBlock Text="Номер счёта:"
+                                           FontWeight="SemiBold"
+                                           Width="150"/>
+                                <TextBlock Text="{Binding Organization.Bank.AccountNumber, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                           FontStyle="Italic"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Об организации:" DockPanel.Dock="Top">
+                        <StackPanel Orientation="Horizontal"
+                                    DockPanel.Dock="Top"
+                                    VerticalAlignment="Top"
+                                    Margin="10">
+                            <TextBlock Text="Номер счёта:"
+                                       FontWeight="SemiBold"
+                                       Width="150"/>
+                            <TextBlock Text="{Binding Organization.AccountNumber, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                       FontStyle="Italic"/>
+                        </StackPanel>
+                    </GroupBox>
+                    
+                </DockPanel>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal"
+                        DockPanel.Dock="Bottom"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Margin="0 30">
+
+                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                        IsDefault="True"
+                        Command="{x:Static md:DialogHost.CloseDialogCommand}">
+                    <Button.CommandParameter>
+                        <system:Boolean>True</system:Boolean>
+                    </Button.CommandParameter>
+                    <StackPanel Orientation="Horizontal">
+                        <md:PackIcon Kind="Edit" VerticalAlignment="Center" />
+                        <TextBlock Text="Изменить"
+                                   VerticalAlignment="Center"
+                                   Margin="5 0 0 0" />
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource MaterialDesignFlatAccentButton}"
+                        Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                        IsCancel="True">
+                    <Button.CommandParameter>
+                        <system:Boolean>False</system:Boolean>
+                    </Button.CommandParameter>
+                    <StackPanel Orientation="Horizontal">
+                        <md:PackIcon Kind="Cancel" VerticalAlignment="Center" />
+                        <TextBlock Text="Отменить"
+                                   VerticalAlignment="Center"
+                                   Margin="5 0 0 0" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </DockPanel>
+    </ScrollViewer>
+</UserControl>

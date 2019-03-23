@@ -88,13 +88,9 @@ namespace WpfApp.ViewModels
                 {
                     if (o is Bank bank)
                     {
-                        var content = ServiceLocator.Current.GetInstance<BankDetailDialogView>();
-                        ((BankDetailDialogViewModel)content.DataContext).Bank = bank;
-
-                        var request = await DialogHost.Show(content, "RootDialogHost");
-                        if (request is bool result)
-                            if (result)
-                                NavigationService.NavigateTo("BankEdit", bank);
+                        bool result =
+                            await DialogHelper.ViewDetailDialog<BankDetailDialogView, BankDetailDialogViewModel>(bank);
+                        if (result) NavigationService.NavigateTo("BankEdit", bank);
                     }
 
                     

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 
 using CommonServiceLocator;
@@ -12,18 +13,14 @@ using WpfApp.ViewModels;
 
 namespace WpfApp.UserControls.ViewModels
 {
-    public class CompanyDetailsDialogViewModel : ViewModelCustom
+    public class CompanyDetailsDialogViewModel : UserControlViewModelBase
     {
         private Company _company;
 
         public Company Company
         {
             get { return _company; }
-            set
-            {
-                Set(nameof(Company), ref _company, value);
-                InitializeFields();
-            }
+            set { Set(nameof(Company), ref _company, value); }
         }
 
         private string _name;
@@ -58,8 +55,11 @@ namespace WpfApp.UserControls.ViewModels
             set { Set(nameof(Organizations), ref _organizations, value); }
         }
 
-        private void InitializeFields()
+        public override void Init(object obj)
         {
+            Company = obj as Company;
+            if (Company == null) throw new ArgumentNullException(nameof(obj));
+
             Name = Company.Name;
             Inn = Company.Inn;
             Kpp = Company.Kpp;
@@ -70,8 +70,5 @@ namespace WpfApp.UserControls.ViewModels
                 Organizations = service.GetOrganizationByCompanyId(Company.Id);
             });
         }
-
-        public CompanyDetailsDialogViewModel(IFrameNavigationService navigationService) : base(navigationService)
-        {}
     }
 }

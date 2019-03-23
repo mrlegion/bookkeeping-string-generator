@@ -5,8 +5,11 @@ using CommonServiceLocator;
 using Domain.Services;
 using GalaSoft.MvvmLight.Command;
 using Infrastructure.Dto;
+using Infrastructure.Entities;
 using WpfApp.Common;
 using WpfApp.Service;
+using WpfApp.UserControls.ViewModels;
+using WpfApp.UserControls.Views;
 
 namespace WpfApp.ViewModels
 {
@@ -69,6 +72,27 @@ namespace WpfApp.ViewModels
                             service.DeleteOrganization(organization);
                             Organizations = service.GetAllSimpleInfo();
                         }
+                }));
+            }
+        }
+
+        private RelayCommand<object> _viewItemCommand;
+
+        public RelayCommand<object> ViewItemCommand
+        {
+            get
+            {
+                return _viewItemCommand ?? (_viewItemCommand = new RelayCommand<object>(async (o) =>
+                {
+                    if (o is OrganizationSimpleDto dto)
+                    {
+                        Organization full = ServiceLocator.Current.GetInstance<OrganizationService>().GetOrganization(dto.Id);
+
+                        bool result = await DialogHelper
+                            .ViewDetailDialog<OrganizationDetailDialogView, OrganizationDetailDialogViewModel>(full);
+                        if (result) NavigationService.NavigateTo("OrganizationEdit", dto);
+
+                    }
                 }));
             }
         }

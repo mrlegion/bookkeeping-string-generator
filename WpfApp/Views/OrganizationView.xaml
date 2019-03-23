@@ -35,6 +35,7 @@
                   VerticalContentAlignment="Center"
                   IsReadOnly="True"
                   ItemsSource="{Binding Organizations}"
+                  ContextMenu="{DynamicResource ContextMenuDataGridMain}"
                   md:DataGridAssist.CellPadding="13 8 8 8"
                   md:DataGridAssist.ColumnHeaderPadding="8">
             <i:Interaction.Triggers>
@@ -60,6 +61,13 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
+                                <Button Style="{StaticResource MaterialDesignToolButton}"
+                                        Padding="5 0"
+                                        Command="{Binding DataContext.ViewItemCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=SelectedItem}"
+                                        Height="Auto">
+                                    <md:PackIcon Kind="Eye"/>
+                                </Button>
                                 <Button Style="{StaticResource MaterialDesignToolButton}"
                                         Padding="5 0"
                                         Command="{Binding DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType=Page}}"

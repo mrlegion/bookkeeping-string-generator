@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using CommonServiceLocator;
 using Domain.Services;
@@ -9,12 +10,19 @@ using WpfApp.ViewModels;
 
 namespace WpfApp.UserControls.ViewModels
 {
-    public class BankDetailDialogViewModel : ViewModelCustom
+    public class BankDetailDialogViewModel : UserControlViewModelBase
     {
-        public BankDetailDialogViewModel(IFrameNavigationService navigationService) : base(navigationService)
-        {}
+        #region Fields
 
         private string _name;
+        private string _bik;
+        private string _accountNumber;
+        private IEnumerable<Organization> _organizations;
+        private Bank _bank;
+
+        #endregion
+
+        #region Properties
 
         public string Name
         {
@@ -22,15 +30,11 @@ namespace WpfApp.UserControls.ViewModels
             set { Set(nameof(Name), ref _name, value); }
         }
 
-        private string _bik;
-
         public string Bik
         {
             get { return _bik; }
             set { Set(nameof(Bik), ref _bik, value); }
         }
-
-        private string _accountNumber;
 
         public string AccountNumber
         {
@@ -38,28 +42,35 @@ namespace WpfApp.UserControls.ViewModels
             set { Set(nameof(AccountNumber), ref _accountNumber, value); }
         }
 
-        private IEnumerable<Organization> _organizations;
-
         public IEnumerable<Organization> Organizations
         {
             get { return _organizations; }
             set { Set(nameof(Organizations), ref _organizations, value); }
         }
 
-        private Bank _bank;
-
         public Bank Bank
         {
             get { return _bank; }
-            set
-            {
-                Set(nameof(Bank), ref _bank, value);
-                Initialize();
-            }
+            set { Set(nameof(Bank), ref _bank, value); }
         }
 
-        private void Initialize()
+        private bool _isCanEdit;
+
+        public bool IsCanEdit
         {
+            get { return _isCanEdit; }
+            set { Set(nameof(IsCanEdit), ref _isCanEdit, value); }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public override void Init(object obj)
+        {
+            Bank = obj as Bank;
+            if (Bank == null) throw new ArgumentNullException(nameof(Bank));
+
             Name = Bank.Name;
             Bik = Bank.Bik;
             AccountNumber = Bank.AccountNumber;
@@ -70,5 +81,7 @@ namespace WpfApp.UserControls.ViewModels
                 Organizations = service.GetOrganizationByBankId(Bank.Id);
             });
         }
+
+        #endregion
     }
 }
