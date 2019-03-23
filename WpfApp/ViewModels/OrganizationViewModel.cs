@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Windows;
 using CommonServiceLocator;
 using Domain.Services;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Threading;
 using Infrastructure.Dto;
-using MaterialDesignThemes.Wpf;
+using WpfApp.Common;
 using WpfApp.Service;
-using WpfApp.UserControls.ViewModels;
-using WpfApp.UserControls.Views;
 
 namespace WpfApp.ViewModels
 {
@@ -83,21 +79,12 @@ namespace WpfApp.ViewModels
 
         private void OrganizationInitialize()
         {
-            var content = ServiceLocator.Current.GetInstance<LoadDialogView>();
-            var model = ServiceLocator.Current.GetInstance<LoadDialogViewModel>();
-            model.Message = $"Загрузка данных{Environment.NewLine}Подождите...";
-            content.DataContext = model;
-            DialogHost.Show(content, "RootDialogHost",
-                delegate (object sender, DialogOpenedEventArgs args)
-                {
-                    ThreadPool.QueueUserWorkItem((o) =>
-                    {
-                        var service = ServiceLocator.Current.GetInstance<OrganizationService>();
-                        var list = service.GetAllSimpleInfoAsync().Result;
-                        Organizations = list;
-                        DispatcherHelper.CheckBeginInvokeOnUI(() => { args.Session.Close(false); });
-                    });
-                });
+            DialogHelper.ShowLoadDialog(() =>
+            {
+                var service = ServiceLocator.Current.GetInstance<OrganizationService>();
+                var list = service.GetAllSimpleInfoAsync().Result;
+                Organizations = list;
+            }, $"Загрузка данных{Environment.NewLine}Подождите...");
         }
 
         #endregion

@@ -108,6 +108,7 @@
     <Compile Include="Common\ContentDialogTransfer.cs" />
     <Compile Include="Common\ContentDialogType.cs" />
     <Compile Include="Common\Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Common\DialogHelper.cs" />
     <Compile Include="Common\NotifyTaskCompletion.cs" />
     <Compile Include="Common\Validations\ValidationAccountNumber.cs" />
     <Compile Include="Common\Validations\ValidationBik.cs" />
