@@ -94,8 +94,7 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Margin="8" Grid.Row="0">
             <TextBlock VerticalAlignment="Center">Светлая</TextBlock>
-            <ToggleButton Margin="8 0 16 0" Command="{Binding ChangeThemeCommand}"
-                          CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" />
+            <ToggleButton Margin="8 0 16 0" Command="{Binding ChangeThemeCommand}" IsChecked="{Binding IsDark, Mode=TwoWay}" />
             <TextBlock VerticalAlignment="Center">Темная</TextBlock>
         </StackPanel>
         <ItemsControl ItemsSource="{Binding Swatches, Mode=OneTime}" Grid.Row="1" Margin="0 12 0 0">

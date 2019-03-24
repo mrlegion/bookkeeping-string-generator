@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MaterialDesignColors;
@@ -8,7 +9,32 @@ namespace WpfApp.ViewModels
 {
     public class SettingWindowViewModel : ViewModelBase
     {
+        #region Fields
+
         private string _title;
+        private bool _isDark;
+        private IEnumerable<Swatch> _swatches;
+        private RelayCommand<Swatch> _applyPrimaryCommand;
+        private RelayCommand<Swatch> _applyAccentCommand;
+        private RelayCommand _changeThemeCommand;
+        private RelayCommand _saveOnClosingCommand;
+        private RelayCommand<Window> _saveAndCloseCommand;
+        private RelayCommand<Window> _closeSettingCommand;
+
+        #endregion
+
+        #region Construct
+
+        public SettingWindowViewModel()
+        {
+            Title = "Основные настройки программы";
+            Swatches = new SwatchesProvider().Swatches;
+            IsDark = Properties.Settings.Default.Theme;
+        }
+
+        #endregion
+
+        #region Properties
 
         public string Title
         {
@@ -16,21 +42,17 @@ namespace WpfApp.ViewModels
             set { Set(nameof(Title), ref _title, value); }
         }
 
-        private IEnumerable<Swatch> _swatches;
+        public bool IsDark
+        {
+            get { return _isDark; }
+            set { Set(nameof(IsDark), ref _isDark, value); }
+        }
 
         public IEnumerable<Swatch> Swatches
         {
             get { return _swatches; }
             set { Set(nameof(Swatches), ref _swatches, value); }
         }
-
-        public SettingWindowViewModel()
-        {
-            Title = "Основные настройки программы";
-            Swatches = new SwatchesProvider().Swatches;
-        }
-
-        private RelayCommand<Swatch> _applyPrimaryCommand;
 
         public RelayCommand<Swatch> ApplyPrimaryCommand
         {
@@ -39,11 +61,10 @@ namespace WpfApp.ViewModels
                 return _applyPrimaryCommand ?? (_applyPrimaryCommand = new RelayCommand<Swatch>((swatch) =>
                 {
                     new PaletteHelper().ReplacePrimaryColor(swatch);
+                    Properties.Settings.Default.Primary = swatch.Name;
                 }));
             }
         }
-
-        private RelayCommand<Swatch> _applyAccentCommand;
 
         public RelayCommand<Swatch> ApplyAccentCommand
         {
@@ -52,21 +73,57 @@ namespace WpfApp.ViewModels
                 return _applyAccentCommand ?? (_applyAccentCommand = new RelayCommand<Swatch>((swatch) =>
                 {
                     new PaletteHelper().ReplaceAccentColor(swatch);
+                    Properties.Settings.Default.Accent = swatch.Name;
                 }));
             }
         }
 
-        private RelayCommand<bool> _changeThemeCommand;
-
-        public RelayCommand<bool> ChangeThemeCommand
+        public RelayCommand ChangeThemeCommand
         {
             get
             {
-                return _changeThemeCommand ?? (_changeThemeCommand = new RelayCommand<bool>((dark) =>
+                return _changeThemeCommand ?? (_changeThemeCommand = new RelayCommand(() =>
                 {
-                    new PaletteHelper().SetLightDark(dark);
+                    new PaletteHelper().SetLightDark(IsDark);
+                    Properties.Settings.Default.Theme = IsDark;
                 }));
             }
         }
+
+        public RelayCommand SaveOnClosingCommand
+        {
+            get
+            {
+                return _saveOnClosingCommand ?? (_saveOnClosingCommand = new RelayCommand(() =>
+                {
+                    Properties.Settings.Default.Save();
+                }));
+            }
+        }
+
+        public RelayCommand<Window> SaveAndCloseCommand
+        {
+            get
+            {
+                return _saveAndCloseCommand ?? (_saveAndCloseCommand = new RelayCommand<Window>((w) =>
+                {
+                    Properties.Settings.Default.Save();
+                    w.Close();
+                }));
+            }
+        }
+
+        public RelayCommand<Window> CloseSettingCommand
+        {
+            get
+            {
+                return _closeSettingCommand ?? (_closeSettingCommand = new RelayCommand<Window>((w) =>
+                {
+                    w.Close();
+                }));
+            }
+        }
+
+        #endregion
     }
 }

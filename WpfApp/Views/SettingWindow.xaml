@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        xmlns:ml="http://www.galasoft.ch/mvvmlight"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:settings="clr-namespace:WpfApp.UserControls.Settings"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -13,14 +15,20 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         Title="{Binding Title, Mode=OneWay}"
         DataContext="{Binding Setting, Source={StaticResource Locator}}"
-        Height="450" Width="800">
+        Height="550" Width="1024">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <ml:EventToCommand Command="{Binding SaveOnClosingCommand, Mode=OneWay}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!--tabs-->
@@ -83,5 +91,25 @@
                       Visibility="{Binding ElementName=Tab4Checked, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
             <settings:ThemeSelector HorizontalAlignment="Center"/>
         </ScrollViewer>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    Margin="0 20">
+            <Button Margin="20 0" Command="{Binding SaveAndCloseCommand, Mode=OneWay}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                <StackPanel Orientation="Horizontal">
+                    <md:PackIcon Kind="ContentSaveAll" />
+                    <TextBlock Text="Сохранить настройки" Margin="5 0 0 0"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="20 0" Style="{StaticResource MaterialDesignFlatAccentButton}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                    Command="{Binding CloseSettingCommand, Mode=OneWay}">
+                <StackPanel Orientation="Horizontal">
+                    <md:PackIcon Kind="Cancel" />
+                    <TextBlock Text="Отменить" Margin="5 0 0 0"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>

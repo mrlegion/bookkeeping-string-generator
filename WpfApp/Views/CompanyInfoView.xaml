@@ -17,7 +17,6 @@
       FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CompanyInfoView">
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

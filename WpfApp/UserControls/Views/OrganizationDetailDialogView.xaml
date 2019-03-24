@@ -23,6 +23,7 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Margin="0 20"
+                   Style="{StaticResource MaterialDesignTitleTextBlock}"
                    Text="{Binding Title, Mode=OneWay}" />
 
         <ScrollViewer Grid.Row="1" Padding="0 20 0 0">
