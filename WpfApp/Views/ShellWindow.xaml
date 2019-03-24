@@ -15,7 +15,7 @@
         DataContext="{Binding Shell, Source={StaticResource Locator}}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
-        Title="ShellWindow" Height="600" Width="1024">
+        Title="{Binding Title, Mode=OneWay}" Height="800" Width="1280">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <ml:EventToCommand Command="{Binding NavigateToCommand}" CommandParameter="Home"/>
@@ -44,7 +44,7 @@
                         ToolTip="Повторить переход">
                     <md:PackIcon Kind="ArrowRightBoldCircle"></md:PackIcon>
                 </Button>
-                <TextBlock Text="Bookkeeping Library Manager"
+                <TextBlock Text="{Binding Title, Mode=OneWay}"
                            VerticalAlignment="Center"
                            Style="{StaticResource MaterialDesignSubheadingTextBlock}"
                            FontWeight="SemiBold"
@@ -54,6 +54,8 @@
             <StackPanel Orientation="Horizontal"
                         Grid.Column="1">
                 <Button Padding="10 0"
+                        Command="{Binding OpenSettingCommand, Mode=OneWay}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                         ToolTip="Основные настройки программы"
                         Style="{StaticResource MaterialDesignToolButton}">
                     <md:PackIcon Kind="Gear"

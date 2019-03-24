@@ -36,6 +36,10 @@ namespace WpfApp.ViewModels
             builder.RegisterType<OrganizationEditViewModel>();
             builder.RegisterType<GenerateListViewModel>().SingleInstance();
 
+            // setup
+            builder.RegisterType<SettingWindow>();
+            builder.RegisterType<SettingWindowViewModel>();
+
             // register view
             builder.RegisterType<ShellWindow>();
             builder.RegisterType<AdministrationView>();
@@ -74,6 +78,9 @@ namespace WpfApp.ViewModels
         public HomeViewModel Home => ServiceLocator.Current.GetInstance<HomeViewModel>();
         public OrganizationEditViewModel OrganizationEdit => ServiceLocator.Current.GetInstance<OrganizationEditViewModel>();
         public GenerateListViewModel GenerateList => ServiceLocator.Current.GetInstance<GenerateListViewModel>();
+
+        // settings
+        public SettingWindowViewModel Setting => ServiceLocator.Current.GetInstance<SettingWindowViewModel>();
 
         // dialogs
         public LoadDialogViewModel LoadDialog => ServiceLocator.Current.GetInstance<LoadDialogViewModel>();

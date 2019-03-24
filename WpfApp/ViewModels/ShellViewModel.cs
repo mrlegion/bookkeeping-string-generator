@@ -1,9 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using CommonServiceLocator;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
-using MaterialDesignThemes.Wpf;
-using WpfApp.Common;
 using WpfApp.Service;
+using WpfApp.Views;
 
 namespace WpfApp.ViewModels
 {
@@ -12,24 +12,24 @@ namespace WpfApp.ViewModels
     /// </summary>
     public class ShellViewModel : ViewModelCustom
     {
+        #region Fields
+
+        private RelayCommand _onExitCommand;
+
+        private RelayCommand<Window> _openSettingCommand;
+
+        #endregion
+
+        #region Construct
+
         public ShellViewModel(IFrameNavigationService navigationService) : base(navigationService)
         {
-            //Messenger.Default.Register<NotificationMessage<ContentDialogTransfer>>(this, (m) =>
-            //{
-            //    if (m.Content is ContentDialogTransfer contentDialog)
-            //    {
-            //        if (!contentDialog.IsOpen)
-            //        {
-            //            IsOpenDialog = false;
-            //            return;
-            //        }
-            //        var view = contentDialog.Content;
-            //        var result = DialogHost.Show(view, "RootDialogHost");
-            //    }
-            //});
+            Title = "Программа управления Бухгалтерией";
         }
-        
-        private RelayCommand _onExitCommand;
+
+        #endregion
+
+        #region Properties
 
         public RelayCommand OnExitCommand
         {
@@ -38,5 +38,24 @@ namespace WpfApp.ViewModels
                 return _onExitCommand ?? (_onExitCommand = new RelayCommand(() => { Application.Current.Shutdown(); }));
             }
         }
+
+        public RelayCommand<Window> OpenSettingCommand
+        {
+            get
+            {
+                return _openSettingCommand ?? (_openSettingCommand = new RelayCommand<Window>((w) =>
+                {
+                    if (w == null) throw new ArgumentNullException(nameof(w));
+
+                    var setting = ServiceLocator.Current.GetInstance<SettingWindow>();
+                    setting.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                    setting.Owner = w;
+
+                    setting.ShowDialog();
+                }));
+            }
+        }
+
+        #endregion
     }
 }

@@ -10,7 +10,8 @@
         TextElement.FontWeight="Regular"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        Title="SettingWindow" 
+        Title="SettingWindow"
+        DataContext="{Binding Setting, Source={StaticResource Locator}}"
         Height="450" Width="800">
     <Grid>
         
