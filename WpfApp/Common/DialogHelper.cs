@@ -29,14 +29,15 @@ namespace WpfApp.Common
                 });
         }
 
-        public static async Task<bool> ViewDetailDialog<TView, TModel>(object item)
-            where TModel : UserControlViewModelBase
+        public static async Task<bool> ViewDetailDialog<TView, TModel, TEntity>(TEntity item, string title)
+            where TModel : UserControlViewModelBase<TEntity>
             where TView : UserControl
+            where TEntity : class
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
 
             var content = ServiceLocator.Current.GetInstance<TView>();
-            ((TModel)content.DataContext).Init(item);
+            ((TModel)content.DataContext).Init(item, title);
 
             var request = await DialogHost.Show(content, "RootDialogHost");
             if (request is bool result)

@@ -90,7 +90,7 @@ namespace WpfApp.ViewModels
                     if (o is Company company)
                     {
                         var result =
-                            await DialogHelper.ViewDetailDialog<CompanyDetailsDialogView, CompanyDetailsDialogViewModel>(company);
+                            await DialogHelper.ViewDetailDialog<CompanyDetailsDialogView, CompanyDetailsDialogViewModel, Company>(company, "Информация о компании");
                         if (result) NavigationService.NavigateTo("CompanyEdit", o);
                     }
                 }));

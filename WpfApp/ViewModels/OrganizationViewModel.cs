@@ -89,7 +89,7 @@ namespace WpfApp.ViewModels
                         Organization full = ServiceLocator.Current.GetInstance<OrganizationService>().GetOrganization(dto.Id);
 
                         bool result = await DialogHelper
-                            .ViewDetailDialog<OrganizationDetailDialogView, OrganizationDetailDialogViewModel>(full);
+                            .ViewDetailDialog<OrganizationDetailDialogView, OrganizationDetailDialogViewModel, Organization>(full, "Информация об организации");
                         if (result) NavigationService.NavigateTo("OrganizationEdit", dto);
 
                     }

@@ -89,11 +89,9 @@ namespace WpfApp.ViewModels
                     if (o is Bank bank)
                     {
                         bool result =
-                            await DialogHelper.ViewDetailDialog<BankDetailDialogView, BankDetailDialogViewModel>(bank);
+                            await DialogHelper.ViewDetailDialog<BankDetailDialogView, BankDetailDialogViewModel, Bank>(bank, "Информация о банке");
                         if (result) NavigationService.NavigateTo("BankEdit", bank);
                     }
-
-                    
                 }));
             }
         }
