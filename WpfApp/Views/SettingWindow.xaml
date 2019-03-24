@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        xmlns:settings="clr-namespace:WpfApp.UserControls.Settings"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
@@ -32,36 +33,33 @@
                              x:Name="Tab1Checked"
                              IsChecked="True"
                              Height="Auto"
-                             Content="ОСНОВНЫЕ" />
+                             Content="Основные" />
                 <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}"
                              IsChecked="False"
                              x:Name="Tab2Checked"
                              Height="Auto"
-                             Content="СОХРАНЕНИЕ" />
+                             Content="Сохранение" />
                 <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}"
                              IsChecked="False"
                              x:Name="Tab3Checked"
                              Height="Auto"
-                             Content="СОЗДАНИЕ" />
+                             Content="Создание" />
                 <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}"
                              Height="Auto"
                              x:Name="Tab4Checked"
                              IsChecked="False"
-                             Content="РАЗНОЕ" />
+                             Content="Тема оформления" />
             </StackPanel>
         </md:ColorZone>
 
         <!--tabs content-->
         <ScrollViewer Grid.Row="1" 
+                      Padding="30 20"
                       Visibility="{Binding ElementName=Tab1Checked, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock Style="{StaticResource MaterialDesignDisplay3TextBlock}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontWeight="SemiBold"
-                       Text="Основные"/>
         </ScrollViewer>
 
         <ScrollViewer Grid.Row="1"
+                      Padding="30 20"
                       Visibility="{Binding ElementName=Tab2Checked, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock Style="{StaticResource MaterialDesignDisplay3TextBlock}"
                        HorizontalAlignment="Center"
@@ -71,6 +69,7 @@
         </ScrollViewer>
 
         <ScrollViewer Grid.Row="1"
+                      Padding="30 20"
                       Visibility="{Binding ElementName=Tab3Checked, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock Style="{StaticResource MaterialDesignDisplay3TextBlock}"
                        HorizontalAlignment="Center"
@@ -80,12 +79,9 @@
         </ScrollViewer>
 
         <ScrollViewer Grid.Row="1"
+                      Padding="30 20"
                       Visibility="{Binding ElementName=Tab4Checked, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock Style="{StaticResource MaterialDesignDisplay3TextBlock}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontWeight="SemiBold"
-                       Text="Разное"/>
+            <settings:ThemeSelector HorizontalAlignment="Center"/>
         </ScrollViewer>
     </Grid>
 </Window>

@@ -117,6 +117,9 @@
     <Compile Include="Common\Validations\ValidationTotal.cs" />
     <Compile Include="Service\FrameNavigationService.cs" />
     <Compile Include="Service\IFrameNavigationService.cs" />
+    <Compile Include="UserControls\Settings\ThemeSelector.xaml.cs">
+      <DependentUpon>ThemeSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UserControlViewModelBase.cs" />
     <Compile Include="UserControls\ViewModels\BankDetailDialogViewModel.cs" />
     <Compile Include="UserControls\ViewModels\CompanyDetailsDialogViewModel.cs" />
@@ -227,6 +230,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="UserControls\Settings\ThemeSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Views\BankDetailDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
