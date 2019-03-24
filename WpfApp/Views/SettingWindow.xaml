@@ -10,10 +10,82 @@
         TextElement.FontWeight="Regular"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        Title="SettingWindow"
+        Title="{Binding Title, Mode=OneWay}"
         DataContext="{Binding Setting, Source={StaticResource Locator}}"
         Height="450" Width="800">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--tabs-->
+        <md:ColorZone Grid.Row="0"
+                      md:ShadowAssist.ShadowDepth="Depth2"
+                      Height="50"
+                      Mode="PrimaryMid">
+            <StackPanel Orientation="Horizontal">
+                <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}"
+                             x:Name="Tab1Checked"
+                             IsChecked="True"
+                             Height="Auto"
+                             Content="ОСНОВНЫЕ" />
+                <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}"
+                             IsChecked="False"
+                             x:Name="Tab2Checked"
+                             Height="Auto"
+                             Content="СОХРАНЕНИЕ" />
+                <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}"
+                             IsChecked="False"
+                             x:Name="Tab3Checked"
+                             Height="Auto"
+                             Content="СОЗДАНИЕ" />
+                <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}"
+                             Height="Auto"
+                             x:Name="Tab4Checked"
+                             IsChecked="False"
+                             Content="РАЗНОЕ" />
+            </StackPanel>
+        </md:ColorZone>
+
+        <!--tabs content-->
+        <ScrollViewer Grid.Row="1" 
+                      Visibility="{Binding ElementName=Tab1Checked, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock Style="{StaticResource MaterialDesignDisplay3TextBlock}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold"
+                       Text="Основные"/>
+        </ScrollViewer>
+
+        <ScrollViewer Grid.Row="1"
+                      Visibility="{Binding ElementName=Tab2Checked, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock Style="{StaticResource MaterialDesignDisplay3TextBlock}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold"
+                       Text="Сохранение"/>
+        </ScrollViewer>
+
+        <ScrollViewer Grid.Row="1"
+                      Visibility="{Binding ElementName=Tab3Checked, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock Style="{StaticResource MaterialDesignDisplay3TextBlock}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold"
+                       Text="Создание"/>
+        </ScrollViewer>
+
+        <ScrollViewer Grid.Row="1"
+                      Visibility="{Binding ElementName=Tab4Checked, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock Style="{StaticResource MaterialDesignDisplay3TextBlock}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold"
+                       Text="Разное"/>
+        </ScrollViewer>
     </Grid>
 </Window>
