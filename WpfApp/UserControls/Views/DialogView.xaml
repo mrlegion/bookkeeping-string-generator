@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="WpfApp.UserControls.Views.DialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfApp.UserControls.Views"
+             mc:Ignorable="d"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             Background="{DynamicResource MaterialDesignPaper}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="14"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+             MaxWidth="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+
+        <Border CornerRadius="100"
+                Margin="20"
+                Grid.Column="0"
+                Width="50" Height="50"
+                Background="{StaticResource PrimaryHueMidBrush}"
+                Padding="15">
+            <md:PackIcon Kind="{Binding Icon, Mode=OneWay}"
+                         VerticalAlignment="Center"
+                         Width="Auto" Height="Auto"
+                         HorizontalAlignment="Center"/>
+        </Border>
+
+        <TextBlock TextWrapping="Wrap"
+                   Grid.Column="1" Grid.Row="0"
+                   Style="{StaticResource MaterialDesignBody2TextBlock}"
+                   Margin="0 30 30 30"
+                   Text="{Binding Message, Mode=OneWay}"/>
+
+        <Grid Grid.Row="1" Grid.Column="0"
+              Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Style="{StaticResource MaterialDesignFlatButton}" Grid.Column="0"
+                    Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                    IsDefault="True">
+                <Button.CommandParameter>
+                    <system:Boolean>False</system:Boolean>
+                </Button.CommandParameter>
+                <StackPanel Orientation="Horizontal">
+                    <md:PackIcon Kind="Check" />
+                    <TextBlock Text="Подтвердить" Margin="10 0 0 0" />
+                </StackPanel>
+            </Button>
+        </Grid>
+        </Grid>
+</UserControl>

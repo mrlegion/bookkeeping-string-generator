@@ -63,6 +63,9 @@ namespace WpfApp.ViewModels
             builder.RegisterType<BankDetailDialogViewModel>();
             builder.RegisterType<OrganizationDetailDialogView>();
             builder.RegisterType<OrganizationDetailDialogViewModel>();
+            builder.RegisterType<DialogView>();
+            builder.RegisterType<DialogViewModel>();
+            builder.RegisterType<DialogQuestingView>();
 
             var container = builder.Build();
             ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocator(container));
@@ -88,6 +91,7 @@ namespace WpfApp.ViewModels
         public CompanyDetailsDialogViewModel CompanyDetailsDialog => ServiceLocator.Current.GetInstance<CompanyDetailsDialogViewModel>();
         public BankDetailDialogViewModel BankDetailDialog => ServiceLocator.Current.GetInstance<BankDetailDialogViewModel>();
         public OrganizationDetailDialogViewModel OrganizationDetailDialog => ServiceLocator.Current.GetInstance<OrganizationDetailDialogViewModel>();
+        public DialogViewModel Dialog => ServiceLocator.Current.GetInstance<DialogViewModel>();
 
         internal class NavigationModule : Module
         {

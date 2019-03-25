@@ -18,15 +18,31 @@ namespace WpfApp.Common
             var content = ServiceLocator.Current.GetInstance<LoadDialogView>();
             ((LoadDialogViewModel)content.DataContext).Message = message;
 
-            DialogHost.Show(content, "RootDialogHost",
+            DialogHost.Show(content, Properties.Settings.Default.Indentifier,
                 delegate (object sender, DialogOpenedEventArgs args)
                 {
                     ThreadPool.QueueUserWorkItem(o =>
                     {
-                        Init(callback);
+                        callback.Invoke();
                         DispatcherHelper.CheckBeginInvokeOnUI(() => args.Session.Close(false));
                     });
                 });
+        }
+
+        public static async void ShowInformerDialog(string message, PackIconKind icon)
+        {
+            var content = ServiceLocator.Current.GetInstance<DialogView>();
+            ((DialogViewModel) content.DataContext).Initialize(message, icon);
+            await DialogHost.Show(content, Properties.Settings.Default.Indentifier);
+        }
+
+        public static async Task<bool> ShowQuestenDialog(string message, PackIconKind icon)
+        {
+            var content = ServiceLocator.Current.GetInstance<DialogQuestingView>();
+            ((DialogViewModel)content.DataContext).Initialize(message, icon);
+            var result = await DialogHost.Show(content, Properties.Settings.Default.Indentifier);
+            if (result is bool request) return request;
+            return false;
         }
 
         public static async Task<bool> ViewDetailDialog<TView, TModel, TEntity>(TEntity item, string title)
@@ -39,12 +55,10 @@ namespace WpfApp.Common
             var content = ServiceLocator.Current.GetInstance<TView>();
             ((TModel)content.DataContext).Init(item, title);
 
-            var request = await DialogHost.Show(content, "RootDialogHost");
+            var request = await DialogHost.Show(content, Properties.Settings.Default.Indentifier);
             if (request is bool result)
                 return result;
             return false;
         }
-
-        private static void Init(Action action) => action.Invoke();
     }
 }

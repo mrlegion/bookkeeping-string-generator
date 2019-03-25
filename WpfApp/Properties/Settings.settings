@@ -32,5 +32,8 @@
     <Setting Name="MoneySeparator" Type="System.Char" Scope="User">
       <Value Profile="(Default)">-</Value>
     </Setting>
+    <Setting Name="Indentifier" Type="System.String" Scope="User">
+      <Value Profile="(Default)">RootDialogHost</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -142,5 +142,17 @@ namespace WpfApp.Properties {
                 this["MoneySeparator"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("RootDialogHost")]
+        public string Indentifier {
+            get {
+                return ((string)(this["Indentifier"]));
+            }
+            set {
+                this["Indentifier"] = value;
+            }
+        }
     }
 }

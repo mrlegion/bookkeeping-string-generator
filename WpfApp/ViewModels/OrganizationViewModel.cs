@@ -6,6 +6,7 @@ using Domain.Services;
 using GalaSoft.MvvmLight.Command;
 using Infrastructure.Dto;
 using Infrastructure.Entities;
+using MaterialDesignThemes.Wpf;
 using WpfApp.Common;
 using WpfApp.Service;
 using WpfApp.UserControls.ViewModels;
@@ -59,18 +60,19 @@ namespace WpfApp.ViewModels
         {
             get
             {
-                return _deleteItemCommand ?? (_deleteItemCommand = new RelayCommand<object>((o) =>
+                return _deleteItemCommand ?? (_deleteItemCommand = new RelayCommand<object>(async (o) =>
                 {
                     if (o != null)
                         if (o is OrganizationSimpleDto organization)
                         {
-                            // Todo: Использовать MaterialDesign DialogHost
-                            var result = MessageBox.Show($"Вы точно хотите удалить выбранную организацию?",
-                                "Подтверждение на удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                            if (result != MessageBoxResult.Yes) return;
-                            var service = ServiceLocator.Current.GetInstance<OrganizationService>();
-                            service.DeleteOrganization(organization);
-                            Organizations = service.GetAllSimpleInfo();
+                            var result = await DialogHelper.ShowQuestenDialog(
+                                "Вы точно хотите удалить выбранную организацию?", PackIconKind.Delete);
+                            if (result)
+                            {
+                                var service = ServiceLocator.Current.GetInstance<OrganizationService>();
+                                service.DeleteOrganization(organization);
+                                Organizations = service.GetAllSimpleInfo();
+                            }
                         }
                 }));
             }
