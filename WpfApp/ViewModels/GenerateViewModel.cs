@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Threading;
 using CommonServiceLocator;
 using Domain.Helpers;
 using Domain.Model;
 using Domain.Services;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using GalaSoft.MvvmLight.Threading;
 using Infrastructure.Entities;
-using MaterialDesignThemes.Wpf;
 using WpfApp.Common;
 using WpfApp.Service;
-using WpfApp.UserControls.ViewModels;
-using WpfApp.UserControls.Views;
+
+using Configuration = WpfApp.Properties.Settings;
 
 namespace WpfApp.ViewModels
 {
@@ -40,6 +37,7 @@ namespace WpfApp.ViewModels
         private bool _useOneDate;
         private bool _autoTotalText;
         private RelayCommand _generateCommand;
+        private char _moneySeparate;
 
         #endregion
 
@@ -50,14 +48,16 @@ namespace WpfApp.ViewModels
         {
             Title = "Создание файла";
             _generator = generator;
-            Date = DateTime.Now;
+            Date = Configuration.Default.DefaultDate;
             SetAllDateToOne();
 
-            AutoTotalText = true;
-            UseOneDate = true;
-            TypeOfPaying = "01";
-            TypeOfPayment = "электронно";
-            QueuePayment = "5";
+            AutoTotalText = Configuration.Default.TotalToString;
+            UseOneDate = Configuration.Default.IsOneDate;
+            TypeOfPaying = Configuration.Default.TypeOfPaying;
+            TypeOfPayment = Configuration.Default.TypeOfPayment;
+            QueuePayment = Configuration.Default.QueuePayment;
+
+            _moneySeparate = Configuration.Default.MoneySeparator;
 
             GenerateInitialize();
 
@@ -113,7 +113,7 @@ namespace WpfApp.ViewModels
             get => _total;
             set
             {
-                value = Regex.Replace(value, "\\.|,", "-");
+                value = Regex.Replace(value, "\\.|,|-", _moneySeparate.ToString());
 
                 Set(nameof(Total), ref _total, value);
                 if (AutoTotalText) ConvertTotalToString();
@@ -271,7 +271,7 @@ namespace WpfApp.ViewModels
                 return;
             }
 
-            var s = Total.Replace('-', ',');
+            var s = Total.Replace(_moneySeparate, ',');
 
             TotalText = RuDateAndMoneyConverter.CurrencyToTxt(double.Parse(s), true);
         }

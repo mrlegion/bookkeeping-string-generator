@@ -31,9 +31,22 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <!--tabs content-->
+        <ScrollViewer Grid.Row="1" 
+                      Padding="30 0"
+                      Visibility="{Binding ElementName=Tab1Checked, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <settings:GeneralOptions Margin="50 0"/>
+        </ScrollViewer>
+
+        <ScrollViewer Grid.Row="1"
+                      Padding="30 0"
+                      Visibility="{Binding ElementName=Tab2Checked, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <settings:ThemeSelector HorizontalAlignment="Center"/>
+        </ScrollViewer>
+
         <!--tabs-->
         <md:ColorZone Grid.Row="0"
-                      md:ShadowAssist.ShadowDepth="Depth2"
+                      md:ShadowAssist.ShadowDepth="Depth3"
                       Height="50"
                       Mode="PrimaryMid">
             <StackPanel Orientation="Horizontal">
@@ -43,54 +56,12 @@
                              Height="Auto"
                              Content="Основные" />
                 <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}"
-                             IsChecked="False"
+                             Height="Auto"
                              x:Name="Tab2Checked"
-                             Height="Auto"
-                             Content="Сохранение" />
-                <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}"
-                             IsChecked="False"
-                             x:Name="Tab3Checked"
-                             Height="Auto"
-                             Content="Создание" />
-                <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}"
-                             Height="Auto"
-                             x:Name="Tab4Checked"
                              IsChecked="False"
                              Content="Тема оформления" />
             </StackPanel>
         </md:ColorZone>
-
-        <!--tabs content-->
-        <ScrollViewer Grid.Row="1" 
-                      Padding="30 20"
-                      Visibility="{Binding ElementName=Tab1Checked, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
-        </ScrollViewer>
-
-        <ScrollViewer Grid.Row="1"
-                      Padding="30 20"
-                      Visibility="{Binding ElementName=Tab2Checked, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock Style="{StaticResource MaterialDesignDisplay3TextBlock}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontWeight="SemiBold"
-                       Text="Сохранение"/>
-        </ScrollViewer>
-
-        <ScrollViewer Grid.Row="1"
-                      Padding="30 20"
-                      Visibility="{Binding ElementName=Tab3Checked, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock Style="{StaticResource MaterialDesignDisplay3TextBlock}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontWeight="SemiBold"
-                       Text="Создание"/>
-        </ScrollViewer>
-
-        <ScrollViewer Grid.Row="1"
-                      Padding="30 20"
-                      Visibility="{Binding ElementName=Tab4Checked, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <settings:ThemeSelector HorizontalAlignment="Center"/>
-        </ScrollViewer>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2"
                     HorizontalAlignment="Center"
@@ -111,5 +82,7 @@
                 </StackPanel>
             </Button>
         </StackPanel>
+
+        
     </Grid>
 </Window>

@@ -11,5 +11,26 @@
     <Setting Name="Theme" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="TotalToString" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="IsOneDate" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DefaultDate" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">2017-01-01</Value>
+    </Setting>
+    <Setting Name="TypeOfPayment" Type="System.String" Scope="User">
+      <Value Profile="(Default)">электронно</Value>
+    </Setting>
+    <Setting Name="TypeOfPaying" Type="System.String" Scope="User">
+      <Value Profile="(Default)">01</Value>
+    </Setting>
+    <Setting Name="QueuePayment" Type="System.String" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="MoneySeparator" Type="System.Char" Scope="User">
+      <Value Profile="(Default)">-</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -5,6 +5,7 @@ using CommonServiceLocator;
 using Domain;
 using GalaSoft.MvvmLight.Ioc;
 using WpfApp.Service;
+using WpfApp.UserControls.Settings;
 using WpfApp.UserControls.ViewModels;
 using WpfApp.UserControls.Views;
 using WpfApp.Views;

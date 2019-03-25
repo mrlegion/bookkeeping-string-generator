@@ -58,5 +58,89 @@ namespace WpfApp.Properties {
                 this["Theme"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TotalToString {
+            get {
+                return ((bool)(this["TotalToString"]));
+            }
+            set {
+                this["TotalToString"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsOneDate {
+            get {
+                return ((bool)(this["IsOneDate"]));
+            }
+            set {
+                this["IsOneDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2017-01-01")]
+        public global::System.DateTime DefaultDate {
+            get {
+                return ((global::System.DateTime)(this["DefaultDate"]));
+            }
+            set {
+                this["DefaultDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("электронно")]
+        public string TypeOfPayment {
+            get {
+                return ((string)(this["TypeOfPayment"]));
+            }
+            set {
+                this["TypeOfPayment"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("01")]
+        public string TypeOfPaying {
+            get {
+                return ((string)(this["TypeOfPaying"]));
+            }
+            set {
+                this["TypeOfPaying"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public string QueuePayment {
+            get {
+                return ((string)(this["QueuePayment"]));
+            }
+            set {
+                this["QueuePayment"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-")]
+        public char MoneySeparator {
+            get {
+                return ((char)(this["MoneySeparator"]));
+            }
+            set {
+                this["MoneySeparator"] = value;
+            }
+        }
     }
 }
