@@ -9,6 +9,8 @@ using Domain.Services;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Infrastructure.Entities;
+using MaterialDesignThemes.Wpf;
+using WpfApp.Common;
 using WpfApp.Service;
 
 namespace WpfApp.ViewModels
@@ -78,15 +80,15 @@ namespace WpfApp.ViewModels
         {
             get
             {
-                return _clearListCommand ?? (_clearListCommand = new RelayCommand(() =>
+                return _clearListCommand ?? (_clearListCommand = new RelayCommand(async () =>
                 {
                     if (Orders == null) return;
                     if (Orders.Count == 0) return;
 
-                    // Todo: Переделать на DialogHost
-                    var result = MessageBox.Show("Вы точно хотите очистить список платежных поручений?",
-                        "Очистка списка", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (result == MessageBoxResult.Yes)
+                    bool result = await DialogHelper.ShowQuestenDialog(
+                        "Вы точно хотите очистить список платежных поручений?",
+                        PackIconKind.Delete);
+                    if (result)
                     {
                         Orders.Clear();
                         ClearListCommand.RaiseCanExecuteChanged();
@@ -101,13 +103,11 @@ namespace WpfApp.ViewModels
             {
                 return _generateCommand ?? (_generateCommand = new RelayCommand(() =>
                 {
-                    IsLoadData = true;
-                    ThreadPool.QueueUserWorkItem(o =>
+                    DialogHelper.ShowLoadDialog(() =>
                     {
                         _generator.OnGenerateList(Orders);
                         Thread.Sleep(1000);
-                        IsLoadData = false;
-                    });
+                    }, $"Идет создание файла{Environment.NewLine}Подождите...");
                 }, () => Orders.Count > 0));
             }
         }
@@ -138,22 +138,23 @@ namespace WpfApp.ViewModels
         {
             get
             {
-                return _deleteItemCommand ?? (_deleteItemCommand = new RelayCommand<PaymentOrder>((o) =>
+                return _deleteItemCommand ?? (_deleteItemCommand = new RelayCommand<PaymentOrder>(async (o) =>
                 {
-                    if (o == null) return; // Todo : Сообщить пользователю, что не выбран никакой объект
+                    if (o == null)
+                    {
+                        DialogHelper.ShowInformerDialog("Не выбранно платежное поручение для удаления!", PackIconKind.Error);
+                        return;
+                    }
 
-                    var result = MessageBox.Show("Вы точно хотите удалить выбранное платежное поручение?",
-                        "Удаление платежного поручения", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    bool result = await DialogHelper.ShowQuestenDialog(
+                        "Вы точно хотите удалить выбранное платежное поручение?",
+                        PackIconKind.Delete);
 
-                    if (result == MessageBoxResult.Yes)
+                    if (result)
                     {
                         bool deleted = Orders.Remove(o);
-                        if (deleted)
-                            MessageBox.Show("Платежное поручение успешно удалено!", "Успешно", MessageBoxButton.OK,
-                                MessageBoxImage.Information);
-                        else MessageBox.Show("Ошибка при попытки удалить платежное поручение!", "Ошибка", MessageBoxButton.OK,
-                            MessageBoxImage.Error);
-
+                        if (deleted) DialogHelper.ShowInformerDialog("Платежное поручение успешно удалено!", PackIconKind.Check);
+                        else DialogHelper.ShowInformerDialog("Ошибка при попытки удалить платежное поручение!", PackIconKind.Error);
                         ClearListCommand.RaiseCanExecuteChanged();
                     }
                 }));

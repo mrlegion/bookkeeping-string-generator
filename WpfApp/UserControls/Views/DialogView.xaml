@@ -12,6 +12,7 @@
              TextElement.FontWeight="Regular"
              TextElement.FontSize="14"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+             DataContext="{Binding Dialog, Source={StaticResource Locator}}"
              MaxWidth="400">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -23,7 +24,6 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
 
         <Border CornerRadius="100"
                 Margin="20"
