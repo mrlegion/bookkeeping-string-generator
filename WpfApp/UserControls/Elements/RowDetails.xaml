@@ -18,14 +18,18 @@
             Padding="20 10">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="1.8*" />
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="TitleTextBlock"
                        TextWrapping="Wrap"
+                       VerticalAlignment="Stretch"
+                       HorizontalAlignment="Stretch"
                        Grid.Column="0"/>
             <TextBlock x:Name="ContentTextBlock"
                        TextWrapping="Wrap"
+                       VerticalAlignment="Stretch"
+                       HorizontalAlignment="Stretch"
                        Grid.Column="1"/>
         </Grid>
     </Border>
