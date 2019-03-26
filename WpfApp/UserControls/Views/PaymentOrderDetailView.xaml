@@ -33,7 +33,6 @@
                 <!--additional-->
                 <elements:GroupElemets Heading="Дополнительная информация" Info="{Binding Additional, Mode=OneWay}"/>
             </StackPanel>
-            
         </ScrollViewer>
 
         <StackPanel Orientation="Horizontal"

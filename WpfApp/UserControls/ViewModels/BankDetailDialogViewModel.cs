@@ -12,6 +12,7 @@ namespace WpfApp.UserControls.ViewModels
         #region Fields
 
         private IEnumerable<Organization> _organizations;
+        private IDictionary<string, string> _general;
 
         #endregion
 
@@ -21,6 +22,12 @@ namespace WpfApp.UserControls.ViewModels
         {
             get { return _organizations; }
             set { Set(nameof(Organizations), ref _organizations, value); }
+        }
+
+        public IDictionary<string, string> General
+        {
+            get { return _general; }
+            set { Set(nameof(General), ref _general, value); }
         }
 
         #endregion
@@ -36,6 +43,14 @@ namespace WpfApp.UserControls.ViewModels
                 var service = ServiceLocator.Current.GetInstance<OrganizationService>();
                 Organizations = service.GetOrganizationByBankId(Entity.Id);
             });
+
+            General = new Dictionary<string, string>()
+            {
+                { "Наименование банка:", Entity.Name },
+                { "Город банка:", Entity.City },
+                { "Номер БИК:", Entity.Bik },
+                { "Номер счёта банка:", Entity.AccountNumber },
+            };
         }
 
         #endregion

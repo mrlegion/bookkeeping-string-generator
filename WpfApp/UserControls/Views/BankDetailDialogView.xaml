@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:elements="clr-namespace:WpfApp.UserControls.Elements"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{DynamicResource MaterialDesignPaper}"
              TextElement.FontWeight="Regular"
@@ -12,7 +13,7 @@
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              DataContext="{Binding BankDetailDialog, Source={StaticResource Locator}}"
              mc:Ignorable="d" MinWidth="600">
-    <Grid>
+    <!--<Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -189,6 +190,143 @@
                 </StackPanel>
             </Grid>
         </ScrollViewer>
-    </Grid>
+    </Grid>-->
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--content-->
+        <ScrollViewer Grid.Row="1" >
+            <StackPanel Orientation="Vertical">
+                <!--general-->
+                <elements:GroupElemets Heading="Основная информация" Info="{Binding General, Mode=OneWay}" Expanded="True"/>
+                <!--organizations-->
+                <Expander BorderThickness="0"
+                          x:Name="GropExpander"
+                          Background="{DynamicResource PrimaryHueMidBrush}"
+                          Padding="0">
+                    <Expander.Header>
+                        <TextBlock Text="Организации" Margin="0 10" />
+                    </Expander.Header>
+                    <ListView ItemsSource="{Binding Organizations, Mode=OneWay}"
+                              Background="white"
+                              FontWeight="Regular" 
+                              Width="Auto">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                                <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+                                <Setter Property="TextElement.Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0 5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border CornerRadius="100" 
+                                                    Grid.Column="0"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    Margin="10 0 20 0"
+                                                    Background="{StaticResource SecondaryAccentBrush}" 
+                                                    Width="60" Height="60">
+                                        <md:PackIcon Kind="Company"
+                                                             Foreground="White"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center"
+                                                             Width="25"
+                                                             Height="25"/>
+                                    </Border>
+
+                                    <StackPanel Orientation="Vertical" Grid.Column="1">
+                                        <TextBlock Text="{Binding Company.Name, Mode=OneWay}" 
+                                                       FontWeight="SemiBold"
+                                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
+
+                                        <StackPanel Orientation="Horizontal" Opacity=".7">
+                                            <TextBlock Text="ИНН: " 
+                                                           FontStyle="Italic"
+                                                           Style="{DynamicResource MaterialDesignCaptionTextBlock}"/>
+                                            <TextBlock Text="{Binding Company.Inn, Mode=OneWay}"
+                                                           FontStyle="Italic"
+                                                           Style="{StaticResource MaterialDesignCaptionTextBlock}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Opacity=".7">
+                                            <TextBlock Text="КПП: " 
+                                                           FontStyle="Italic"
+                                                           Style="{DynamicResource MaterialDesignCaptionTextBlock}"/>
+                                            <TextBlock Text="{Binding Company.Kpp, Mode=OneWay}"
+                                                           FontStyle="Italic"
+                                                           Style="{StaticResource MaterialDesignCaptionTextBlock}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Opacity=".9" Margin="0 5 0 0">
+                                            <TextBlock Text="Номер счёта: " 
+                                                           FontStyle="Italic"
+                                                           Style="{DynamicResource MaterialDesignBody2TextBlock}"/>
+                                            <TextBlock Text="{Binding AccountNumber, Mode=OneWay}"
+                                                           FontStyle="Italic"
+                                                           Style="{StaticResource MaterialDesignBody2TextBlock}"/>
+                                        </StackPanel>
+
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Expander>
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Margin="0 20 0 10">
+
+            <Button Style="{StaticResource MaterialDesignFlatButton}"
+                    IsDefault="True"
+                    Command="{x:Static md:DialogHost.CloseDialogCommand}">
+                <Button.CommandParameter>
+                    <system:Boolean>True</system:Boolean>
+                </Button.CommandParameter>
+                <StackPanel Orientation="Horizontal">
+                    <md:PackIcon Kind="Edit" VerticalAlignment="Center" />
+                    <TextBlock Text="Изменить"
+                               VerticalAlignment="Center"
+                               Margin="5 0 0 0" />
+                </StackPanel>
+            </Button>
+
+            <Button Style="{StaticResource MaterialDesignFlatAccentButton}"
+                    Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                    IsCancel="True">
+                <Button.CommandParameter>
+                    <system:Boolean>False</system:Boolean>
+                </Button.CommandParameter>
+                <StackPanel Orientation="Horizontal">
+                    <md:PackIcon Kind="Cancel" VerticalAlignment="Center" />
+                    <TextBlock Text="Отменить"
+                               VerticalAlignment="Center"
+                               Margin="5 0 0 0" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <md:ColorZone Mode="Standard"
+                      Grid.Row="0"
+                      Padding="10 20"
+                      md:ShadowAssist.ShadowDepth="Depth2">
+            <TextBlock HorizontalAlignment="Center"
+                       Text="{Binding Title, Mode=OneWay}"
+                       Style="{StaticResource MaterialDesignTitleTextBlock}" />
+        </md:ColorZone>
+    </Grid>
 </UserControl>
