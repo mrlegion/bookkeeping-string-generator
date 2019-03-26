@@ -1,0 +1,144 @@
+﻿<UserControl x:Class="WpfApp.UserControls.Views.PaymentOrderDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfApp.UserControls.Views"
+             mc:Ignorable="d"
+             xmlns:elements="clr-namespace:WpfApp.UserControls.Elements"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             Background="{DynamicResource MaterialDesignPaper}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="14"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+             DataContext="{Binding PaymentOrderDetailView, Source={StaticResource Locator}}"
+             MinWidth="700" MaxWidth="1024">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--content-->
+        <ScrollViewer Grid.Row="1" 
+                      VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical">
+                <Expander BorderThickness="0"
+                          Margin="0 0 0 40"
+                          Padding="0">
+                    <Expander.Header>
+                        <TextBlock Text="Основная информация" />
+                    </Expander.Header>
+                    <StackPanel Orientation="Vertical">
+                        <elements:RowDetails Title="Номер платежного поручения:" Message="{Binding Entity.Number, Mode=OneWay}"/>
+                        <elements:RowDetails Title="Дата платежного поручения:" Message="{Binding Entity.Date, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, StringFormat={}{0:dd.MM.yyyy}}"/>
+                        <elements:RowDetails Title="Дата поступления:" Message="{Binding Entity.InDate, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, StringFormat={}{0:dd.MM.yyyy}}"/>
+                        <elements:RowDetails Title="Дата списания:" Message="{Binding Entity.OutDate, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, StringFormat={}{0:dd.MM.yyyy}}"/>
+                        <elements:RowDetails Title="Дата проведения:" Message="{Binding Entity.AcceptDate, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, StringFormat={}{0:dd.MM.yyyy}}"/>
+                        <elements:RowDetails Title="Сумма платежного поручения:" Message="{Binding Entity.Total, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        <elements:RowDetails Title="Сумма прописью:" Message="{Binding Entity.TotalText, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    </StackPanel>
+                </Expander>
+
+                <!--payer-->
+                <GroupBox BorderThickness="0"
+                          Margin="0 0 0 40"
+                          Padding="0">
+                    <GroupBox.Header>
+                        <TextBlock Text="Информация о плательщике" Margin="20 10"/>
+                    </GroupBox.Header>
+                    <StackPanel Orientation="Vertical">
+                        <elements:RowDetails Title="Наименование компании:" Message="{Binding Entity.Payer.Company.Name, Mode=OneWay}"/>
+                        <elements:RowDetails Title="ИНН компании:" Message="{Binding Entity.Payer.Company.Inn, Mode=OneWay}"/>
+                        <elements:RowDetails Title="КПП компании:" Message="{Binding Entity.Payer.Company.Kpp, Mode=OneWay}"/>
+                        <elements:RowDetails Title="Банк плательщика:" Message="{Binding Entity.Payer.Bank.Name, Mode=OneWay}"/>
+                        <elements:RowDetails Title="Город банка:" Message="{Binding Entity.Payer.Bank.City, Mode=OneWay}"/>
+                        <elements:RowDetails Title="БИК банка плательщика:" Message="{Binding Entity.Payer.Bank.Bik, Mode=OneWay}"/>
+                        <elements:RowDetails Title="Номер счёта банка:" Message="{Binding Entity.Payer.Bank.AccountNumber, Mode=OneWay}"/>
+                        <elements:RowDetails Title="Номер счёта компании:" Message="{Binding Entity.Payer.AccountNumber, Mode=OneWay}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!--recipient-->
+                <GroupBox BorderThickness="0"
+                          Margin="0 0 0 40"
+                          Padding="0">
+                    <GroupBox.Header>
+                        <TextBlock Text="Информация о получателе" Margin="20 10"/>
+                    </GroupBox.Header>
+                    <StackPanel Orientation="Vertical">
+                        <elements:RowDetails Title="Наименование компании:" Message="{Binding Entity.Recipient.Company.Name, Mode=OneWay}"/>
+                        <elements:RowDetails Title="ИНН компании:" Message="{Binding Entity.Recipient.Company.Inn, Mode=OneWay}"/>
+                        <elements:RowDetails Title="КПП компании:" Message="{Binding Entity.Recipient.Company.Kpp, Mode=OneWay}"/>
+                        <elements:RowDetails Title="Банк плательщика:" Message="{Binding Entity.Recipient.Bank.Name, Mode=OneWay}"/>
+                        <elements:RowDetails Title="Город банка:" Message="{Binding Entity.Recipient.Bank.City, Mode=OneWay}"/>
+                        <elements:RowDetails Title="БИК банка плательщика:" Message="{Binding Entity.Recipient.Bank.Bik, Mode=OneWay}"/>
+                        <elements:RowDetails Title="Номер счёта банка:" Message="{Binding Entity.Recipient.Bank.AccountNumber, Mode=OneWay}"/>
+                        <elements:RowDetails Title="Номер счёта компании:" Message="{Binding Entity.Recipient.AccountNumber, Mode=OneWay}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox BorderThickness="0"
+                          Padding="0">
+                    <GroupBox.Header>
+                        <TextBlock Text="Дополнительная информация" Margin="20 10" />
+                    </GroupBox.Header>
+                    <StackPanel Orientation="Vertical">
+                        <elements:RowDetails Title="Назначение платежа:" Message="{Binding Entity.Description, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        <elements:RowDetails Title="Вид платежа:" Message="{Binding Entity.TypeOfPayment, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        <elements:RowDetails Title="Вид оплаты:" Message="{Binding Entity.TypeOfPaying, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        <elements:RowDetails Title="Очередность платежа:" Message="{Binding Entity.QueuePayment, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+            
+        </ScrollViewer>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Margin="0 20 0 10">
+
+            <Button Style="{StaticResource MaterialDesignFlatButton}"
+                    IsDefault="True"
+                    Command="{x:Static md:DialogHost.CloseDialogCommand}">
+                <Button.CommandParameter>
+                    <system:Boolean>True</system:Boolean>
+                </Button.CommandParameter>
+                <StackPanel Orientation="Horizontal">
+                    <md:PackIcon Kind="Edit" VerticalAlignment="Center" />
+                    <TextBlock Text="Изменить"
+                               VerticalAlignment="Center"
+                               Margin="5 0 0 0" />
+                </StackPanel>
+            </Button>
+
+            <Button Style="{StaticResource MaterialDesignFlatAccentButton}"
+                    Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                    IsCancel="True">
+                <Button.CommandParameter>
+                    <system:Boolean>False</system:Boolean>
+                </Button.CommandParameter>
+                <StackPanel Orientation="Horizontal">
+                    <md:PackIcon Kind="Cancel" VerticalAlignment="Center" />
+                    <TextBlock Text="Отменить"
+                               VerticalAlignment="Center"
+                               Margin="5 0 0 0" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <md:ColorZone Mode="Standard"
+                      Grid.Row="0"
+                      Padding="10 20"
+                      md:ShadowAssist.ShadowDepth="Depth2">
+            <TextBlock HorizontalAlignment="Center"
+                       Text="{Binding Title, Mode=OneWay}"
+                       Style="{StaticResource MaterialDesignTitleTextBlock}" />
+        </md:ColorZone>
+    </Grid>
+</UserControl>

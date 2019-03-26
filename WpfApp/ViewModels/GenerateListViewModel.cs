@@ -12,6 +12,8 @@ using Infrastructure.Entities;
 using MaterialDesignThemes.Wpf;
 using WpfApp.Common;
 using WpfApp.Service;
+using WpfApp.UserControls.ViewModels;
+using WpfApp.UserControls.Views;
 
 namespace WpfApp.ViewModels
 {
@@ -116,8 +118,19 @@ namespace WpfApp.ViewModels
         {
             get
             {
-                return _viewDetailCommand ?? (_viewDetailCommand = new RelayCommand<PaymentOrder>((o) =>
+                return _viewDetailCommand ?? (_viewDetailCommand = new RelayCommand<PaymentOrder>(async (o) =>
                 {
+                    if (o == null)
+                    {
+                        DialogHelper.ShowInformerDialog("Не выбранно платежное поручение!", PackIconKind.Error);
+                        return;
+                    }
+
+                    bool result =
+                        await DialogHelper
+                            .ViewDetailDialog<PaymentOrderDetailView, PaymentOrderDetailViewModel, PaymentOrder>(o,
+                                "Информация о платежном поручении");
+                    if (result) NavigationService.NavigateTo("Generate", o);
                 }));
             }
         }

@@ -118,6 +118,9 @@
     <Compile Include="Common\Validations\ValidationTotal.cs" />
     <Compile Include="Service\FrameNavigationService.cs" />
     <Compile Include="Service\IFrameNavigationService.cs" />
+    <Compile Include="UserControls\Elements\RowDetails.xaml.cs">
+      <DependentUpon>RowDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Settings\GeneralOptions.xaml.cs">
       <DependentUpon>GeneralOptions.xaml</DependentUpon>
     </Compile>
@@ -130,6 +133,7 @@
     <Compile Include="UserControls\ViewModels\DialogViewModel.cs" />
     <Compile Include="UserControls\ViewModels\LoadDialogViewModel.cs" />
     <Compile Include="UserControls\ViewModels\OrganizationDetailDialogViewModel.cs" />
+    <Compile Include="UserControls\ViewModels\PaymentOrderDetailViewModel.cs" />
     <Compile Include="UserControls\Views\BankDetailDialogView.xaml.cs">
       <DependentUpon>BankDetailDialogView.xaml</DependentUpon>
     </Compile>
@@ -147,6 +151,9 @@
     </Compile>
     <Compile Include="UserControls\Views\OrganizationDetailDialogView.xaml.cs">
       <DependentUpon>OrganizationDetailDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Views\PaymentOrderDetailView.xaml.cs">
+      <DependentUpon>PaymentOrderDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AdministrationViewModel.cs" />
     <Compile Include="ViewModels\BankEditViewModel.cs" />
@@ -241,6 +248,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="UserControls\Elements\RowDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Settings\GeneralOptions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -270,6 +281,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Views\OrganizationDetailDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Views\PaymentOrderDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
