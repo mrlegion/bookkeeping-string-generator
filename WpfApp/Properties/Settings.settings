@@ -3,10 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="Primary" Type="System.String" Scope="User">
-      <Value Profile="(Default)">deeppurple</Value>
+      <Value Profile="(Default)">deeporange</Value>
     </Setting>
     <Setting Name="Accent" Type="System.String" Scope="User">
-      <Value Profile="(Default)">lightgreen</Value>
+      <Value Profile="(Default)">blue</Value>
     </Setting>
     <Setting Name="Theme" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

@@ -25,7 +25,7 @@ namespace WpfApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("deeppurple")]
+        [global::System.Configuration.DefaultSettingValueAttribute("deeporange")]
         public string Primary {
             get {
                 return ((string)(this["Primary"]));
@@ -37,7 +37,7 @@ namespace WpfApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("lightgreen")]
+        [global::System.Configuration.DefaultSettingValueAttribute("blue")]
         public string Accent {
             get {
                 return ((string)(this["Accent"]));
