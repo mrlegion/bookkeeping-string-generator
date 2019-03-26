@@ -64,18 +64,20 @@ namespace WpfApp.ViewModels
         {
             get
             {
-                return _deleteItemCommand ?? (_deleteItemCommand = new RelayCommand<object>((o) =>
+                return _deleteItemCommand ?? (_deleteItemCommand = new RelayCommand<object>(async (o) =>
                 {
                     if (o != null)
                         if (o is Company company)
                         {
-                            // Todo: Использовать MaterialDesign DialogHost
-                            var result = MessageBox.Show($"Вы точно хотите удалить выбранный банк: {company.Name}?",
-                                "Подтверждение на удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                            if (result != MessageBoxResult.Yes) return;
-                            var service = ServiceLocator.Current.GetInstance<CompanyService>();
-                            service.DeleteCompany(company);
-                            Companies = service.GetAllCompanies();
+                            var result = await DialogHelper.ShowQuestenDialog(
+                                $"Вы точно хотите удалить выбранную компанию: {company.Name}?",
+                                PackIconKind.Delete);
+                            if (result)
+                            {
+                                var service = ServiceLocator.Current.GetInstance<CompanyService>();
+                                service.DeleteCompany(company);
+                                Companies = service.GetAllCompanies();
+                            }
                         }
                 }));
             }

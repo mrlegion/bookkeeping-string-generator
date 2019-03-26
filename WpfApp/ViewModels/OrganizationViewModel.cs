@@ -21,6 +21,7 @@ namespace WpfApp.ViewModels
         private IEnumerable<OrganizationSimpleDto> _organizations;
         private RelayCommand<object> _editItemCommand;
         private RelayCommand<object> _deleteItemCommand;
+        private RelayCommand<object> _viewItemCommand;
 
         #endregion
 
@@ -66,7 +67,8 @@ namespace WpfApp.ViewModels
                         if (o is OrganizationSimpleDto organization)
                         {
                             var result = await DialogHelper.ShowQuestenDialog(
-                                "Вы точно хотите удалить выбранную организацию?", PackIconKind.Delete);
+                                "Вы точно хотите удалить выбранную организацию?", 
+                                PackIconKind.Delete);
                             if (result)
                             {
                                 var service = ServiceLocator.Current.GetInstance<OrganizationService>();
@@ -77,8 +79,6 @@ namespace WpfApp.ViewModels
                 }));
             }
         }
-
-        private RelayCommand<object> _viewItemCommand;
 
         public RelayCommand<object> ViewItemCommand
         {
