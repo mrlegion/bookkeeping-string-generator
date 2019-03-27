@@ -51,6 +51,7 @@
                                        Style="{StaticResource MaterialDesignTitleTextBlock}"/>
                         <TextBox Width="170"
                                  FontSize="16"
+                                 IsReadOnly="{Binding IsEditableItem, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                                  Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}"
                                  HorizontalAlignment="Left">
                             <i:Interaction.Behaviors>

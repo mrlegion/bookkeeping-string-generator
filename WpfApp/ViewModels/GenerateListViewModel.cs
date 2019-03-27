@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using CommonServiceLocator;
@@ -51,6 +52,16 @@ namespace WpfApp.ViewModels
                 if (m == null) throw new ArgumentNullException(nameof(m));
                 if (m.Content is PaymentOrder order)
                 {
+                    if (m.Notification == "Edit")
+                    {
+                        var item = Orders.FirstOrDefault(o => o.Number == order.Number);
+                        if (item != null)
+                        {
+                            int index = Orders.IndexOf(item);
+                            Orders[index] = order;
+                            return;
+                        }
+                    }
                     Orders.Add(order);
                     GenerateCommand.RaiseCanExecuteChanged();
                     ClearListCommand.RaiseCanExecuteChanged();

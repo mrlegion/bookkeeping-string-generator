@@ -38,7 +38,9 @@ namespace WpfApp.ViewModels
         private bool _autoTotalText;
         private RelayCommand _generateCommand;
         private char _moneySeparate;
-
+        private bool _isEditableItem;
+        private PaymentOrder _order;
+ 
         #endregion
 
         #region Construct
@@ -203,6 +205,16 @@ namespace WpfApp.ViewModels
             }
         }
 
+        public bool IsEditableItem
+        {
+            get => _isEditableItem;
+            set
+            {
+                Set(nameof(IsEditableItem), ref _isEditableItem, value);
+            }
+        }
+
+
         public bool AutoTotalText
         {
             get => _autoTotalText;
@@ -219,24 +231,43 @@ namespace WpfApp.ViewModels
             {
                 return _generateCommand ?? (_generateCommand = new RelayCommand(() =>
                 {
-                    var item = new PaymentOrder
+                    string message = "Add";
+                    if (_isEditableItem)
                     {
-                        Number = Number,
-                        Date = Date,
-                        InDate = InDate,
-                        OutDate = OutDate,
-                        AcceptDate = AcceptDate,
-                        Total = Total,
-                        TotalText = TotalText,
-                        Description = Description,
-                        Payer = Payer,
-                        Recipient = Recipient,
-                        TypeOfPayment = TypeOfPayment,
-                        TypeOfPaying = TypeOfPaying,
-                        QueuePayment = QueuePayment
-                    };
+                        message = "Edit";
+                        // _order.Number = Number;
+                        _order.Date = Date;
+                        _order.InDate = InDate;
+                        _order.OutDate = OutDate;
+                        _order.AcceptDate = AcceptDate;
+                        _order.Total = Total;
+                        _order.TotalText = TotalText;
+                        _order.Description = Description;
+                        _order.Payer = Payer;
+                        _order.Recipient = Recipient;
+                        _order.TypeOfPayment = TypeOfPayment;
+                        _order.TypeOfPaying = TypeOfPaying;
+                        _order.QueuePayment = QueuePayment;
+                    }
+                    else
+                        _order = new PaymentOrder
+                        {
+                            Number = Number,
+                            Date = Date,
+                            InDate = InDate,
+                            OutDate = OutDate,
+                            AcceptDate = AcceptDate,
+                            Total = Total,
+                            TotalText = TotalText,
+                            Description = Description,
+                            Payer = Payer,
+                            Recipient = Recipient,
+                            TypeOfPayment = TypeOfPayment,
+                            TypeOfPaying = TypeOfPaying,
+                            QueuePayment = QueuePayment
+                        };
 
-                    Messenger.Default.Send(new NotificationMessage<PaymentOrder>(item, "Add new item to Queue Payment Order"));
+                    Messenger.Default.Send(new NotificationMessage<PaymentOrder>(_order, message));
                     NavigationService.GoBack();
                 }, IsValidInfo));
             }
@@ -248,19 +279,21 @@ namespace WpfApp.ViewModels
 
         private void FillAllInformation(PaymentOrder order)
         {
-            Number = order.Number;
-            Date = order.Date;
-            InDate = order.InDate;
-            OutDate = order.OutDate;
-            AcceptDate = order.AcceptDate;
-            Total = order.Total;
-            TotalText = order.TotalText;
-            Description = order.Description;
-            Payer = order.Payer;
-            Recipient = order.Recipient;
-            TypeOfPaying = order.TypeOfPaying;
-            TypeOfPayment = order.TypeOfPayment;
-            QueuePayment = order.QueuePayment;
+            _order = order;
+            Number = _order.Number;
+            Date = _order.Date;
+            InDate = _order.InDate;
+            OutDate = _order.OutDate;
+            AcceptDate = _order.AcceptDate;
+            Total = _order.Total;
+            TotalText = _order.TotalText;
+            Description = _order.Description;
+            Payer = _order.Payer;
+            Recipient = _order.Recipient;
+            TypeOfPaying = _order.TypeOfPaying;
+            TypeOfPayment = _order.TypeOfPayment;
+            QueuePayment = _order.QueuePayment;
+            IsEditableItem = true;
         }
 
         private void ConvertTotalToString()
