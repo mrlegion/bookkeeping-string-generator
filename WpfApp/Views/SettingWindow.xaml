@@ -15,7 +15,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         Title="{Binding Title, Mode=OneWay}"
         DataContext="{Binding Setting, Source={StaticResource Locator}}"
-        Height="550" Width="1024">
+        Height="600" Width="1024">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
