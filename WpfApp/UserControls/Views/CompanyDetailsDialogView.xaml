@@ -12,7 +12,7 @@
              TextElement.FontSize="14"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              DataContext="{Binding CompanyDetailsDialog, Source={StaticResource Locator}}"
-             mc:Ignorable="d" MinWidth="600">
+             mc:Ignorable="d" MinWidth="600" MaxWidth="900">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -21,26 +21,29 @@
         </Grid.RowDefinitions>
 
         <!--content-->
-        <ScrollViewer Grid.Row="1" >
+        <ScrollViewer Grid.Row="1">
             <StackPanel Orientation="Vertical">
                 <!--general-->
-                <elements:GroupElemets Heading="Основная информация" Info="{Binding General, Mode=OneWay}" Expanded="True"/>
+                <elements:GroupElemets Heading="Основная информация" Info="{Binding General, Mode=OneWay}"
+                                       Expanded="True" />
                 <!--organizations-->
                 <Expander BorderThickness="0"
                           x:Name="GropExpander"
                           Background="{DynamicResource PrimaryHueMidBrush}"
                           Padding="0">
                     <Expander.Header>
-                        <TextBlock Text="Организации" Margin="0 10" Style="{StaticResource MaterialDesignSubheadingTextBlock}" FontWeight="SemiBold" />
+                        <TextBlock Text="Организации" Margin="0 10"
+                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}" FontWeight="SemiBold" />
                     </Expander.Header>
                     <ListView ItemsSource="{Binding Organizations, Mode=OneWay}"
                               Background="white"
-                              FontWeight="Regular" 
+                              FontWeight="Regular"
                               Width="Auto">
                         <ListView.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource MaterialDesignListBoxItem}">
-                                <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
-                                <Setter Property="TextElement.Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                            <Style TargetType="{x:Type ListViewItem}"
+                                   BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                                <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />
+                                <Setter Property="TextElement.Foreground" Value="{DynamicResource MaterialDesignBody}" />
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
@@ -50,60 +53,61 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Border CornerRadius="100" 
-                                                    Grid.Column="0"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Center"
-                                                    Margin="10 0 20 0"
-                                                    Background="{StaticResource SecondaryAccentBrush}" 
-                                                    Width="60" Height="60">
+                                    <Border CornerRadius="100"
+                                            Grid.Column="0"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Margin="10 0 20 0"
+                                            Background="{StaticResource SecondaryAccentBrush}"
+                                            Width="60" Height="60">
                                         <md:PackIcon Kind="Bank"
-                                                             Foreground="White"
-                                                             HorizontalAlignment="Center"
-                                                             VerticalAlignment="Center"
-                                                             Width="25"
-                                                             Height="25"/>
+                                                     Foreground="White"
+                                                     HorizontalAlignment="Center"
+                                                     VerticalAlignment="Center"
+                                                     Width="25"
+                                                     Height="25" />
                                     </Border>
 
                                     <StackPanel Orientation="Vertical" Grid.Column="1">
                                         <TextBlock Text="{Binding Bank.Name, Mode=OneWay}"
-                                                           FontWeight="SemiBold"
-                                                           Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+                                                   TextWrapping="Wrap"
+                                                   FontWeight="SemiBold"
+                                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
 
                                         <StackPanel Orientation="Horizontal" Opacity=".7">
                                             <TextBlock Text="Город: "
-                                                               FontStyle="Italic"
-                                                               Style="{DynamicResource MaterialDesignCaptionTextBlock}" />
+                                                       FontStyle="Italic"
+                                                       Style="{DynamicResource MaterialDesignCaptionTextBlock}" />
                                             <TextBlock Text="{Binding Bank.City, Mode=OneWay}"
-                                                               FontStyle="Italic"
-                                                               Style="{StaticResource MaterialDesignCaptionTextBlock}" />
+                                                       FontStyle="Italic"
+                                                       Style="{StaticResource MaterialDesignCaptionTextBlock}" />
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal" Opacity=".7">
                                             <TextBlock Text="БИК: "
-                                                               FontStyle="Italic"
-                                                               Style="{DynamicResource MaterialDesignCaptionTextBlock}" />
+                                                       FontStyle="Italic"
+                                                       Style="{DynamicResource MaterialDesignCaptionTextBlock}" />
                                             <TextBlock Text="{Binding Bank.Bik, Mode=OneWay}"
-                                                               FontStyle="Italic"
-                                                               Style="{StaticResource MaterialDesignCaptionTextBlock}" />
+                                                       FontStyle="Italic"
+                                                       Style="{StaticResource MaterialDesignCaptionTextBlock}" />
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal" Opacity=".7">
                                             <TextBlock Text="Номер счёту: "
-                                                               FontStyle="Italic"
-                                                               Style="{DynamicResource MaterialDesignCaptionTextBlock}" />
+                                                       FontStyle="Italic"
+                                                       Style="{DynamicResource MaterialDesignCaptionTextBlock}" />
                                             <TextBlock Text="{Binding Bank.AccountNumber, Mode=OneWay}"
-                                                               FontStyle="Italic"
-                                                               Style="{StaticResource MaterialDesignCaptionTextBlock}" />
+                                                       FontStyle="Italic"
+                                                       Style="{StaticResource MaterialDesignCaptionTextBlock}" />
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal" Opacity=".9" Margin="0 5 0 0">
                                             <TextBlock Text="Номер счёта: "
-                                                               FontStyle="Italic"
-                                                               Style="{DynamicResource MaterialDesignBody2TextBlock}" />
+                                                       FontStyle="Italic"
+                                                       Style="{DynamicResource MaterialDesignBody2TextBlock}" />
                                             <TextBlock Text="{Binding AccountNumber, Mode=OneWay}"
-                                                               FontStyle="Italic"
-                                                               Style="{StaticResource MaterialDesignBody2TextBlock}" />
+                                                       FontStyle="Italic"
+                                                       Style="{StaticResource MaterialDesignBody2TextBlock}" />
                                         </StackPanel>
 
                                     </StackPanel>
