@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using WpfApp.Properties;
 
 namespace WpfApp.ViewModels
@@ -30,6 +32,8 @@ namespace WpfApp.ViewModels
         private string _moneySeparator;
         private bool _totalToString;
         private List<string> _separators;
+        private string _folder;
+        private RelayCommand _selectFolderCommand;
 
         #endregion
 
@@ -48,6 +52,7 @@ namespace WpfApp.ViewModels
             TypeOfPayment = Settings.Default.TypeOfPayment;
             TypeOfPaying = Settings.Default.TypeOfPaying;
             QueuePayment = Settings.Default.QueuePayment;
+            Folder = Settings.Default.DefaultFolder;
 
             MoneySeparator = SetSeparator(Settings.Default.MoneySeparator);
         }
@@ -214,6 +219,35 @@ namespace WpfApp.ViewModels
             {
                 Set(nameof(MoneySeparator), ref _moneySeparator, value);
                 Settings.Default.MoneySeparator = GetSeparator();
+            }
+        }
+
+        public string Folder
+        {
+            get { return _folder; }
+            set { Set(nameof(Folder), ref _folder, value); }
+        }
+
+        public RelayCommand SelectFolderCommand
+        {
+            get
+            {
+                return _selectFolderCommand ?? (_selectFolderCommand = new RelayCommand(() =>
+                {
+                    CommonFileDialog dialog = new CommonOpenFileDialog()
+                    {
+                        Title = "Выбор папки для сохранения",
+                        IsFolderPicker = true,
+                        InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+                    };
+
+                    if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                        if (Directory.Exists(dialog.FileName))
+                        {
+                            Folder = dialog.FileName;
+                            Settings.Default.DefaultFolder = Folder;
+                        }
+                }));
             }
         }
 

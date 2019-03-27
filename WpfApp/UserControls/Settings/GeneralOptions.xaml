@@ -34,8 +34,10 @@
                              md:TextFieldAssist.DecorationVisibility="Hidden"
                              BorderThickness="0"
                              MinWidth="200"
-                             VerticalAlignment="Center" />
+                             VerticalAlignment="Center" 
+                             Text="{Binding Folder, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <Button Style="{StaticResource MaterialDesignToolButton}"
+                            Command="{Binding SelectFolderCommand, Mode=OneWay}"
                             Grid.Column="1">
                         <StackPanel Orientation="Horizontal" Opacity=".7">
                             <md:PackIcon Kind="Folder"/>

@@ -8,9 +8,7 @@ namespace Domain.Model
     {
         string Line { get; }
         List<string> Lines { get; }
-        void OnGenerate(PaymentOrder order);
-        Task OnGenerateAsync(PaymentOrder order);
-        void OnGenerateList(IEnumerable<PaymentOrder> orders);
-        Task OnGenerateListAsync(IEnumerable<PaymentOrder> orders);
+        void OnGenerate(PaymentOrder order, string folder);
+        void OnGenerateList(IEnumerable<PaymentOrder> orders, string folder);
     }
 }

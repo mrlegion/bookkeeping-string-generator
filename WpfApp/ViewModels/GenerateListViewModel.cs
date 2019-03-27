@@ -116,9 +116,19 @@ namespace WpfApp.ViewModels
             {
                 return _generateCommand ?? (_generateCommand = new RelayCommand(() =>
                 {
+                    if (Properties.Settings.Default.DefaultFolder == null)
+                    {
+                        string message = "Не задана папка для сохранения файла!";
+                        message += Environment.NewLine;
+                        message +=
+                            "Для решения этой проблемы зайдите в настройки программы и выберете папку для сохранения файла по-умолчанию.";
+                        DialogHelper.ShowInformerDialog(message, PackIconKind.Error);
+                        return;
+                    }
+
                     DialogHelper.ShowLoadDialog(() =>
                     {
-                        _generator.OnGenerateList(Orders);
+                        _generator.OnGenerateList(Orders, Properties.Settings.Default.DefaultFolder);
                         Thread.Sleep(1000);
                     }, $"Идет создание файла{Environment.NewLine}Подождите...");
                 }, () => Orders.Count > 0));

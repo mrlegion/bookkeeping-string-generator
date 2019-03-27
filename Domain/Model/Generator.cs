@@ -19,7 +19,7 @@ namespace Domain.Model
         public string Line { get; private set; }
         public List<string> Lines { get; private set; }
 
-        public void OnGenerate(PaymentOrder order)
+        public void OnGenerate(PaymentOrder order, string folder)
         {
             if (order == null) throw new ArgumentNullException(nameof(order));
             if (!CheckPayerAndRecipient(order)) throw new ArgumentNullException(nameof(order), "In order can not be null Payer and Recipient");
@@ -30,17 +30,12 @@ namespace Domain.Model
 
             Line += baseInfo + payer + recipient;
 
-            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "combine.txt");
+            var path = Path.Combine(folder, "combine.txt");
             _saver.InitFile(path);
             _saver.WriteLines(new List<string>() {GenerateInfoLine(), Line});
         }
 
-        public Task OnGenerateAsync(PaymentOrder order)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void OnGenerateList(IEnumerable<PaymentOrder> orders)
+        public void OnGenerateList(IEnumerable<PaymentOrder> orders, string folder)
         {
             if (orders == null) throw new ArgumentNullException(nameof(orders));
             if (!orders.Any()) throw new ArgumentException("In orders not fount items, please check orders list");
@@ -56,14 +51,9 @@ namespace Domain.Model
                 list.Add(baseInfo + payer + recipient);
             }
 
-            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "combine.txt");
+            var path = Path.Combine(folder, "combine.txt");
             _saver.InitFile(path);
             _saver.WriteLines(list);
-        }
-
-        public Task OnGenerateListAsync(IEnumerable<PaymentOrder> orders)
-        {
-            throw new System.NotImplementedException();
         }
 
         private bool CheckPayerAndRecipient(PaymentOrder order)

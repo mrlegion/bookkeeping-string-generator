@@ -35,5 +35,8 @@
     <Setting Name="Indentifier" Type="System.String" Scope="User">
       <Value Profile="(Default)">RootDialogHost</Value>
     </Setting>
+    <Setting Name="DefaultFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

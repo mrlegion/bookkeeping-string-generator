@@ -154,5 +154,17 @@ namespace WpfApp.Properties {
                 this["Indentifier"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DefaultFolder {
+            get {
+                return ((string)(this["DefaultFolder"]));
+            }
+            set {
+                this["DefaultFolder"] = value;
+            }
+        }
     }
 }
