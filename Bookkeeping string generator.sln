@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaverUnitTests", "SaverUnit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneratorUnitTests", "GeneratorUnitTests\GeneratorUnitTests.csproj", "{EAD6F1BB-A42D-4E13-ABC6-E9952F378E45}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "installer", "installer", "{5345B02F-DCE2-48D0-891D-A56E64F846B9}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "bookkeeping-setup", "bookkeeping-setup\bookkeeping-setup.vdproj", "{E57F233D-F707-43B6-8DBC-03626A5A56D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,8 @@ Global
 		{EAD6F1BB-A42D-4E13-ABC6-E9952F378E45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAD6F1BB-A42D-4E13-ABC6-E9952F378E45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAD6F1BB-A42D-4E13-ABC6-E9952F378E45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E57F233D-F707-43B6-8DBC-03626A5A56D8}.Debug|Any CPU.ActiveCfg = Debug
+		{E57F233D-F707-43B6-8DBC-03626A5A56D8}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{5055BA9E-5510-4CA0-A540-83095B0E86CC} = {9F6D6C07-F1E7-47E0-A834-A5E05644AC36}
 		{A93148FD-609F-4E1B-9059-609E5063B645} = {4E2B1E3C-06FB-4828-B0C8-D4C6C73D80BC}
 		{EAD6F1BB-A42D-4E13-ABC6-E9952F378E45} = {4E2B1E3C-06FB-4828-B0C8-D4C6C73D80BC}
+		{E57F233D-F707-43B6-8DBC-03626A5A56D8} = {5345B02F-DCE2-48D0-891D-A56E64F846B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E3CA4356-91D3-4912-BA5D-CC8FD20AA6AF}

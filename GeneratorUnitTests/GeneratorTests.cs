@@ -69,7 +69,7 @@ namespace GeneratorUnitTests
         [Test]
         public void GeneratorOnGenerate_Test()
         {
-            _generator.OnGenerate(_order);
+            _generator.OnGenerate(_order, Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
             Assert.AreEqual(_orderToText, _generator.Line);
         }
     }

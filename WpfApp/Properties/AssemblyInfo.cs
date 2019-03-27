@@ -7,13 +7,13 @@ using System.Windows;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("WpfApp")]
+[assembly: AssemblyTitle("Bookkeeping String Generator")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WpfApp")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("Integra")]
+[assembly: AssemblyProduct("Bookkeeping String Generator")]
+[assembly: AssemblyCopyright("Alexander Borovskikh. Copyright ©  2019")]
+[assembly: AssemblyTrademark("Bookkeeping String Generator")]
 [assembly: AssemblyCulture("")]
 
 // Установка значения False для параметра ComVisible делает типы в этой сборке невидимыми
