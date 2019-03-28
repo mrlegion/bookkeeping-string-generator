@@ -125,6 +125,7 @@
                                 <behaviors:OnlyNumberEnterBehavior 
                                     RegularExpression="^[0-9.\-]+$" 
                                     MaxLength="20"/>
+                                <behaviors:TextBoxClickSelectBehavior/>
                             </i:Interaction.Behaviors>
                         </TextBox>
                     </StackPanel>

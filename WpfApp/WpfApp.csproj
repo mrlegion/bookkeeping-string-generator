@@ -114,6 +114,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Common\Behaviors\TextBoxClickSelectBehavior.cs" />
     <Compile Include="Common\Behaviors\OnlyNumberEnterBehavior.cs" />
     <Compile Include="Common\ContentDialogTransfer.cs" />
     <Compile Include="Common\ContentDialogType.cs" />

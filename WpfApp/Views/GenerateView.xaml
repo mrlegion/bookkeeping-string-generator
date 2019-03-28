@@ -57,6 +57,7 @@
                             <i:Interaction.Behaviors>
                                 <behaviors:OnlyNumberEnterBehavior RegularExpression="^\d+$"
                                                                    MaxLength="10"/>
+                                <behaviors:TextBoxClickSelectBehavior/>
                             </i:Interaction.Behaviors>
                         </TextBox>
                     </StackPanel>
@@ -147,7 +148,11 @@
                                      Text="{Binding TotalText, UpdateSourceTrigger=PropertyChanged}"
                                      md:HintAssist.Hint="Сумма платежки прописью"
                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                     IsEnabled="{Binding ElementName=SummText, Path=IsChecked, Converter={StaticResource InverseBooleanConverter}}"/>
+                                     IsEnabled="{Binding ElementName=SummText, Path=IsChecked, Converter={StaticResource InverseBooleanConverter}}">
+                                <i:Interaction.Behaviors>
+                                    <behaviors:TextBoxClickSelectBehavior/>
+                                </i:Interaction.Behaviors>
+                            </TextBox>
 
                             <CheckBox Grid.Row="1"
                                       Grid.Column="2"
@@ -270,17 +275,29 @@
                             <TextBox Grid.Column="0" 
                                      Text="{Binding TypeOfPayment, UpdateSourceTrigger=PropertyChanged}"
                                      md:HintAssist.Hint="Вид оплаты"
-                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                <i:Interaction.Behaviors>
+                                    <behaviors:TextBoxClickSelectBehavior/>
+                                </i:Interaction.Behaviors>
+                            </TextBox>
 
                             <TextBox Grid.Column="2" 
                                      Text="{Binding TypeOfPaying, UpdateSourceTrigger=PropertyChanged}"
                                      md:HintAssist.Hint="Вид оплаты"
-                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                <i:Interaction.Behaviors>
+                                    <behaviors:TextBoxClickSelectBehavior/>
+                                </i:Interaction.Behaviors>
+                            </TextBox>
 
                             <TextBox Grid.Column="4" 
                                      Text="{Binding QueuePayment, UpdateSourceTrigger=PropertyChanged}"
                                      md:HintAssist.Hint="Очередность платежа"
-                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                <i:Interaction.Behaviors>
+                                    <behaviors:TextBoxClickSelectBehavior/>
+                                </i:Interaction.Behaviors>
+                            </TextBox>
                         </Grid>
                     </StackPanel>
 

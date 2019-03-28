@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfApp.UserControls.Settings"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:behaviors="clr-namespace:WpfApp.Common.Behaviors"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{DynamicResource MaterialDesignPaper}"
              TextElement.FontWeight="Regular"
@@ -62,15 +64,27 @@
                 <TextBox md:HintAssist.Hint="Вид платежа"
                          Text="{Binding TypeOfPayment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          Margin="0 0 20 0"
-                         Grid.Column="0"/>
+                         Grid.Column="0">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxClickSelectBehavior/>
+                    </i:Interaction.Behaviors>
+                </TextBox>
                 <TextBox md:HintAssist.Hint="Вид оплаты"
                          Text="{Binding TypeOfPaying, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          Margin="10 0"
-                         Grid.Column="1"/>
+                         Grid.Column="1">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxClickSelectBehavior/>
+                    </i:Interaction.Behaviors>
+                </TextBox>
                 <TextBox md:HintAssist.Hint="Очередность платежа"
                          Margin="20 0 0 0"
                          Text="{Binding QueuePayment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                         Grid.Column="2"/>
+                         Grid.Column="2">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxClickSelectBehavior/>
+                    </i:Interaction.Behaviors>
+                </TextBox>
             </Grid>
 
             <Grid Margin="0 10 0 20">
@@ -101,9 +115,6 @@
             <CheckBox Margin="0 5"
                       IsChecked="{Binding IsOneDate, Mode=TwoWay}"
                       Content="Использовать одну дату для всех дан"/>
-
-            
-            
         </StackPanel>
     </Grid>
     

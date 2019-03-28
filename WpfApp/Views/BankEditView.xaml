@@ -42,17 +42,24 @@
                     <StackPanel Orientation="Vertical"
                                 DockPanel.Dock="Top"
                                 VerticalAlignment="Top"
-                                Margin="0 10 0 0"
-                                Grid.Row="1">
+                                Margin="0 10 0 0">
                         <TextBox md:HintAssist.Hint="Наименование Банка"
                                  Margin="0 0 0 15"
                                  Text="{Binding BankName, UpdateSourceTrigger=PropertyChanged}"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxClickSelectBehavior/>
+                            </i:Interaction.Behaviors>
+                        </TextBox>
 
                         <TextBox md:HintAssist.Hint="Наименование Города"
                                  Margin="0 0 0 15"
                                  Text="{Binding BankCity, UpdateSourceTrigger=PropertyChanged}"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxClickSelectBehavior/>
+                            </i:Interaction.Behaviors>
+                        </TextBox>
 
                         <TextBox md:HintAssist.Hint="Номер БИК"
                                  Margin="0 0 0 15"
@@ -68,6 +75,7 @@
                                 <behaviors:OnlyNumberEnterBehavior
                                     RegularExpression="^[0-9.\-]+$"
                                     MaxLength="9"/>
+                                <behaviors:TextBoxClickSelectBehavior/>
                             </i:Interaction.Behaviors>
                         </TextBox>
 
@@ -85,13 +93,18 @@
                                 <behaviors:OnlyNumberEnterBehavior
                                     RegularExpression="^[0-9.\-]+$"
                                     MaxLength="20"/>
+                                <behaviors:TextBoxClickSelectBehavior/>
                             </i:Interaction.Behaviors>
                         </TextBox>
 
                         <TextBox md:HintAssist.Hint="Комментарии"
                                  Margin="0 0 0 15"
                                  Text="{Binding Comments}"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxClickSelectBehavior/>
+                            </i:Interaction.Behaviors>
+                        </TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" 
@@ -117,120 +130,5 @@
                 </DockPanel>
             </Grid>
         </Grid>
-
-        <!--Todo: Clear this later-->
-        <!--<Grid Margin="20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <TextBlock Text="Добавление или редактирование банка"
-                   FontWeight="SemiBold"
-                   Grid.Row="0"
-                   Style="{StaticResource MaterialDesignHeadlineTextBlock}"/>
-
-            <StackPanel Orientation="Vertical"
-                    Margin="0 10 0 0"
-                    Grid.Row="1">
-                <TextBox md:HintAssist.Hint="Наименование Банка"
-                     Margin="0 7"
-                     Text="{Binding BankName}"
-                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-
-                <TextBox md:HintAssist.Hint="Наименование Города"
-                     Margin="0 7"
-                     Text="{Binding BankCity}"
-                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-
-                <TextBox md:HintAssist.Hint="Номер БИК"
-                     Margin="0 7"
-                     Text="{Binding BankBik}"
-                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-
-                <TextBox md:HintAssist.Hint="Номер Счёта"
-                         Margin="0 7"
-                         Text="{Binding BankAccountNumber}"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-
-                <TextBox md:HintAssist.Hint="Комментарии"
-                     Margin="0 7"
-                     Text="{Binding Comments}"
-                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            </StackPanel>
-
-            <md:ColorZone Mode="PrimaryLight" 
-                      Padding="20 10"
-                      Width="300"
-                      CornerRadius="3"
-                      Grid.Row="2" 
-                      VerticalAlignment="Center"
-                      HorizontalAlignment="Center"
-                      VerticalContentAlignment="Top">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <md:PackIcon Kind="InfoOutline"
-                             Width="40"
-                             Height="40"
-                             Foreground="White"
-                             Grid.Column="0" />
-
-                    <StackPanel Orientation="Vertical"
-                            Grid.Column="1"
-                            Margin="20 0 0 0">
-                        <TextBlock TextAlignment="Left"
-                               TextWrapping="Wrap"
-                               Foreground="White"
-                               Text="В данном разделе можно добавить новый банк или отредактировать ранее созданный"/>
-                    </StackPanel>
-                </Grid>
-            </md:ColorZone>
-
-            <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    Margin="0 15 0 0"
-                    Grid.Row="3">
-                <Button Margin="10 0"
-                    Command="{Binding SaveCommand}">
-                    <StackPanel Orientation="Horizontal">
-                        <md:PackIcon Kind="Add"/>
-                        <TextBlock Text="Добавить"
-                               Margin="5 0 0 0"/>
-                    </StackPanel>
-                </Button>
-                <Button Margin="10 0"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Command="{Binding NavigateToCommand}"
-                    CommandParameter="Bank">
-                    <StackPanel Orientation="Horizontal">
-                        <md:PackIcon Kind="Cancel"/>
-                        <TextBlock Text="Отмена"
-                               Margin="5 0 0 0"/>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
-        </Grid>
-
-
-        <md:DialogHost IsOpen="{Binding OpenDialog}">
-            <md:DialogHost.DialogContent>
-                <StackPanel Orientation="Vertical"
-                            Margin="20">
-                    <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}"
-                                 HorizontalAlignment="Center"
-                                 Margin="16"
-                                 IsIndeterminate="True"
-                                 Value="0" />
-                    <TextBlock Text="Сохранение данных"
-                               Foreground="{StaticResource PrimaryHueMidBrush}"/>
-                </StackPanel>
-            </md:DialogHost.DialogContent>
-        </md:DialogHost>-->
     </Grid>
 </Page>

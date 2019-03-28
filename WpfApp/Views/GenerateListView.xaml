@@ -127,14 +127,14 @@
                         <TextBlock Text="Очистить список" Margin="7 0 0 0" />
                     </StackPanel>
                 </Button>
-                <Button Style="{StaticResource MaterialDesignToolButton}"
+                <!--<Button Style="{StaticResource MaterialDesignToolButton}"
                         Command="{Binding AddNewItemToListCommand}"
                         Padding="15 0">
                     <StackPanel Orientation="Horizontal">
                         <md:PackIcon Kind="AddCircle" />
                         <TextBlock Text="Добавить пустышку" Margin="7 0 0 0" />
                     </StackPanel>
-                </Button>
+                </Button>-->
             </StackPanel>
 
         </DockPanel>
