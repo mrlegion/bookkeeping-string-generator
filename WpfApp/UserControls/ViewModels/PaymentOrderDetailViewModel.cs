@@ -59,7 +59,7 @@ namespace WpfApp.UserControls.ViewModels
                 { "Банк плательщика:", Entity.Payer.Bank.Name },
                 { "Город банка:", Entity.Payer.Bank.City },
                 { "БИК банка плательщика:", Entity.Payer.Bank.Bik },
-                { "Номер счёта банка:", Entity.Payer.Bank.AccountNumber },
+                { "Номер кор. счёта:", Entity.Payer.Bank.AccountNumber },
                 { "Номер счёта компании:", Entity.Payer.AccountNumber },
             };
 
@@ -71,7 +71,7 @@ namespace WpfApp.UserControls.ViewModels
                 { "Банк получателя:", Entity.Recipient.Bank.Name },
                 { "Город банка:", Entity.Recipient.Bank.City },
                 { "БИК банка получателя:", Entity.Recipient.Bank.Bik },
-                { "Номер счёта банка:", Entity.Recipient.Bank.AccountNumber },
+                { "Номер кор. счёта:", Entity.Recipient.Bank.AccountNumber },
                 { "Номер счёта компании:", Entity.Recipient.AccountNumber },
             };
 

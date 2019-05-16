@@ -93,7 +93,7 @@
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal" Opacity=".7">
-                                            <TextBlock Text="Номер счёту: "
+                                            <TextBlock Text="Кор. счёт: "
                                                        FontStyle="Italic"
                                                        Style="{DynamicResource MaterialDesignCaptionTextBlock}" />
                                             <TextBlock Text="{Binding Bank.AccountNumber, Mode=OneWay}"

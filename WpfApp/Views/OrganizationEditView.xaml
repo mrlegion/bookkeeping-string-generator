@@ -31,7 +31,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Добавление или редактирование компании"
+            <TextBlock Text="Добавление или редактирование организации"
                        Margin="18 10"
                        FontWeight="SemiBold"
                        Grid.Row="0"

@@ -53,7 +53,7 @@
                                                Binding="{Binding Bik}"
                                                FontStyle="Italic"
                                                Width=".7*" />
-                <md:MaterialDataGridTextColumn Header="Номер счёта"
+                <md:MaterialDataGridTextColumn Header="Кор. счёт"
                                                Binding="{Binding AccountNumber}"
                                                FontStyle="Italic"
                                                Width="1*" />

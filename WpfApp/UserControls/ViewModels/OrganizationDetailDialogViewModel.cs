@@ -46,7 +46,7 @@ namespace WpfApp.UserControls.ViewModels
                 { "Наименование банка:", Entity.Bank.Name },
                 { "Город банка:", Entity.Bank.City },
                 { "Номер БИК:", Entity.Bank.Bik },
-                { "Номер счёта банка:", Entity.Bank.AccountNumber },
+                { "Кор. счёт банка:", Entity.Bank.AccountNumber },
             };
         }
     }

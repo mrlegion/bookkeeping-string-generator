@@ -61,5 +61,5 @@
                 </StackPanel>
             </Button>
         </Grid>
-        </Grid>
+    </Grid>
 </UserControl>

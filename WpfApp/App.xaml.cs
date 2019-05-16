@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Navigation;
 using GalaSoft.MvvmLight.Threading;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
@@ -16,7 +19,17 @@ namespace WpfApp
         public App()
         {
             DispatcherHelper.Initialize();
+
+            // setup connection string
+            string connectionString = $"data source={Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "IntegraCo\\Bookkeeping String Generation\\db\\Bookkeeping.db")};version=3";
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var connectionStringsSection = (ConnectionStringsSection)config.GetSection("connectionStrings");
+            connectionStringsSection.ConnectionStrings["Default"].ConnectionString = connectionString;
+            config.Save();
+            ConfigurationManager.RefreshSection("connnectionStrings");
         }
+
+
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -31,7 +44,7 @@ namespace WpfApp
                 ph.ReplaceAccentColor(accint);
                 ph.ReplacePrimaryColor(primary);
             }
-            
+
             base.OnStartup(e);
         }
     }

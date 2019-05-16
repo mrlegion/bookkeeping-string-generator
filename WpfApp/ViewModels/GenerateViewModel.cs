@@ -259,7 +259,7 @@ namespace WpfApp.ViewModels
                             AcceptDate = AcceptDate,
                             Total = Total,
                             TotalText = TotalText,
-                            Description = Description,
+                            Description = Description ?? "",
                             Payer = Payer,
                             Recipient = Recipient,
                             TypeOfPayment = TypeOfPayment,
@@ -275,7 +275,7 @@ namespace WpfApp.ViewModels
 
         #endregion
 
-        #region Public Methods
+        #region Private Methods
 
         private void FillAllInformation(PaymentOrder order)
         {

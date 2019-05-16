@@ -79,7 +79,7 @@
                             </i:Interaction.Behaviors>
                         </TextBox>
 
-                        <TextBox md:HintAssist.Hint="Номер Счёта"
+                        <TextBox md:HintAssist.Hint="Номер Корреспондентского счёта"
                                  Margin="0 0 0 15"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>

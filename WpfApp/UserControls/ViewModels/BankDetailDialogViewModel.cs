@@ -49,7 +49,7 @@ namespace WpfApp.UserControls.ViewModels
                 { "Наименование банка:", Entity.Name },
                 { "Город банка:", Entity.City },
                 { "Номер БИК:", Entity.Bik },
-                { "Номер счёта банка:", Entity.AccountNumber },
+                { "Кор. счёта банка:", Entity.AccountNumber },
             };
         }
 
